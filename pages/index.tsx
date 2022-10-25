@@ -1,7 +1,7 @@
 import type { GetStaticProps, NextPage } from "next"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 import type { DehydratedState } from "@tanstack/react-query"
-// import Image from "next/future/image"
+// import Image from "next/image"
 
 import Layout from "components/Layout"
 import Hero from "components/Hero"

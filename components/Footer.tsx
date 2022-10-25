@@ -4,7 +4,7 @@ import { ImFlickr2 } from "react-icons/im"
 import { IoRocketOutline } from "react-icons/io5"
 
 import { getCompanyInfo, companyInfoKey } from "lib/companyInfo"
-// import Image from "next/future/image"
+// import Image from "next/image"
 
 const Footer: React.FC = () => {
   const { data, isError, isLoading } = useQuery(companyInfoKey, getCompanyInfo, {

@@ -1,5 +1,5 @@
 import type { FC, PropsWithChildren } from "react"
-import Image from "next/future/image"
+import Image from "next/image"
 
 import bg from "public/static/image/launch.jpg"
 

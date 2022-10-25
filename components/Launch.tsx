@@ -1,5 +1,5 @@
 import type { FC } from "react"
-import Image from "next/future/image"
+import Image from "next/image"
 import { Carousel } from "flowbite-react"
 import cn from "classnames"
 

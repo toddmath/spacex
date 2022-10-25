@@ -1,7 +1,7 @@
 import type { PropsWithChildren, FC } from "react"
 import { memo } from "react"
 import Link from "next/link"
-import Image from "next/future/image"
+import Image from "next/image"
 import cn from "classnames"
 
 import type { LaunchData } from "lib/launches"

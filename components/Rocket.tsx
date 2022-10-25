@@ -1,7 +1,7 @@
 import Link from "next/link"
 import cn from "classnames"
 import { useRef } from "react"
-// import Image from "next/future/image"
+// import Image from "next/image"
 
 import type { Rocket as IRocket } from "types/rockets"
 import TiltCard from "components/TiltCard"

@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import type { DehydratedState } from "@tanstack/react-query"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
-import Image from "next/future/image"
+import Image from "next/image"
 
 import type {
   Diameter,

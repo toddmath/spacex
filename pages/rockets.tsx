@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from "next"
 import type { DehydratedState } from "@tanstack/react-query"
 import { Suspense } from "react"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
-import Image from "next/future/image"
+import Image from "next/image"
 import Tilt from "react-parallax-tilt"
 
 import Layout from "components/Layout"

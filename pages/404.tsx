@@ -1,6 +1,6 @@
 import type { NextPage } from "next"
 import Link from "next/link"
-import Image from "next/future/image"
+import Image from "next/image"
 
 import bgUrl from "public/static/image/starship_ship24-3840x2160.jpg"
 

@@ -27,12 +27,9 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    // runtime: "experimental-edge",
-    // serverComponents: true,
-    // legacyBrowsers: false,
-    browsersListForSwc: true,
-  },
+  // experimental: {
+  // browsersListForSwc: true,
+  // },
   // images: {
   //   domains: [
   //     "images2.imgbox.com",
