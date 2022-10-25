@@ -16,16 +16,17 @@ const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
 }) => {
   return (
     <li {...props}>
-      <Link href={href} passHref>
-        <a
-          className={cn({ "text-blue-500": isCurrent })}
-          aria-current={isCurrent ? "location" : "false"}
-        >
-          {children}
-        </a>
+      <Link
+        href={href}
+        passHref
+        className={cn({ "text-blue-500": isCurrent })}
+        aria-current={isCurrent ? "location" : "false"}>
+
+        {children}
+
       </Link>
     </li>
-  )
+  );
 }
 
 export default BreadcrumbItem

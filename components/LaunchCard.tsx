@@ -104,21 +104,21 @@ const LaunchCard: FC<LaunchCardProps> = memo(
           {details ? <p className='w-fit line-clamp-6'>{details}</p> : null}
 
           <div className='card-actions justify-end mt-auto'>
-            <Link href={`/launch/${id}`}>
-              <a
-                className={cn("btn", {
-                  "btn-success": success && !futureLaunch,
-                  "btn-error": !success && !futureLaunch,
-                  "btn-primary": futureLaunch,
-                })}
-              >
+            <Link
+              href={`/launch/${id}`}
+              className={cn("btn", {
+                "btn-success": success && !futureLaunch,
+                "btn-error": !success && !futureLaunch,
+                "btn-primary": futureLaunch,
+              })}>
+              
                 Details
-              </a>
+              
             </Link>
           </div>
         </div>
       </li>
-    )
+    );
 
     // return (
     //   <li

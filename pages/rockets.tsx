@@ -85,8 +85,8 @@ const Rockets: NextPage<RocketProps> = () => {
                     </header>
                     <p className='flex-1 basis-3/4'>{rocket.description}</p>
                     <div className='card-actions justify-center'>
-                      <Link href={`/rocket/${rocket.id}`}>
-                        <a className='btn'>Details</a>
+                      <Link href={`/rocket/${rocket.id}`} className='btn'>
+                        Details
                       </Link>
                     </div>
                   </div>
@@ -103,7 +103,7 @@ const Rockets: NextPage<RocketProps> = () => {
           </div>
         </Layout>
       </Suspense>
-    )
+    );
   }
 
   return null

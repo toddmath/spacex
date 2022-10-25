@@ -162,15 +162,17 @@ const Payload: React.FC<PayloadProps> = ({ data }) => {
           </ul>
         </div>
         <div className='mt-4 flex items-center justify-between'>
-          <Link href={`/launch/${data.launch}`}>
-            <a className='no-underline transition-colors hover:text-sky-700'>
+          <Link
+            href={`/launch/${data.launch}`}
+            className='no-underline transition-colors hover:text-sky-700'>
+            
               Launch &rarr;
-            </a>
+            
           </Link>
         </div>
       </Card>
     </li>
-  )
+  );
 }
 
 export default Payloads

@@ -64,8 +64,8 @@ const NavBar: FC = () => {
                       <ul className='p-2 bg-base-200'>
                         {pages.map(page => (
                           <li key={page}>
-                            <Link href={`${href}/${page}`}>
-                              <a className='capitalize'>{page}</a>
+                            <Link href={`${href}/${page}`} className='capitalize'>
+                              {page}
                             </Link>
                           </li>
                         ))}
@@ -74,7 +74,7 @@ const NavBar: FC = () => {
                   ) : (
                     <li>
                       <Link href={href}>
-                        <a>{text}</a>
+                        {text}
                       </Link>
                     </li>
                   )}
@@ -83,8 +83,8 @@ const NavBar: FC = () => {
             </ul>
           </div>
 
-          <Link href='/'>
-            <a className='btn btn-ghost normal-case text-lg md:text-xl'>SpaceX</a>
+          <Link href='/' className='btn btn-ghost normal-case text-lg md:text-xl'>
+            SpaceX
           </Link>
         </div>
 
@@ -105,8 +105,8 @@ const NavBar: FC = () => {
                           key={page}
                           className='text-base-content w-full cursor-pointer font-sans'
                         >
-                          <Link href={`${href}/${page}`}>
-                            <a className='capitalize'>{page}</a>
+                          <Link href={`${href}/${page}`} className='capitalize'>
+                            {page}
                           </Link>
                         </li>
                       ))}
@@ -114,8 +114,8 @@ const NavBar: FC = () => {
                   </li>
                 ) : (
                   <li key={href}>
-                    <Link href={href}>
-                      <a className='px-3 lg:px-4'>{text}</a>
+                    <Link href={href} className='px-3 lg:px-4'>
+                      {text}
                     </Link>
                   </li>
                 )}
@@ -129,7 +129,7 @@ const NavBar: FC = () => {
         </div>
       </nav>
     </div>
-  )
+  );
 }
 
 export default NavBar

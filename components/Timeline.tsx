@@ -156,20 +156,21 @@ const TimelineContent: FC<TimelineContentProps> = ({
   ...props
 }) => {
   return (
-    <Link href={href} passHref>
-      <a
-        className={cn(
-          "w-full prose dark:prose-invert flex flex-col",
-          "bg-gray-200 dark:bg-gray-800 p-4 rounded shadow-lg",
-          "transition hover:scale-100 group-hover:scale-95 group-focus-within:scale-95",
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </a>
-    </Link>
-  )
+    (<Link
+      href={href}
+      passHref
+      className={cn(
+        "w-full prose dark:prose-invert flex flex-col",
+        "bg-gray-200 dark:bg-gray-800 p-4 rounded shadow-lg",
+        "transition hover:scale-100 group-hover:scale-95 group-focus-within:scale-95",
+        className
+      )}
+      {...props}>
+
+      {children}
+
+    </Link>)
+  );
 }
 
 type TimelineTimeProps = PropsWithChildren<

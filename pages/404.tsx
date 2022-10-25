@@ -35,18 +35,18 @@ const FourZeroFour: NextPage = () => {
           <p className='mt-2 mb-6'>
             Sorry, but the page you requested was not found.
           </p>
-          <Link href='/'>
-            <a
-              className='btn btn-primary rounded-btn'
-              // className='bg-green-500 px-5 py-3 text-sm shadow-sm font-medium tracking-wider text-gray-900 uppercase rounded-lg hover:shadow-lg'
-            >
+          <Link
+            href='/'
+            // className='bg-green-500 px-5 py-3 text-sm shadow-sm font-medium tracking-wider text-gray-900 uppercase rounded-lg hover:shadow-lg'
+            className='btn btn-primary rounded-btn'>
+            
               Go Home
-            </a>
+            
           </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default FourZeroFour

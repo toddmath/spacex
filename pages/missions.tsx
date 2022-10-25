@@ -61,13 +61,15 @@ const Missions: NextPage = () => {
                     <p className='line-clamp-6'>{m.description}</p>
                     <div className='card-actions justify-end mt-6'>
                       <div className='inline-flex border-primary border-2 rounded-btn overflow-hidden'>
-                        <Link href={`/mission/${m.mission_id}`}>
-                          <a className='btn text-lg btn-primary btn-outline border-none btn-square rounded-none'>
-                            <MdReadMore
-                              title='read more details'
-                              className='w-5 h-5'
-                            />
-                          </a>
+                        <Link
+                          href={`/mission/${m.mission_id}`}
+                          className='btn text-lg btn-primary btn-outline border-none btn-square rounded-none'>
+
+                          <MdReadMore
+                            title='read more details'
+                            className='w-5 h-5'
+                          />
+
                         </Link>
                         {m.twitter ? (
                           <a
@@ -107,7 +109,7 @@ const Missions: NextPage = () => {
         </div> */}
         </Layout>
       </Suspense>
-    )
+    );
   }
 
   return null
