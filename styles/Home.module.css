@@ -2,6 +2,17 @@
   padding: 0 2rem;
 }
 
+.listItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  border: 1px solid #eaeaea;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
