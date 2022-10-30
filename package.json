@@ -39,10 +39,8 @@
     "react-waypoint": "^10.3.0",
     "react-window": "^1.8.7",
     "react-youtube": "^10.0.0",
-    "remeda": "^1.1.0",
     "sharp": "^0.31.1",
-    "theme-change": "^2.2.0",
-    "unsplash-js": "^7.0.15"
+    "theme-change": "^2.2.0"
   },
   "devDependencies": {
     "@headlessui/tailwindcss": "^0.1.1",
