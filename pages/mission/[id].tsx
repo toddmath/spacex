@@ -8,6 +8,7 @@ import { FiExternalLink } from "react-icons/fi"
 import Layout from "components/Layout"
 import type { Missions as IMissions } from "types/missions"
 import { getMission, missionsKeys } from "lib/missions"
+import Loader from "components/LoadingSpinner"
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("https://api.spacexdata.com/v3/missions")
@@ -28,90 +29,50 @@ export const getStaticProps: GetStaticProps<MissionProps> = async ({ params }) =
       missionID: id,
     },
   }
-  // const res = await fetch(`https://api.spacexdata.com/v3/missions/${id}`)
-  // const data: IMission = await res.json()
-  // if (!res.ok) {
-  //   throw new Error(
-  //     `Failed to fetch mission (id: ${id}), received status ${res.status}`
-  //   )
-  // }
-  // return {
-  //   props: { data },
-  //   revalidate: 3600,
-  // }
 }
 
 type MissionProps = { dehydratedState: DehydratedState; missionID: string }
 
 const Mission: NextPage<MissionProps> = props => {
-  const { data, isLoading, isSuccess, isError } = useQuery(
+  const { data, isLoading, isSuccess } = useQuery(
     missionsKeys.mission(props.missionID),
-    getMission,
-    { staleTime: 1000 * 60 * 30 }
+    getMission
   )
 
-  if (isError) {
+  if (isSuccess) {
     return (
-      <Layout title='' description='Error loading mission data.'>
-        Error Loading mission data :(
+      <Layout title={data.mission_name} description={data.description}>
+        <div className='container mx-auto prose dark:prose-invert space-y-8'>
+          <p className='text-ellipsis break-words'>{data.description}</p>
+
+          <div className='btn-group'>
+            {data.twitter && (
+              <a href={data.twitter} className='btn btn-primary'>
+                <TbBrandTwitter
+                  title={`${data.mission_name} twitter account`}
+                  className='w-5 h-5'
+                />
+              </a>
+            )}
+            <a href={data.wikipedia} className='btn btn-primary'>
+              <ImWikipedia
+                title={`${data.mission_name} wikipedia article`}
+                className='w-5 h-5'
+              />
+            </a>
+            <a href={data.website} className='btn btn-primary'>
+              <FiExternalLink title={data.mission_name} className='w-5 h-5' />
+            </a>
+          </div>
+        </div>
       </Layout>
     )
   }
 
   if (isLoading) {
-    return <Layout title='' description='Loading mission data...'></Layout>
-  }
-
-  if (isSuccess) {
     return (
-      <Layout title={data.mission_name} description={data.description}>
-        <div className='container max-2-6xl mx-auto prose dark:prose-invert'>
-          <p className='text-ellipsis break-words'>{data.description}</p>
-
-          <ul className='flex gap-4'>
-            {data.twitter && (
-              <li className='m-0 p-0 list-none focus:outline-none bg-gray-100 dark:bg-gray-800 ring-emerald-500 focus:ring-2 focus-within:ring-2  rounded-full hover:ring-2 shadow-inner'>
-                <a
-                  href={data.twitter}
-                  className='text-gray-900 dark:text-gray-100 rounded-full focus:outline-none hover:outline-none'
-                >
-                  <TbBrandTwitter
-                    title={`${data.mission_name} twitter account`}
-                    className='p-3 w-11 h-11'
-                  />
-                </a>
-              </li>
-            )}
-            <li className='m-0 p-0 list-none focus:outline-none hover:outline-none bg-gray-100 dark:bg-gray-800 ring-emerald-500 focus:ring-2 focus-within:ring-2 rounded-full hover:ring-2 shadow-inner'>
-              <a
-                href={data.wikipedia}
-                className='text-gray-900 dark:text-gray-100 rounded-full focus:outline-none hover:outline-none'
-              >
-                <ImWikipedia
-                  title={`${data.mission_name} wikipedia article`}
-                  className='p-3 w-11 h-11'
-                />
-              </a>
-            </li>
-            <li className='m-0 p-0 list-none focus:outline-none hover:outline-none bg-gray-100 dark:bg-gray-800 ring-emerald-500 focus:ring-2 focus-within:ring-2 rounded-full hover:ring-2 shadow-inner'>
-              <a
-                href={data.website}
-                className='text-gray-900 dark:text-gray-100 rounded-full focus:outline-none hover:outline-none'
-              >
-                <FiExternalLink
-                  title={data.mission_name}
-                  className='p-3 w-11 h-11'
-                />
-              </a>
-            </li>
-          </ul>
-
-          {/* <div className='mx-auto'>
-          <pre>
-            <code>{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        </div> */}
-        </div>
+      <Layout title='' description='Loading mission data...'>
+        <Loader />
       </Layout>
     )
   }

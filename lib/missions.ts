@@ -1,4 +1,4 @@
-import type { QueryFunction } from "@tanstack/react-query"
+import { useQuery, type QueryFunction } from "@tanstack/react-query"
 import type { Missions as IMissions, Mission as IMission } from "types/missions"
 
 const allMissionsKey = ["missions"] as const
@@ -29,3 +29,8 @@ export const getMission: QueryFunction<
   const data: IMission = await res.json()
   return data
 }
+
+export const useMissionsQuery = () =>
+  useQuery<IMissions, Error>(missionsKeys.all, getMissions, {
+    notifyOnChangeProps: ["data", "isSuccess", "isLoading"],
+  })

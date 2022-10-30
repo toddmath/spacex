@@ -5,18 +5,21 @@ import { useRef } from "react"
 
 import type { Rocket as IRocket } from "types/rockets"
 import TiltCard from "components/TiltCard"
-import useMouse from "lib/useMouse"
+// import useMouse from "lib/useMouse"
 
 type RocketProps = { data: IRocket }
 
 const Rocket: React.FC<RocketProps> = ({ data }) => {
   const ref = useRef<HTMLAnchorElement>(null)
-  const { width, height, left, top, pos, elemPos, page } = useMouse(ref)
+  // const { width, height, left, top, pos, elemPos, page } = useMouse(ref)
   // console.log({ width, height, left, top, pos, elemPos, page })
 
   return (
-    (<Link href={`/rocket/${data.id}`} className='no-underline block' ref={ref}>
-
+    <Link
+      href={`/rocket/${encodeURIComponent(data.id)}`}
+      className='no-underline block'
+      ref={ref}
+    >
       <TiltCard
         imgSrc={data.flickr_images[1]}
         className='smol-card-component rounded-box overflow-hidden'
@@ -55,9 +58,8 @@ const Rocket: React.FC<RocketProps> = ({ data }) => {
       alt={data.name}
     /> */}
       </TiltCard>
-
-    </Link>)
-  );
+    </Link>
+  )
 }
 
 // const Rocket: React.FC<RocketProps> = ({ data }) => {

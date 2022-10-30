@@ -17,16 +17,15 @@ const NavItem = forwardRef<HTMLAnchorElement, NavItemProps>(
     // const isCurrent = router.asPath === href
     // if (router.asPath === "/" && href === "/") return null
     return (
-      (<Link
+      <Link
         href={href}
         ref={ref}
         className={cn(className, "underlined", { active: isCurrent })}
-        aria-current={isCurrent ? "page" : "false"}>
-
+        aria-current={isCurrent ? "page" : "false"}
+      >
         {href === "/" ? <h1>{children}</h1> : children}
-
-      </Link>)
-    );
+      </Link>
+    )
   }
 )
 

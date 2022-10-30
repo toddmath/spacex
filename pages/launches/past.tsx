@@ -21,7 +21,7 @@ export const getStaticProps: GetStaticProps<LaunchesProps> = async () => {
   await queryClient.prefetchQuery(launchesKeys.past, getPastLaunches)
   return {
     props: { dehydratedState: dehydrate(queryClient) },
-    revalidate: 1000 * 60 * 30,
+    revalidate: 60 * 30,
   }
 }
 
@@ -70,14 +70,6 @@ const PastLaunches: NextPage<LaunchesProps> = () => {
   //   [shownLaunches]
   // )
 
-  if (isLoading) {
-    return (
-      <Layout title='Past Launches' description='List of past launches.'>
-        <Loader />
-      </Layout>
-    )
-  }
-
   if (isSuccess) {
     return (
       <Layout
@@ -85,6 +77,14 @@ const PastLaunches: NextPage<LaunchesProps> = () => {
         description='List of past launches, successes and failures.'
       >
         <Launches data={data} showStatus={["all", "success", "failed"]} />
+      </Layout>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <Layout title='Past Launches' description='List of past launches.'>
+        <Loader />
       </Layout>
     )
   }

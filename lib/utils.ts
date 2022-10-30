@@ -34,6 +34,7 @@ const is = {
   number: (value: unknown): value is number => typeof value === "number",
   string: (value: unknown): value is string => typeof value === "string",
   boolean: (value: unknown): value is boolean => typeof value === "boolean",
+  array: <T>(value: unknown): value is T[] => Array.isArray(value),
 } as const
 
 export { is }

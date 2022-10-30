@@ -14,24 +14,25 @@ export const getStaticProps: GetStaticProps<LaunchesProps> = async () => {
   await queryClient.prefetchQuery(launchesKeys.next, getNextLaunches)
   return {
     props: { dehydratedState: dehydrate(queryClient) },
+    revalidate: 60 * 30,
   }
 }
 
 const NextLaunch: NextPage<LaunchesProps> = () => {
   const { data, isSuccess, isLoading } = useQuery(launchesKeys.next, getNextLaunches)
 
-  if (isLoading) {
-    return (
-      <Layout title='Next Launch' description='Loading next launch data...'>
-        <Loader />
-      </Layout>
-    )
-  }
-
   if (isSuccess) {
     return (
       <Layout title='Next Launch' description='Next planned launch.'>
         <Launch data={data} />
+      </Layout>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <Layout title='Next Launch' description='Loading next launch data...'>
+        <Loader />
       </Layout>
     )
   }

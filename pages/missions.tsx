@@ -1,20 +1,22 @@
-import type { NextPage, GetStaticProps, GetServerSideProps } from "next"
+import type { NextPage, GetStaticProps } from "next"
 import type { DehydratedState } from "@tanstack/react-query"
 import { Suspense } from "react"
-import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
+import { dehydrate, QueryClient } from "@tanstack/react-query"
 import Link from "next/link"
 
 import Layout from "components/Layout"
-import { getMissions, missionsKeys } from "lib/missions"
+import { getMissions, missionsKeys, useMissionsQuery } from "lib/missions"
 import { TbBrandTwitter, TbExternalLink } from "react-icons/tb"
 import { MdReadMore } from "react-icons/md"
 import { FaWikipediaW } from "react-icons/fa"
+import Loader from "components/LoadingSpinner"
+import MissionCard from "components/MissionCard"
 // import LongText from "components/LongText"
 // import SocialLinks from "components/SocialLinks"
 // import { ImWikipedia } from "react-icons/im"
 // import { BiDetail } from "react-icons/bi"
 
-export const getServerSideProps: GetServerSideProps<MissionProps> = async () => {
+export const getStaticProps: GetStaticProps<MissionProps> = async () => {
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(missionsKeys.all, getMissions)
   return {
@@ -26,90 +28,37 @@ export const getServerSideProps: GetServerSideProps<MissionProps> = async () => 
 
 type MissionProps = { dehydrated: DehydratedState }
 
-// const MAX_LENGTH = 150
-
 const Missions: NextPage = () => {
-  const { data, isLoading, isSuccess } = useQuery(missionsKeys.all, getMissions, {
-    staleTime: 1000 * 60 * 30,
-  })
-
-  if (isLoading) {
-    return (
-      <Layout title='All Missions' description='Loading missions data...'></Layout>
-    )
-  }
+  const { data, isLoading, isSuccess } = useMissionsQuery()
 
   if (isSuccess) {
     return (
-      <Suspense fallback={null}>
+      <Suspense fallback={<Loader />}>
         <Layout
           title='All Missions'
           description='List of every mission, both completed and upcoming.'
         >
           <div className='container max-w-5xl w-fit mx-auto'>
             <ol
-              // className='flex flex-wrap flex-row gap-6 m-0 p-0'
+              aria-label='missions'
               className='grid grid-cols-1 md:grid-cols-2 gap-8'
             >
               {data.map(m => (
-                <li
-                  key={m.mission_id}
-                  className='card bg-base-300 text-base-content w-full shadow-xl'
-                >
-                  <div className='card-body w-full'>
-                    <h3 className='card-title'>{m.mission_name}</h3>
-                    <p className='line-clamp-6'>{m.description}</p>
-                    <div className='card-actions justify-end mt-6'>
-                      <div className='inline-flex border-primary border-2 rounded-btn overflow-hidden'>
-                        <Link
-                          href={`/mission/${m.mission_id}`}
-                          className='btn text-lg btn-primary btn-outline border-none btn-square rounded-none'>
-
-                          <MdReadMore
-                            title='read more details'
-                            className='w-5 h-5'
-                          />
-
-                        </Link>
-                        {m.twitter ? (
-                          <a
-                            href={m.twitter}
-                            className='btn text-lg btn-primary btn-outline border-none btn-square rounded-none'
-                          >
-                            <TbBrandTwitter title='twitter' className='w-5 h-5' />
-                          </a>
-                        ) : null}
-                        <a
-                          href={m.wikipedia}
-                          className='btn text-lg btn-primary btn-outline border-none btn-square rounded-none'
-                        >
-                          <FaWikipediaW title='wikipedia' className='w-5 h-5' />
-                        </a>
-                        <a
-                          href={m.website}
-                          className='btn text-lg btn-primary btn-outline border-none btn-square rounded-none'
-                        >
-                          <TbExternalLink
-                            title='external page'
-                            className='w-5 h-5'
-                          />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </li>
+                <MissionCard key={m.mission_id} data={m} />
               ))}
             </ol>
           </div>
-
-          {/* <div className='prose mx-auto'>
-          <pre>
-            <code>{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        </div> */}
         </Layout>
       </Suspense>
-    );
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <Layout title='All Missions' description='Loading missions data...'>
+        <Loader />
+      </Layout>
+    )
   }
 
   return null

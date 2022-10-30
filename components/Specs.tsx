@@ -19,7 +19,7 @@ export type SpecData = {
 
 const Specs: FC<SpecsProps> = ({ title, summary, data, children }) => {
   return (
-    <div className='first-child:rounded-t-box last-child:rounded-b-box w-full overflow-hidden not-prose'>
+    <div className='first-child:rounded-t-box last-child:rounded-b-box w-full overflow-hidden not-prose border-primary-content'>
       <Disclosure>
         {({ open }) => (
           <>
@@ -27,7 +27,7 @@ const Specs: FC<SpecsProps> = ({ title, summary, data, children }) => {
               // as='header'
               className={cn(
                 "w-full flex justify-between items-center px-4 py-2 bg-primary text-primary-content text-left",
-                "focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-opacity-75"
+                "focus:outline-none focus-visible:ring focus-visible:ring-accent focus-visible:ring-opacity-75"
               )}
             >
               <>

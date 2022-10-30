@@ -22,6 +22,9 @@ const Seo: React.FC<SeoProps> = ({
       <meta content={description} name='description' />
       {/* <meta property='og:url' content={`https://leerob.io${router.asPath}`} /> */}
       {/* <link rel='canonical' href={`https://leerob.io${router.asPath}`} /> */}
+      <link href='/static/favicons/favicon.ico' rel='shortcut icon' />
+      <meta content='#ffffff' name='theme-color' />
+      <meta content='#ffffff' name='msapplication-TileColor' />
       <meta property='og:type' content={type} />
       <meta property='og:site_name' content='SpaceX' />
       <meta property='og:description' content={description} />

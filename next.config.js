@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // experimental: {
+  //   appDir: true,
+  // },
   reactStrictMode: true,
   swcMinify: true,
   images: {
@@ -27,9 +30,6 @@ const nextConfig = {
       },
     ],
   },
-  // experimental: {
-  // browsersListForSwc: true,
-  // },
   // images: {
   //   domains: [
   //     "images2.imgbox.com",
@@ -51,6 +51,12 @@ const nextConfig = {
         headers: securityHeaders,
       },
     ]
+  },
+  webpack: config => {
+    config.infrastructureLogging = {
+      level: "error",
+    }
+    return config
   },
 }
 

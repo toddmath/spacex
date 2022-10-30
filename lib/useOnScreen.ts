@@ -10,14 +10,19 @@ function useOnScreen<T extends Element>(
   useEffect(() => {
     let currentRef = ref.current
     const observer = new IntersectionObserver(
-      ([entry]) => setIntersecting(entry.isIntersecting),
+      ([{ isIntersecting }]) => setIntersecting(isIntersecting),
       { rootMargin }
     )
-    if (currentRef) observer.observe(currentRef)
+
+    if (currentRef) {
+      observer.observe(currentRef)
+    }
+
     return () => {
       observer.unobserve(currentRef)
     }
-  }, [rootMargin]) // Empty array ensures that effect is only run on mount and unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rootMargin])
 
   return isIntersecting
 }

@@ -8,14 +8,11 @@ import Hero from "components/Hero"
 import FullScreenLayout from "components/FullScreenLayout"
 import { getCompanyInfo, companyInfoKey } from "lib/companyInfo"
 
-// import launchSrc from "public/static/image/launch.jpg"
-
 type HomeProps = { dehydrated: DehydratedState }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(companyInfoKey, getCompanyInfo)
-
   return {
     props: {
       dehydrated: dehydrate(queryClient),
@@ -24,16 +21,25 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 }
 
 const Home: NextPage = () => {
-  const { data, isError, isLoading } = useQuery(companyInfoKey, getCompanyInfo)
+  const { data, isSuccess, isLoading } = useQuery(companyInfoKey, getCompanyInfo, {
+    notifyOnChangeProps: ["isSuccess", "isLoading", "data"],
+    select: info => ({
+      title: info.name,
+      summary: info.summary,
+    }),
+  })
 
-  if (isError) return <div>failed to load</div>
+  if (isSuccess) {
+    return (
+      <FullScreenLayout className='-mt-16'>
+        <Hero title={data.title} summary={data.summary} />
+      </FullScreenLayout>
+    )
+  }
+
   if (isLoading) return <Layout title='' description='Loading data...' />
 
-  return (
-    <FullScreenLayout className='-mt-16'>
-      <Hero title={data.name} summary={data.summary} />
-    </FullScreenLayout>
-  )
+  return null
 }
 
 export default Home

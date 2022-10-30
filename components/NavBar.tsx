@@ -28,6 +28,11 @@ const navLinks = [
     pages: null,
   },
   {
+    href: "/launchpad",
+    text: "Launchpads",
+    pages: null,
+  },
+  {
     href: "/roadster",
     text: "Roadster",
     pages: null,
@@ -55,29 +60,27 @@ const NavBar: FC = () => {
             >
               {navLinks.map(({ href, text, pages }) => (
                 <Fragment key={href}>
-                  {pages ? (
-                    <li tabIndex={0}>
-                      <div className='justify-between'>
-                        {text}
-                        <TbChevronRight />
-                      </div>
-                      <ul className='p-2 bg-base-200'>
-                        {pages.map(page => (
-                          <li key={page}>
-                            <Link href={`${href}/${page}`} className='capitalize'>
-                              {page}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </li>
-                  ) : (
-                    <li>
-                      <Link href={href}>
-                        {text}
-                      </Link>
-                    </li>
-                  )}
+                  <li tabIndex={pages ? 0 : undefined}>
+                    {pages ? (
+                      <>
+                        <div className='justify-between'>
+                          {text}
+                          <TbChevronRight />
+                        </div>
+                        <ul className='p-2 bg-base-200'>
+                          {pages.map(page => (
+                            <li key={page}>
+                              <Link href={`${href}/${page}`} className='capitalize'>
+                                {page}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    ) : (
+                      <Link href={href}>{text}</Link>
+                    )}
+                  </li>
                 </Fragment>
               ))}
             </ul>
@@ -129,7 +132,7 @@ const NavBar: FC = () => {
         </div>
       </nav>
     </div>
-  );
+  )
 }
 
 export default NavBar

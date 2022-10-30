@@ -105,15 +105,15 @@ const LaunchCard: FC<LaunchCardProps> = memo(
 
           <div className='card-actions justify-end mt-auto'>
             <Link
-              href={`/launch/${id}`}
+              href={`/launch/${encodeURI(id)}`}
               className={cn("btn", {
                 "btn-success": success && !futureLaunch,
                 "btn-error": !success && !futureLaunch,
                 "btn-primary": futureLaunch,
               })}>
-              
+
                 Details
-              
+
             </Link>
           </div>
         </div>

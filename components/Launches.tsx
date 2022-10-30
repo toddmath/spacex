@@ -7,9 +7,6 @@ import { isLaunchSuccess, type LaunchData } from "lib/launches"
 import useSearch from "lib/useQuery"
 import { getYear, isFuture } from "lib/date"
 import LaunchCard from "./LaunchCard"
-import { Launch } from "types/launches"
-import { CheckIcon } from "@heroicons/react/20/solid"
-// import useLaunchForm from "lib/useLaunchForm"
 
 type LaunchStatus = "success" | "failed" | "upcoming" | "all"
 

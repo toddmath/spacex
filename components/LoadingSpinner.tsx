@@ -5,10 +5,16 @@ const Loader: React.FC<{ className?: string; wrapperClassName?: string }> = ({
   className,
   wrapperClassName,
 }) => (
-  <div className={cn(wrapperClassName, "flex items-center justify-center")}>
+  <div
+    className={cn(
+      wrapperClassName,
+      "grid place-items-center w-full h-full"
+      // "flex items-center justify-center"
+    )}
+  >
     <VscLoading
       title='loading spinner'
-      className={cn(className, "text-current w-8 h-8 animate-spin")}
+      className={cn(className, "text-base-300 w-1/2 h-1/2 animate-spin")}
     />
   </div>
 )

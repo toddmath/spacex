@@ -23,13 +23,7 @@ const FullScreenLayout: FC<FullScreenLayoutProps> = ({ children, className }) =>
   return (
     <>
       <Seo />
-      <main
-        id='skip'
-        className={cn(
-          className,
-          "min-h-full w-screen p-0 m-0 bg-base-100 text-base-content"
-        )}
-      >
+      <main id='skip' className={cn(className, "min-h-full w-screen p-0 m-0")}>
         {children}
       </main>
     </>

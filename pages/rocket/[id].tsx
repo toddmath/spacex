@@ -15,15 +15,14 @@ import type {
   ISP,
 } from "types/rockets"
 import Layout from "components/Layout"
-import { getRocket, rocketKeys } from "lib/rockets"
 import Loader from "components/LoadingSpinner"
 import Specs, { type SpecData } from "components/Specs"
+import { getRocket, rocketKeys } from "lib/rockets"
 import { is } from "lib/utils"
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("https://api.spacexdata.com/v4/rockets")
   const data: IRockets = await res.json()
-
   return {
     paths: data.map(({ id }) => ({ params: { id } })),
     fallback: false,
@@ -34,26 +33,12 @@ export const getStaticProps: GetStaticProps<RocketProps> = async ({ params }) =>
   const id = params!.id as string
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(rocketKeys.rocket(id), getRocket)
-
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
       rocketID: id,
     },
   }
-
-  // const res = await fetch(`https://api.spacexdata.com/v4/rockets/${id}`)
-  // const data: IRocket = await res.json()
-  // if (!res.ok) {
-  //   throw new Error(
-  //     `Failed to fetch rocket (id: ${id}), received status ${res.status}`
-  //     )
-  //   }
-  //   // If the request was successful, return the posts and revalidate every 3600 seconds (1 hour).
-  //   return {
-  //     props: { data },
-  //     revalidate: 3600,
-  //   }
 }
 
 type RocketProps = {
@@ -66,14 +51,6 @@ const Rocket: NextPage<RocketProps> = props => {
     rocketKeys.rocket(props.rocketID),
     getRocket
   )
-
-  if (isLoading) {
-    return (
-      <Layout title='' description='Loading rocket data...'>
-        <Loader />
-      </Layout>
-    )
-  }
 
   if (isSuccess) {
     const specs = Object.keys(data) as Array<keyof typeof data>
@@ -196,7 +173,7 @@ const Rocket: NextPage<RocketProps> = props => {
           <section className='w-full p-0 m-0'>
             <h3>Specifications</h3>
             <div className='divider' />
-            <div className='card shadow bg-base-300'>
+            <div className='card shadow bg-base-300 divide-y'>
               <Specs
                 title='Dimensions'
                 summary='Rocket details and specs'
@@ -252,6 +229,14 @@ const Rocket: NextPage<RocketProps> = props => {
             </pre>
           </div>
         </div>
+      </Layout>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <Layout title='' description='Loading rocket data...'>
+        <Loader />
       </Layout>
     )
   }

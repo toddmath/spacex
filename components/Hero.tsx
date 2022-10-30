@@ -20,7 +20,6 @@ const Hero: FC<HeroProps> = ({ title, summary, children }) => {
           placeholder='blur'
           alt='rocket ship launching during daytime'
           className='w-full h-full max-h-screen object-cover [object-position:25%_25%]'
-          // style={{ objectPosition: "25% 25%" }}
         />
       </figure>
       <div className='bg-primary bg-opacity-40 hero-overlay mix-blend-color' />
@@ -28,7 +27,6 @@ const Hero: FC<HeroProps> = ({ title, summary, children }) => {
         <h1 className='text-5xl font-bold flex-1 w-full'>{title}</h1>
         <p className='flex-1 w-full mt-2'>{summary}</p>
         {children}
-        {/* <button className="btn btn-primary">Get Started</button> */}
       </div>
     </div>
   )

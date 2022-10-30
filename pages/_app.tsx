@@ -1,7 +1,6 @@
 import '../styles/globals.css'
 import type { QueryClientConfig } from "@tanstack/react-query"
 import type { AppProps } from "next/app"
-import type { NextPage } from "next"
 import { useState } from "react"
 import { ThemeProvider } from "next-themes"
 import {
@@ -12,11 +11,15 @@ import {
 } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import toast, { Toaster } from "react-hot-toast"
+// import { Montserrat } from '@next/font/google'
+// import type { NextPage } from "next"
 
 import NavBar from "components/NavBar"
 import Footer from "components/Footer"
 // import CustomToaster from "components/Toaster"
 // import Notifications from "components/Notifications"
+
+// const montserrat = Montserrat()
 
 const defaultQueryClientConfig: QueryClientConfig = {
   defaultOptions: {
@@ -26,17 +29,16 @@ const defaultQueryClientConfig: QueryClientConfig = {
   },
 }
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: React.ReactElement) => React.ReactNode
-}
+// export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+//   getLayout?: (page: React.ReactElement) => React.ReactNode
+// }
+// type AppPropsWithLayout<P = { dehydratedState: QueryClient }> = AppProps<P> & {
+//   Component: NextPageWithLayout<P>
+// }
 
-type AppPropsWithLayout<P = { dehydratedState: QueryClient }> = AppProps<P> & {
-  Component: NextPageWithLayout<P>
-}
+type Props = { dehydratedState: QueryClient }
 
-// type Props = { dehydratedState: QueryClient }
-
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, pageProps }: AppProps<Props>) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -51,17 +53,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       })
   )
 
-  const getLayout = Component.getLayout ?? (page => page)
-
-  return getLayout(
+  return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ThemeProvider
-          enableSystem
-          enableColorScheme
-          // attribute="class"
-          // defaultTheme='system'
-        >
+        <ThemeProvider enableSystem enableColorScheme>
           <Toaster />
           <NavBar />
           <Component {...pageProps} />

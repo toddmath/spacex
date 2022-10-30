@@ -12,6 +12,10 @@ html {
   /* @apply scroll-smooth min-w-[360px]; */
 }
 
+body {
+  @apply transition-colors w-full h-full min-h-screen bg-base-100 text-base-content antialiased;
+}
+
 @layer components {
   .launch-stat-term {
     @apply flex-initial capitalize relative after:[--tw-content:":"] after:inline-block;

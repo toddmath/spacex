@@ -38,15 +38,14 @@ const FourZeroFour: NextPage = () => {
           <Link
             href='/'
             // className='bg-green-500 px-5 py-3 text-sm shadow-sm font-medium tracking-wider text-gray-900 uppercase rounded-lg hover:shadow-lg'
-            className='btn btn-primary rounded-btn'>
-            
-              Go Home
-            
+            className='btn btn-primary rounded-btn'
+          >
+            Go Home
           </Link>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default FourZeroFour

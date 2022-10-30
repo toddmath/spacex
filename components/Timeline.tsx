@@ -156,7 +156,7 @@ const TimelineContent: FC<TimelineContentProps> = ({
   ...props
 }) => {
   return (
-    (<Link
+    <Link
       href={href}
       passHref
       className={cn(
@@ -165,12 +165,11 @@ const TimelineContent: FC<TimelineContentProps> = ({
         "transition hover:scale-100 group-hover:scale-95 group-focus-within:scale-95",
         className
       )}
-      {...props}>
-
+      {...props}
+    >
       {children}
-
-    </Link>)
-  );
+    </Link>
+  )
 }
 
 type TimelineTimeProps = PropsWithChildren<
