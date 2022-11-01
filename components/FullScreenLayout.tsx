@@ -4,6 +4,7 @@ import cn from "classnames"
 import { NextSeo } from "next-seo"
 
 // import Seo from "components/Seo"
+import { defaultOgImages } from "../next-seo.config"
 
 // type LayoutProps = PropsWithChildren<{
 // date?: string
@@ -41,15 +42,7 @@ const FullScreenLayout: FC<FullScreenLayoutProps> = ({
           type: imageType,
         },
       ]
-    : [
-        {
-          url: "/static/image/launch-og.jpeg",
-          type: "image/jpeg",
-          width: 1200,
-          height: 603,
-        },
-        { url: "/static/image/dual-landing.jpg" },
-      ]
+    : defaultOgImages
 
   return (
     <>
