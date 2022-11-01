@@ -27,7 +27,16 @@ const Roadster: NextPage = () => {
 
   if (isSuccess) {
     return (
-      <Layout title={data.name} description={data.details}>
+      <Layout
+        title={data.name}
+        description={data.details}
+        ogImages={data.flickr_images.map(src => ({
+          url: src,
+          width: 1024,
+          height: 576,
+          alt: "Elon Musk's Telsa roadster in space",
+        }))}
+      >
         <div className='prose dark:prose-invert container lg:max-w-4xl mx-auto'>
           <p className='lg:max-w-prose mx-auto'>{data.details}</p>
 

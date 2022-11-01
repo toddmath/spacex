@@ -11,15 +11,11 @@ import {
 } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import toast, { Toaster } from "react-hot-toast"
-// import { Montserrat } from '@next/font/google'
-// import type { NextPage } from "next"
+import { DefaultSeo } from "next-seo"
 
 import NavBar from "components/NavBar"
 import Footer from "components/Footer"
-// import CustomToaster from "components/Toaster"
-// import Notifications from "components/Notifications"
-
-// const montserrat = Montserrat()
+import seoConfig from "next-seo.config"
 
 const defaultQueryClientConfig: QueryClientConfig = {
   defaultOptions: {
@@ -28,13 +24,6 @@ const defaultQueryClientConfig: QueryClientConfig = {
     },
   },
 }
-
-// export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-//   getLayout?: (page: React.ReactElement) => React.ReactNode
-// }
-// type AppPropsWithLayout<P = { dehydratedState: QueryClient }> = AppProps<P> & {
-//   Component: NextPageWithLayout<P>
-// }
 
 type Props = { dehydratedState: QueryClient }
 
@@ -54,17 +43,20 @@ function MyApp({ Component, pageProps }: AppProps<Props>) {
   )
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <ThemeProvider enableSystem enableColorScheme>
-          <Toaster />
-          <NavBar />
-          <Component {...pageProps} />
-          <Footer />
-          <ReactQueryDevtools />
-        </ThemeProvider>
-      </Hydrate>
-    </QueryClientProvider>
+    <>
+      <DefaultSeo {...seoConfig} />
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ThemeProvider enableSystem enableColorScheme>
+            <Toaster />
+            <NavBar />
+            <Component {...pageProps} />
+            <Footer />
+            <ReactQueryDevtools />
+          </ThemeProvider>
+        </Hydrate>
+      </QueryClientProvider>
+    </>
   )
 }
 

@@ -31,7 +31,10 @@ const Home: NextPage = () => {
 
   if (isSuccess) {
     return (
-      <FullScreenLayout className='-mt-16'>
+      <FullScreenLayout
+        className='-mt-16'
+        description="Information on everything related with SpaceX: launches, rockets, missions, capsules, payloads, launchpads, Elon Musk's tesla roadster, company info, and more."
+      >
         <Hero title={data.title} summary={data.summary} />
       </FullScreenLayout>
     )

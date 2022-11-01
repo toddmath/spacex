@@ -22,20 +22,23 @@ export const getStaticProps: GetStaticProps<LaunchPadProps> = async () => {
 const LaunchPads: NextPage<LaunchPadProps> = () => {
   const { data, isSuccess, isLoading } = useQuery(
     launchPadKeys.all,
-    getAllLaunchPads
+    getAllLaunchPads,
+    {
+      notifyOnChangeProps: ["data", "isLoading", "isSuccess"],
+    }
   )
 
-  if (isLoading) {
-    return (
-      <Layout title='Launchpads' description='Loading launchpads...'>
-        <Loader />
-      </Layout>
-    )
-  }
-
   if (isSuccess) {
+    const ogImages = data
+      .map(pad => pad.images.large.map(url => ({ url, alt: pad.full_name })))
+      .flat(2)
+
     return (
-      <Layout title='Launchpads' description='List of all rocket launchpads.'>
+      <Layout
+        title='Launchpads'
+        description='List of all rocket launchpads used by SpaceX.'
+        ogImages={ogImages}
+      >
         <div className='mx-auto container lg:max-w-6xl space-y-10'>
           <ul
             className={cn(
@@ -71,6 +74,14 @@ const LaunchPads: NextPage<LaunchPadProps> = () => {
             </pre>
           </div>
         </div>
+      </Layout>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <Layout title='Launchpads' description='Loading launchpads...'>
+        <Loader />
       </Layout>
     )
   }

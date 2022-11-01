@@ -1,7 +1,9 @@
-import type { FC, PropsWithChildren, ReactNode } from "react"
+import type { FC, ReactNode } from "react"
+import type { OpenGraphMedia } from "next-seo/lib/types"
 import cn from "classnames"
+import { NextSeo } from "next-seo"
 
-import Seo from "components/Seo"
+// import Seo from "components/Seo"
 
 // type LayoutProps = PropsWithChildren<{
 // date?: string
@@ -17,12 +19,42 @@ import Seo from "components/Seo"
 type FullScreenLayoutProps = {
   children: NonNullable<ReactNode>
   className?: string
+  image?: string
+  description?: string
 }
 
-const FullScreenLayout: FC<FullScreenLayoutProps> = ({ children, className }) => {
+const FullScreenLayout: FC<FullScreenLayoutProps> = ({
+  children,
+  image,
+  className,
+  description,
+}) => {
+  const imageType =
+    image?.substring(image.lastIndexOf(".") + 1) === "jpg" ? "image/jpeg" : undefined
+
+  const images: OpenGraphMedia[] = image
+    ? [
+        {
+          url: image,
+          width: 800,
+          height: 600,
+          type: imageType,
+        },
+      ]
+    : [
+        {
+          url: "/static/image/launch-og.jpeg",
+          type: "image/jpeg",
+          width: 1200,
+          height: 603,
+        },
+        { url: "/static/image/dual-landing.jpg" },
+      ]
+
   return (
     <>
-      <Seo />
+      <NextSeo openGraph={{ images }} description={description} />
+      {/* <Seo /> */}
       <main id='skip' className={cn(className, "min-h-full w-screen p-0 m-0")}>
         {children}
       </main>

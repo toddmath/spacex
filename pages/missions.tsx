@@ -20,9 +20,8 @@ export const getStaticProps: GetStaticProps<MissionProps> = async () => {
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(missionsKeys.all, getMissions)
   return {
-    props: {
-      dehydrated: dehydrate(queryClient),
-    },
+    props: { dehydrated: dehydrate(queryClient) },
+    revalidate: 60 * 30,
   }
 }
 

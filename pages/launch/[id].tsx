@@ -25,6 +25,7 @@ export const getStaticProps: GetStaticProps<LaunchProps> = async ({ params }) =>
       dehydratedState: dehydrate(queryClient),
       launchID: id,
     },
+    revalidate: 60 * 30,
   }
 }
 
@@ -39,18 +40,26 @@ const LaunchPage: NextPage<LaunchProps> = props => {
     getLaunch
   )
 
-  if (isLoading) {
+  if (isSuccess) {
+    const ogImages = data.links.flickr.original.map(url => ({ url, alt: data.name }))
+    if (data.links.patch.large) {
+      ogImages.unshift({
+        url: data.links.patch.large,
+        alt: `${data.name} mission patch`,
+      })
+    }
+
     return (
-      <Layout title='' description='Loading launch data...'>
-        <Loader />
+      <Layout title={data.name} description={data.details} ogImages={ogImages}>
+        <Launch data={data} />
       </Layout>
     )
   }
 
-  if (isSuccess) {
+  if (isLoading) {
     return (
-      <Layout title={data.name} description={data.details}>
-        <Launch data={data} />
+      <Layout title='' description='Loading launch data...'>
+        <Loader />
       </Layout>
     )
   }

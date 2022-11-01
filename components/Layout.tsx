@@ -1,17 +1,18 @@
 import type { FC, PropsWithChildren } from "react"
+import type { OpenGraphMedia } from "next-seo/lib/types"
+import { useRouter } from "next/router"
 import cn from "classnames"
-// import Head from "next/head"
+import { NextSeo } from "next-seo"
 
-import Seo from "components/Seo"
 import Header from "components/Header"
-// import NavBar from "components/NavBar"
-// import Footer from "components/Footer"
+import { defaultOgImages } from "next-seo.config"
 
 type LayoutProps = PropsWithChildren<{
   date?: string
   title?: string
   description?: string
   image?: string
+  ogImages?: OpenGraphMedia[]
   type?: string
   className?: string
   containerClassName?: string
@@ -23,18 +24,34 @@ const Layout: FC<LayoutProps> = ({
   title = "SpaceX",
   className,
   containerClassName = "my-14",
+  ogImages,
+  children,
   ...props
 }) => {
-  const { children, ...customMeta } = props
+  const router = useRouter()
 
-  const meta = {
-    title: title === "SpaceX" ? title : `SpaceX - ${title}`,
-    description:
-      "Information on everything related with SpaceX: launches, rockets, missions, capsules, payloads, Elon Musk's tesla roadster, company info, and more.",
-    image: "/static/image/spacex-logo.svg",
-    type: "website",
-    ...customMeta,
-  }
+  const url = `https://spacex-one.vercel.app${router.asPath}`
+
+  const description =
+    props.description ??
+    "Information on everything related with SpaceX: launches, rockets, missions, capsules, payloads, Elon Musk's tesla roadster, company info, and more."
+
+  const imageType =
+    props.image?.substring(props.image.lastIndexOf(".") + 1) === "jpg"
+      ? "image/jpeg"
+      : undefined
+
+  const images: OpenGraphMedia[] = props.image
+    ? [
+        {
+          url: props.image,
+          width: 800,
+          height: 600,
+          type: imageType,
+        },
+        ...(ogImages ?? []),
+      ]
+    : ogImages ?? defaultOgImages
 
   return (
     <div
@@ -43,8 +60,18 @@ const Layout: FC<LayoutProps> = ({
         "transition-colors w-full bg-base-100 text-base-content relative space-y-14"
       )}
     >
-      <Seo {...meta} />
-      {/* <NavBar /> */}
+      <NextSeo
+        title={title === "SpaceX" ? undefined : title}
+        description={description}
+        canonical={url}
+        openGraph={{
+          title: title === "SpaceX" ? undefined : title,
+          url,
+          description,
+          images,
+        }}
+      />
+      {/* <Seo {...meta} /> */}
       {headerTag ? <Header title={title} tag={headerTag} /> : null}
       <main
         id='skip'
@@ -55,7 +82,6 @@ const Layout: FC<LayoutProps> = ({
       >
         {children}
       </main>
-      {/* <Footer /> */}
     </div>
   )
 }

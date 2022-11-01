@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from "next"
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next"
 import type { DehydratedState } from "@tanstack/react-query"
 import { Suspense } from "react"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
@@ -10,50 +10,31 @@ import Loader from "components/LoadingSpinner"
 import { getRockets, rocketKeys } from "lib/rockets"
 import Link from "next/link"
 
-export const getServerSideProps: GetServerSideProps<RocketProps> = async () => {
+export const getStaticProps: GetStaticProps<RocketProps> = async () => {
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(rocketKeys.all, getRockets)
 
   return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
+    props: { dehydratedState: dehydrate(queryClient) },
+    revalidate: 60 * 30,
   }
 }
-
-// export const getStaticProps: GetStaticProps<RocketProps> = async () => {
-//   const queryClient = new QueryClient()
-//   await queryClient.prefetchQuery(rocketKeys.all, getRockets)
-//   return { props: { dehydratedState: dehydrate(queryClient) } }
-//   // const res = await fetch("https://api.spacexdata.com/v4/rockets")
-//   // const data: IRockets = await res.json()
-//   // if (!res.ok) {
-//   //   throw new Error(`Failed to fetch rockets, received status ${res.status}`)
-//   // }
-//   // // If the request was successful, return the posts and revalidate every 3600 seconds (1 hour).
-//   // return {
-//   //   props: { data },
-//   //   revalidate: 3600,
-//   // }
-// }
 
 type RocketProps = { dehydratedState: DehydratedState }
 
 const Rockets: NextPage<RocketProps> = () => {
-  const { data, isLoading, isSuccess } = useQuery(rocketKeys.all, getRockets)
-
-  if (isLoading) {
-    return (
-      <Layout title='Rockets' description='Loading data for all rockets...'>
-        <Loader />
-      </Layout>
-    )
-  }
+  const { data, isLoading, isSuccess } = useQuery(rocketKeys.all, getRockets, {
+    notifyOnChangeProps: ["data", "isLoading", "isSuccess"],
+  })
 
   if (isSuccess) {
+    const ogImages = data.flatMap(r =>
+      r.flickr_images.map(url => ({ url, alt: r.name }))
+    )
+
     return (
       <Suspense fallback={<Loader />}>
-        <Layout title='Rockets' description='SpaceX Rockets.'>
+        <Layout title='Rockets' description='SpaceX Rockets.' ogImages={ogImages}>
           <ol className='grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mx-auto p-0 container lg:max-w-5xl'>
             {data.map(rocket => (
               <li key={rocket.id} className='w-full h-full'>
@@ -65,9 +46,6 @@ const Rockets: NextPage<RocketProps> = () => {
                   }}
                   className='isolate bg-primary text-primary-content card image-full shadow-xl w-fit h-full bg-opacity-30'
                 >
-                  {/* <div className='bg-neutral text-neutral-content image-full card shadow-xl'> */}
-                  {/* <div className='bg-neutral text-neutral-content shadow-xl image-full w-full h-full card [transform:translateZ(60px)]'> */}
-                  {/* <Rocket data={rocket} /> */}
                   <figure className='[transform:translateZ(0px)]'>
                     <Image
                       src={rocket.flickr_images[1]}
@@ -79,7 +57,7 @@ const Rockets: NextPage<RocketProps> = () => {
                       className='[transform:translateZ(0px)] w-full h-auto object-cover'
                     />
                   </figure>
-                  <div className='card-body [transform:translateZ(theme(spacing.20))] bg-primary text-primary-content bg-opacity-30'>
+                  <div className='card-body [transform:translateZ(theme(spacing.20))] bg-primary text-primary-content bg-opacity-30 rounded-box'>
                     <header className='card-title flex-1 basis-6'>
                       <h3 className='text-2xl'>{rocket.name}</h3>
                     </header>
@@ -90,7 +68,6 @@ const Rockets: NextPage<RocketProps> = () => {
                       </Link>
                     </div>
                   </div>
-                  {/* </div> */}
                 </Tilt>
               </li>
             ))}
@@ -103,7 +80,15 @@ const Rockets: NextPage<RocketProps> = () => {
           </div>
         </Layout>
       </Suspense>
-    );
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <Layout title='Rockets' description='Loading data for all rockets...'>
+        <Loader />
+      </Layout>
+    )
   }
 
   return null

@@ -13,7 +13,7 @@ const Seo: React.FC<SeoProps> = ({
   date,
   title = "SpaceX",
   description = "Information on everything related with SpaceX: launches, rockets, missions, capsules, payloads, Elon Musk's tesla roadster, company info, and more.",
-  image = "/static/image/spacex-logo.svg",
+  image = "/static/image/rocket-launch-opt.svg",
   type = "website",
 }) => {
   const router = useRouter()
@@ -24,9 +24,36 @@ const Seo: React.FC<SeoProps> = ({
       <meta name='robots' content='follow, index' />
       <meta name='description' content={description} />
       <link rel='canonical' href={`https://spacex-one.vercel.app${router.asPath}`} />
-      <link href='/static/favicons/favicon.ico' rel='shortcut icon' />
-      <meta content='#ffffff' name='theme-color' />
-      <meta content='#ffffff' name='msapplication-TileColor' />
+      <link
+        rel='apple-touch-icon'
+        sizes='180x180'
+        href='/static/favicons/apple-touch-icon.png'
+      />
+      <link
+        rel='icon'
+        type='image/png'
+        sizes='32x32'
+        href='/static/favicons/favicon-32x32.png'
+      />
+      <link
+        rel='icon'
+        type='image/png'
+        sizes='16x16'
+        href='/static/favicons/favicon-16x16.png'
+      />
+      <link rel='manifest' href='/static/favicons/site.webmanifest' />
+      <link
+        rel='mask-icon'
+        href='/static/favicons/safari-pinned-tab.svg'
+        color='#888888'
+      />
+      <link rel='shortcut icon' href='/static/favicons/favicon.ico' />
+      <meta name='msapplication-TileColor' content='#000000' />
+      <meta
+        name='msapplication-config'
+        content='/static/favicons/browserconfig.xml'
+      />
+      <meta name='theme-color' content='#000000' />
       <meta
         property='og:url'
         content={`https://spacex-one.vercel.app${router.asPath}`}

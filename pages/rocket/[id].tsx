@@ -157,7 +157,11 @@ const Rocket: NextPage<RocketProps> = props => {
     const payloadWeightSpecData = data.payload_weights
 
     return (
-      <Layout title={data.name} description={data.description}>
+      <Layout
+        title={data.name}
+        description={data.description}
+        ogImages={data.flickr_images.map(url => ({ url, alt: data.name }))}
+      >
         <div className='prose dark:prose-invert mx-auto container max-w-4xl'>
           <p className='max-w-prose mx-auto'>{data.description}</p>
           <h3>Images</h3>
