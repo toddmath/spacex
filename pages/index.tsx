@@ -40,7 +40,11 @@ const Home: NextPage = () => {
     )
   }
 
-  if (isLoading) return <Layout title='' description='Loading data...' />
+  if (isLoading) {
+    return (
+      <Layout description="Information on everything related with SpaceX: launches, rockets, missions, capsules, payloads, launchpads, Elon Musk's tesla roadster, company info, and more." />
+    )
+  }
 
   return null
 }
