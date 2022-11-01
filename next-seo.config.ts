@@ -3,15 +3,17 @@ import { DefaultSeoProps } from "next-seo"
 
 export const name = "SpaceX" as const
 
+export const url = "https://spacex-one.vercel.app" as const
+
 export const defaultOgImages: OpenGraphMedia[] = [
   {
-    url: "/static/image/launch-og.jpeg",
+    url: `${url}/static/image/launch-og.jpeg`,
     type: "image/jpeg",
     width: 1200,
     height: 603,
   },
   {
-    url: "/static/image/dual-landing.jpg",
+    url: `${url}/static/image/dual-landing.jpg`,
     type: "image/jpeg",
   },
 ]
@@ -20,7 +22,7 @@ const config: DefaultSeoProps = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://spacex-one.vercel.app/",
+    url,
     siteName: name,
   },
   twitter: {
@@ -28,7 +30,7 @@ const config: DefaultSeoProps = {
     site: "@tM0Nk3y",
     cardType: "summary_large_image",
   },
-  canonical: "https://spacex-one.vercel.app",
+  canonical: url,
   titleTemplate: `%s | ${name}`,
   defaultTitle: name,
   themeColor: "#000000",
