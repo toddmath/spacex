@@ -8,6 +8,7 @@ import Layout from "components/Layout"
 import { getRoadster, roadsterKey } from "lib/roadster"
 import Loader from "components/LoadingSpinner"
 import Link from "next/link"
+import { Suspense } from "react"
 
 export const getStaticProps: GetStaticProps<RoadsterProps> = async () => {
   const queryClient = new QueryClient()
@@ -22,50 +23,55 @@ export const getStaticProps: GetStaticProps<RoadsterProps> = async () => {
 type RoadsterProps = { dehydrated: DehydratedState }
 
 const Roadster: NextPage = () => {
-  const { data, isLoading, isSuccess } = useQuery(roadsterKey, getRoadster)
-  // const [index, setIndex] = useState(0)
+  const { data } = useQuery(roadsterKey, getRoadster, {
+    suspense: true,
+  })
 
-  if (isSuccess) {
-    return (
-      <Layout
-        title={data.name}
-        description={data.details}
-        ogImages={data.flickr_images.map(src => ({
-          url: src,
-          width: 1024,
-          height: 576,
-          alt: "Elon Musk's Telsa roadster in space",
-        }))}
-      >
-        <div className='prose dark:prose-invert container lg:max-w-4xl mx-auto'>
-          <p className='lg:max-w-prose mx-auto'>{data.details}</p>
+  // if (isSuccess) {
+  return (
+    <Suspense fallback={<Loader className='min-h-screen' />}>
+      {data ? (
+        <Layout
+          title={data.name}
+          description={data.details}
+          ogImages={data.flickr_images.map(src => ({
+            url: src,
+            width: 1024,
+            height: 576,
+            alt: "Elon Musk's Telsa roadster in space",
+          }))}
+        >
+          <div className='prose dark:prose-invert container lg:max-w-4xl mx-auto'>
+            <p className='lg:max-w-prose mx-auto'>{data.details}</p>
 
-          <section>
-            <h2>Images</h2>
+            <section>
+              <h2>Images</h2>
 
-            <div className='not-prose carousel w-full carousel-center max-w-5xl p-4 space-x-4 bg-neutral rounded-box shadow'>
-              {data.flickr_images.map((src, i) => (
-                <div
-                  key={src}
-                  id={`img-${i}`}
-                  className='carousel-item w-full object-cover relative'
-                >
-                  <Image
-                    src={src}
-                    alt=''
-                    // fill
-                    width={1024}
-                    height={576}
-                    loading='lazy'
-                    className='w-full h-full object-cover rounded-box'
-                  />
-                </div>
-              ))}
-            </div>
-            <div className='py-2 flex justify-center'>
-              <div className='btn-group shadow'>
-                {Array.from({ length: data.flickr_images.length }, (_, i) => i).map(
-                  n => (
+              <div className='not-prose carousel w-full carousel-center max-w-5xl p-4 space-x-4 bg-neutral rounded-box shadow'>
+                {data.flickr_images.map((src, i) => (
+                  <div
+                    key={src}
+                    id={`img-${i}`}
+                    className='carousel-item w-full object-cover relative'
+                  >
+                    <Image
+                      src={src}
+                      alt=''
+                      // fill
+                      width={1024}
+                      height={576}
+                      loading='lazy'
+                      className='w-full h-full object-cover rounded-box'
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className='py-2 flex justify-center'>
+                <div className='btn-group shadow'>
+                  {Array.from(
+                    { length: data.flickr_images.length },
+                    (_, i) => i
+                  ).map(n => (
                     <Link
                       key={`link-${n}`}
                       href={`#img-${n}`}
@@ -73,25 +79,26 @@ const Roadster: NextPage = () => {
                     >
                       {n + 1}
                     </Link>
-                  )
-                )}
+                  ))}
+                </div>
               </div>
-            </div>
-          </section>
-        </div>
-      </Layout>
-    )
-  }
+            </section>
+          </div>
+        </Layout>
+      ) : null}
+    </Suspense>
+  )
+  // }
 
-  if (isLoading) {
-    return (
-      <Layout description='Loading roadster data...'>
-        <Loader />
-      </Layout>
-    )
-  }
+  // if (isLoading) {
+  //   return (
+  //     <Layout>
+  //       <Loader />
+  //     </Layout>
+  //   )
+  // }
 
-  return null
+  // return null
 }
 
 /*
