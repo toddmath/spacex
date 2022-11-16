@@ -28,6 +28,11 @@ const navLinks = [
     pages: null,
   },
   {
+    href: "/capsules",
+    text: "Capsules",
+    pages: null,
+  },
+  {
     href: "/launchpad",
     text: "Launchpads",
     pages: null,

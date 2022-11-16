@@ -19,12 +19,11 @@ export type SpecData = {
 
 const Specs: FC<SpecsProps> = ({ title, summary, data, children }) => {
   return (
-    <div className='first-child:rounded-t-box last-child:rounded-b-box w-full overflow-hidden not-prose border-primary-content'>
+    <div className='first:rounded-t-box last:rounded-b-box w-full overflow-hidden not-prose'>
       <Disclosure>
         {({ open }) => (
           <>
             <Disclosure.Button
-              // as='header'
               className={cn(
                 "w-full flex justify-between items-center px-4 py-2 bg-primary text-primary-content text-left",
                 "focus:outline-none focus-visible:ring focus-visible:ring-accent focus-visible:ring-opacity-75"
@@ -36,22 +35,26 @@ const Specs: FC<SpecsProps> = ({ title, summary, data, children }) => {
                   <p className='max-w-2xl text-sm'>{summary}</p>
                 </header>
                 <ChevronUpIcon
-                  className={cn("h-5 w-5 text-primary-content", {
-                    "rotate-180 transform": open,
-                  })}
+                  title={open ? "down" : "up"}
+                  className={cn(
+                    "h-5 w-5 text-primary-content transition-transform",
+                    {
+                      "rotate-180": open,
+                    }
+                  )}
                 />
               </>
             </Disclosure.Button>
 
             <Transition
-              enter='transition duration-200 ease-out'
-              enterFrom='opacity-0'
-              enterTo='opacity-100'
-              leave='transition duration-100 ease-out'
-              leaveFrom='opacity-100'
-              leaveTo='opacity-0'
+              enter='transition-all duration-150 ease-out origin-top'
+              enterFrom='scale-y-0 opacity-60'
+              enterTo='scale-y-100 opacity-100'
+              leave='transition duration-100 ease-out origin-top'
+              leaveFrom='scale-y-100 opacity-100'
+              leaveTo='scale-y-0 opacity-50'
             >
-              <Disclosure.Panel>
+              <Disclosure.Panel className='overflow-hidden'>
                 {data ? (
                   <dl>
                     {data.map(({ title, description }, i) => (

@@ -26,7 +26,7 @@ export const isBrowser = typeof window !== "undefined"
 
 export const isNavigator = typeof navigator !== "undefined"
 
-const is = {
+export const is = {
   odd: (n: number): boolean => n % 2 === 0,
   even: (n: number): boolean => n % 2 !== 0,
   browser: () => typeof window !== "undefined",
@@ -37,4 +37,6 @@ const is = {
   array: <T>(value: unknown): value is T[] => Array.isArray(value),
 } as const
 
-export { is }
+export const prettierFmt = <T extends number | string | Date>(value: T): string => {
+  return value.toLocaleString("en-US")
+}

@@ -1,39 +1,8 @@
 import { useTheme } from "next-themes"
 import cn from "classnames"
-
 import { TbChevronDown, TbColorSwatch } from "react-icons/tb"
 
-const themes = [
-  "light",
-  "dark",
-  "cupcake",
-  "bumblebee",
-  "emerald",
-  "corporate",
-  "synthwave",
-  "retro",
-  "cyberpunk",
-  "valentine",
-  "halloween",
-  "garden",
-  "forest",
-  "aqua",
-  "lofi",
-  "pastel",
-  "fantasy",
-  "wireframe",
-  "black",
-  "luxury",
-  "dracula",
-  "cmyk",
-  "autumn",
-  "business",
-  "acid",
-  "lemonade",
-  "night",
-  "coffee",
-  "winter",
-] as const
+import themesConfig from "themes.config.json"
 
 const ThemePicker: React.FC = () => {
   const { resolvedTheme, setTheme, theme: currentTheme } = useTheme()
@@ -62,7 +31,7 @@ const ThemePicker: React.FC = () => {
         className='dropdown-content shadow-2xl bg-base-200 text-base-content rounded-t-box rounded-b-box top-px max-h-96 h-[70vh] overflow-y-auto w-52 mt-16'
       >
         <ul className='grid grid-cols-1 gap-3 p-3 menu'>
-          {themes.map(theme => (
+          {themesConfig.themes.map(theme => (
             <li
               aria-label={theme}
               key={theme}

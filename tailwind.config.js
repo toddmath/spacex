@@ -1,6 +1,8 @@
 // const { fontFamily } = require("tailwindcss/defaultTheme")
 // const plugin = require('tailwindcss/plugin')
 
+const themesConfig = require("./themes.config.json")
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -11,9 +13,26 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      keyframes: {
+        shake: {
+          "0%, 100%": {
+            transform: "none",
+            animationTimingFunction: "cubic-bezier(0,0,0.2,1)",
+          },
+          "25%": {
+            transform: "translateX(-12.5%)",
+            animationTimingFunction: "cubic-bezier(0.8,0,1,1)",
+          },
+          "75%": {
+            transform: "translateX(12.5%)",
+            animationTimingFunction: "cubic-bezier(0.8,0,1,1)",
+          },
+        },
+      },
       animation: {
         "bounce-200": "bounce 1s infinite 200ms",
         "bounce-400": "bounce 1s infinite 400ms",
+        shake: "shake 1s infinite",
       },
       transitionTimingFunction: {
         "in-sine": "cubic-bezier(0.12, 0, 0.39, 0)",
@@ -63,6 +82,7 @@ module.exports = {
     aspectRatio: false,
   },
   plugins: [
+    require("@tailwindcss/container-queries"),
     require("@tailwindcss/typography"),
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/line-clamp"),
@@ -70,4 +90,7 @@ module.exports = {
     require("daisyui"),
     require("flowbite/plugin"),
   ],
+  daisyui: {
+    themes: themesConfig.themes,
+  },
 }

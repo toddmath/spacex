@@ -2,7 +2,7 @@ import type { ChangeEventHandler } from "react"
 import cn from "classnames"
 // import { Label } from "flowbite-react"
 
-type Option = string | number | { value: string; text: string }
+type Option = string | number | Record<"value" | "text", string>
 
 type SelectProps = {
   options: Array<Option>

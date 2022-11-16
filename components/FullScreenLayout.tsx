@@ -47,7 +47,6 @@ const FullScreenLayout: FC<FullScreenLayoutProps> = ({
   return (
     <>
       <NextSeo openGraph={{ images }} description={description} />
-      {/* <Seo /> */}
       <main id='skip' className={cn(className, "min-h-full w-screen p-0 m-0")}>
         {children}
       </main>

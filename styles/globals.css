@@ -17,6 +17,14 @@ body {
 }
 
 @layer components {
+  .card.image-full:where(figure) {
+    @apply rounded-none;
+  }
+
+  .card.image-full {
+    @apply before:rounded-none;
+  }
+
   .launch-stat-term {
     @apply flex-initial capitalize relative after:[--tw-content:":"] after:inline-block;
   }

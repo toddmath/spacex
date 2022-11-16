@@ -18,7 +18,7 @@ import Layout from "components/Layout"
 import Loader from "components/LoadingSpinner"
 import Specs, { type SpecData } from "components/Specs"
 import { getRocket, rocketKeys } from "lib/rockets"
-import { is } from "lib/utils"
+import { is, prettierFmt } from "lib/utils"
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("https://api.spacexdata.com/v4/rockets")
@@ -56,56 +56,64 @@ const Rocket: NextPage<RocketProps> = props => {
     const specs = Object.keys(data) as Array<keyof typeof data>
 
     const rocketSpecData = specs
-      .filter(k => {
-        return k === "height" || k === "diameter" || k === "mass"
-      })
+      .filter(k => k === "height" || k === "diameter" || k === "mass")
       .map(spec => {
         const value = data[spec]
         return {
           title: spec,
           description:
             spec === "diameter" || spec === "height"
-              ? `${(value as Diameter).feet} ft or ${(value as Diameter).meters} m`
+              ? `${prettierFmt((value as Diameter).feet ?? "-")} ft or ${prettierFmt(
+                  (value as Diameter).meters ?? "-"
+                )} m`
               : spec === "mass"
-              ? `${(value as Mass).lb} lb or ${(value as Mass).kg} kg`
+              ? `${prettierFmt((value as Mass).lb)} lb or ${prettierFmt(
+                  (value as Mass).kg
+                )} kg`
               : (value as string),
         }
       })
 
     const firstStageSpecData = (
       Object.keys(data.first_stage) as Array<keyof FirstStage>
-    ).map(spec => {
-      const value = data.first_stage[spec]
-      return {
-        title: spec.replaceAll("_", " "),
-        description: is.number(value)
-          ? value.toString()
-          : is.boolean(value)
-          ? value
-            ? "True"
-            : "False"
-          : spec === "thrust_sea_level" || spec === "thrust_vacuum"
-          ? `${(value as Thrust).kN} kN or ${(value as Thrust).lbf} lbf`
-          : "",
-      }
-    })
+    )
+      .filter(k => data.first_stage[k])
+      .map(spec => {
+        const value = data.first_stage[spec]
+        return {
+          title: spec.replaceAll("_", " "),
+          description: is.number(value)
+            ? prettierFmt(value)
+            : is.boolean(value)
+            ? value
+              ? "True"
+              : "False"
+            : spec === "thrust_sea_level" || spec === "thrust_vacuum"
+            ? `${prettierFmt((value as Thrust).kN)} kn or ${prettierFmt(
+                (value as Thrust).lbf
+              )} lbf`
+            : "",
+        }
+      })
 
     const secondStageSpecData: Array<SpecData> = (
       Object.keys(data.second_stage) as Array<keyof SecondStage>
     )
-      .filter(k => k !== "payloads")
+      .filter(k => k !== "payloads" && data.second_stage[k])
       .map(spec => {
         const value = data.second_stage[spec]
         return {
           title: spec.replaceAll("_", " "),
           description: is.number(value)
-            ? value.toString()
+            ? prettierFmt(value)
             : is.boolean(value)
             ? value
               ? "True"
               : "False"
             : spec === "thrust"
-            ? `${(value as Thrust).kN} kN or ${(value as Thrust).lbf} lbf`
+            ? `${prettierFmt((value as Thrust).kN)} kN or ${prettierFmt(
+                (value as Thrust).lbf
+              )} lbf`
             : "",
         }
       })
@@ -134,25 +142,27 @@ const Rocket: NextPage<RocketProps> = props => {
       ),
     })
 
-    const engineSpecData = (Object.keys(data.engines) as Array<keyof Engines>).map(
-      spec => {
+    const engineSpecData = (Object.keys(data.engines) as Array<keyof Engines>)
+      .filter(k => data.engines[k])
+      .map(spec => {
         const value = data.engines[spec]
         return {
           title: spec.replaceAll("_", " "),
           description: is.string(value)
-            ? value
+            ? prettierFmt(value)
             : is.number(value)
-            ? value.toString()
+            ? prettierFmt(value)
             : spec === "thrust_sea_level" || spec === "thrust_vacuum"
-            ? `${(value as Thrust).kN} kN or ${(value as Thrust).lbf} lbf`
+            ? `${prettierFmt((value as Thrust).kN)} kn or ${prettierFmt(
+                (value as Thrust).lbf
+              )} lbf`
             : spec === "isp"
-            ? `${(value as ISP).sea_level} sea level / ${
+            ? `${prettierFmt((value as ISP).sea_level)} sea level / ${prettierFmt(
                 (value as ISP).vacuum
-              } vacuum`
+              )} vacuum`
             : "",
         }
-      }
-    )
+      })
 
     const payloadWeightSpecData = data.payload_weights
 
@@ -177,6 +187,7 @@ const Rocket: NextPage<RocketProps> = props => {
           <section className='w-full p-0 m-0'>
             <h3>Specifications</h3>
             <div className='divider' />
+
             <div className='card shadow bg-base-300 divide-y'>
               <Specs
                 title='Dimensions'
@@ -204,21 +215,24 @@ const Rocket: NextPage<RocketProps> = props => {
               >
                 <table className='table-auto w-full text-left'>
                   <thead className='border-b'>
-                    <tr className='px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 bg-neutral text-neutral-content border-t first:border-none'>
-                      <th>Orbit</th>
-                      <th>Kg</th>
-                      <th>Lb</th>
+                    <tr className='sm:grid sm:grid-cols-3 sm:gap-4 bg-neutral text-neutral-content border-t first:border-none'>
+                      <th className='px-4 py-5 sm:px-6'>Orbit</th>
+                      {/* <th className='px-4 py-5 sm:px-6'></th> */}
+                      <th className='px-4 py-5 sm:px-6'>kg</th>
+                      <th className='px-4 py-5 sm:px-6'>lb</th>
                     </tr>
                   </thead>
                   <tbody className='bg-neutral text-neutral-content'>
                     {payloadWeightSpecData.map(spec => (
                       <tr
                         key={spec.name}
-                        className='text-sm px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 bg-neutral text-neutral-content border-t first:border-none'
+                        className='text-sm sm:grid sm:grid-cols-3 sm:gap-4 bg-neutral text-neutral-content border-t first:border-none'
                       >
-                        <td className='font-medium'>{spec.name}</td>
-                        <td>{spec.kg}</td>
-                        <td>{spec.lb}</td>
+                        <th className='font-medium text-sm px-4 py-5 sm:px-6'>
+                          {spec.name}
+                        </th>
+                        <td className='px-4 py-5 sm:px-6'>{prettierFmt(spec.kg)}</td>
+                        <td className='px-4 py-5 sm:px-6'>{prettierFmt(spec.lb)}</td>
                       </tr>
                     ))}
                   </tbody>

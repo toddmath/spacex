@@ -5,13 +5,13 @@ export const config = {
   runtime: "experimental-edge",
 }
 
-// export default function handler(req: NextRequest) {}
+// TODO: Refactor this example endpoint with themed styles and relevant content
 
 export default async function handler(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
 
-    // ?title=<title>
+    // * `?title=<title>`
     const hasTitle = searchParams.has("title")
     const title = hasTitle
       ? searchParams.get("title")?.slice(0, 100)

@@ -18,6 +18,10 @@ export const defaultOgImages: OpenGraphMedia[] = [
   },
 ]
 
+/*
+<meta name="google-site-verification" content="aJM45o3rcScxdDA91Ep1O972pOvOds1IeCrOYG-6xHc" />
+*/
+
 const config: DefaultSeoProps = {
   openGraph: {
     type: "website",
@@ -67,6 +71,10 @@ const config: DefaultSeoProps = {
     },
   ],
   additionalMetaTags: [
+    {
+      name: "google-site-verification",
+      content: "aJM45o3rcScxdDA91Ep1O972pOvOds1IeCrOYG-6xHc",
+    },
     {
       name: "msapplication-TileColor",
       content: "#000000",

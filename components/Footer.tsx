@@ -14,18 +14,11 @@ const Footer: React.FC = () => {
     }),
   })
 
-  if (isLoading)
-    return (
-      <footer className='footer p-6 bg-neutral text-neutral-content'>
-        <Loader className='max-w-[10rem] text-inherit' />
-      </footer>
-    )
-
   if (isSuccess) {
     const { hq, links } = data
 
     return (
-      <footer className='footer items-center p-4 bg-neutral text-neutral-content'>
+      <footer className='footer items-center p-4 bg-neutral text-neutral-content grid-flow-col'>
         <div className='items-center grid-flow-col'>
           <a
             href={links.website}
@@ -36,7 +29,7 @@ const Footer: React.FC = () => {
               // xmlns='http://www.w3.org/2000/svg'
               // version='1.1'
               viewBox='0 0 400 50'
-              className='fill-current h-9'
+              className='fill-current h-5 sm:h-9'
               aria-label='spacex logo'
             >
               <path d='M37.5 30.5H10.9v-6.6h34.3c-.9-2.8-3.8-5.4-8.9-5.4H11.4c-5.7 0-9 2.1-9 6.7v4.9c0 4 3.4 6.3 8.4 6.3h26.9v7H1.5c.9 3.8 3.8 5.8 9 5.8h27.1c5.7 0 8.5-2.2 8.5-6.9v-4.9c0-4.3-3.3-6.6-8.6-6.9z' />
@@ -48,7 +41,6 @@ const Footer: React.FC = () => {
               <path d='M399 .7c-80 4.6-117 38.8-125.3 46.9l-1.7 1.6h14.8C326.8 9.1 384.3 2 399 .7z' />
             </svg>
           </a>
-          {/* <p>Copyright © 2022 - All right reserved</p> */}
           <address className='hidden'>
             {hq.address}
             <br />
@@ -56,18 +48,25 @@ const Footer: React.FC = () => {
           </address>
         </div>
 
-        <div className='grid-flow-col gap-4 md:place-self-center md:justify-self-end'>
-          <a href={links.twitter} className='btn btn-link'>
+        <div className='grid-flow-col gap-2 md:gap-4 place-self-center justify-self-end'>
+          <a href={links.twitter} className='btn btn-link btn-sm md:btn-md'>
             <FiTwitter
               className='fill-current w-6 h-6'
               aria-label='spacex twitter'
             />
           </a>
-          <a href={links.flickr} className='btn btn-link'>
+          <a href={links.flickr} className='btn btn-link btn-sm md:btn-md'>
             <ImFlickr2 className='fill-current w-6 h-6' aria-label='spacex flickr' />
           </a>
-          {/* </div> */}
         </div>
+      </footer>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <footer className='footer p-6 bg-neutral text-neutral-content'>
+        <Loader className='max-w-[10rem] text-inherit' />
       </footer>
     )
   }
