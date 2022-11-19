@@ -72,13 +72,15 @@ const nextConfig = {
 //     font-src 'self';
 // `
 const ContentSecurityPolicy = `
-    default-src 'self';
+    default-src 'self' vitals.vercel-insights.com;
     script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com;
     child-src *.youtube.com *.google.com *.twitter.com;
     style-src 'self' 'unsafe-inline' *.googleapis.com;
     img-src * blob: data:;
     connect-src *;
     font-src 'self';
+    object-src 'none';
+    require-trusted-types-for 'script';
 `
 
 const securityHeaders = [
