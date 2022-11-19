@@ -23,7 +23,7 @@
     "cors": "^2.8.5",
     "daisyui": "^2.41.0",
     "flowbite": "^1.5.4",
-    "flowbite-react": "^0.3.4",
+    "flowbite-react": "^0.3.5",
     "motion": "^10.14.3",
     "next": "^13.0.4",
     "next-seo": "^5.14.1",
