@@ -81,9 +81,10 @@ const nextConfig = {
 //     object-src 'none';
 //     require-trusted-types-for 'script';
 // `
+
 const ContentSecurityPolicy = `
   default-src 'self' vitals.vercel-insights.com;
-  script-src 'self' 'unsafe-eval' 'unsafe-inline';
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.vercel-insights.com;
   child-src *.youtube.com *.google.com;
   style-src 'self' 'unsafe-inline' *.googleapis.com;
   img-src * blob: data:;

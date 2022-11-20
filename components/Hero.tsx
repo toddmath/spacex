@@ -14,9 +14,11 @@ const Hero: FC<HeroProps> = ({ title, summary, children }) => {
       <figure className='w-full h-full object-cover'>
         <Image
           src={bg}
-          sizes='100vw'
-          width={3000}
-          height={2000}
+          // sizes='100vw'
+          // width={3000}
+          // height={2000}
+          // fill
+          priority
           placeholder='blur'
           alt='rocket ship launching during daytime'
           className='w-full h-full max-h-screen object-cover [object-position:25%_25%]'
