@@ -71,16 +71,27 @@ const nextConfig = {
 //     connect-src *;
 //     font-src 'self';
 // `
+// const ContentSecurityPolicy = `
+//     default-src 'self' vitals.vercel-insights.com;
+//     script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com;
+//     child-src *.youtube.com *.google.com;
+//     style-src 'self' 'unsafe-inline' *.googleapis.com;
+//     img-src * blob: data:;
+//     connect-src *;
+//     object-src 'none';
+//     require-trusted-types-for 'script';
+// `
 const ContentSecurityPolicy = `
-    default-src 'self' vitals.vercel-insights.com;
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com;
-    child-src *.youtube.com *.google.com *.twitter.com;
-    style-src 'self' 'unsafe-inline' *.googleapis.com;
-    img-src * blob: data:;
-    connect-src *;
-    font-src 'self';
-    object-src 'none';
-    require-trusted-types-for 'script';
+  default-src 'self' vitals.vercel-insights.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline';
+  child-src *.youtube.com *.google.com;
+  style-src 'self' 'unsafe-inline' *.googleapis.com;
+  img-src * blob: data:;
+  media-src 'none';
+  connect-src *;
+  object-src 'none';
+  base-uri 'none';
+  manifest-src 'self';
 `
 
 const securityHeaders = [
