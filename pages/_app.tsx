@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import type { QueryClientConfig } from "@tanstack/react-query"
 import type { AppProps } from "next/app"
+import { Analytics } from "@vercel/analytics/react"
 import { useState } from "react"
 import { ThemeProvider } from "next-themes"
 import {
@@ -53,6 +54,7 @@ function MyApp({ Component, pageProps }: AppProps<Props>) {
             <Component {...pageProps} />
             <Footer />
             <ReactQueryDevtools />
+            <Analytics />
           </ThemeProvider>
         </Hydrate>
       </QueryClientProvider>
