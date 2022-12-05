@@ -42,7 +42,7 @@
     "react-scroll-parallax": "^3.3.2",
     "react-waypoint": "^10.3.0",
     "react-window": "^1.8.8",
-    "react-youtube": "^10.0.0",
+    "react-youtube": "^10.1.0",
     "sharp": "^0.31.2",
     "theme-change": "^2.2.0"
   },
