@@ -83,6 +83,10 @@ const config: DefaultSeoProps = {
       name: "msapplication-config",
       content: "/static/favicons/browserconfig.xml",
     },
+    {
+      name: "viewport",
+      content: "width=device-width,initial-scale=1",
+    },
   ],
 }
 

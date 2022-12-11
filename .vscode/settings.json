@@ -14,11 +14,23 @@
   ],
   "tailwindCSS.validate": true,
   "files.watcherExclude": {
-    "**/.dart_tool": true,
     "**/node_modules": true,
     "**/.next": true
   },
   "workbench.editor.tabSizing": "shrink",
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "editor.semanticTokenColorCustomizations": {
+    "enabled": true
+  },
+  "editor.semanticHighlighting.enabled": false,
+  "[typescriptreact]": {
+    "editor.semanticHighlighting.enabled": false
+  },
+  "[typescript]": {
+    "editor.semanticHighlighting.enabled": false
+  },
+  "astro.typescript.enabled": false,
+  "astro.css.enabled": false,
+  "astro.html.enabled": false,
 }
