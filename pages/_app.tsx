@@ -4,15 +4,10 @@ import type { AppProps } from "next/app"
 import { Analytics } from "@vercel/analytics/react"
 import { useState } from "react"
 import { ThemeProvider } from "next-themes"
-import {
-  Hydrate,
-  QueryClient,
-  QueryCache,
-  QueryClientProvider,
-} from "@tanstack/react-query"
+import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import toast, { Toaster } from "react-hot-toast"
 import { DefaultSeo } from "next-seo"
+import { MotionConfig } from "framer-motion"
 
 import NavBar from "components/NavBar"
 import Footer from "components/Footer"
@@ -29,37 +24,44 @@ const defaultQueryClientConfig: QueryClientConfig = {
 type Props = { dehydratedState: QueryClient }
 
 function MyApp({ Component, pageProps }: AppProps<Props>) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        queryCache: new QueryCache({
-          onError: (error, query) => {
-            if (error instanceof Error && query.state.data !== undefined) {
-              toast.error(`Somethign went wrong: ${error.message}`)
-            }
-          },
-        }),
-        ...defaultQueryClientConfig,
-      })
-  )
+  const [queryClient] = useState(() => new QueryClient(defaultQueryClientConfig))
 
   return (
-    <>
+    <MotionConfig
+    // reducedMotion='user'
+    >
       <DefaultSeo {...seoConfig} />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ThemeProvider enableSystem enableColorScheme>
-            <Toaster />
             <NavBar />
             <Component {...pageProps} />
             <Footer />
-            <ReactQueryDevtools />
-            <Analytics />
+            <ReactQueryDevtools
+              closeButtonProps={{
+                className: "!btn !btn-ghost !normal-case",
+              }}
+            />
           </ThemeProvider>
         </Hydrate>
       </QueryClientProvider>
-    </>
+      <Analytics />
+    </MotionConfig>
   )
 }
 
 export default MyApp
+
+/*
+INFO: QueryClient config for toast error messages
+new QueryClient({
+  queryCache: new QueryCache({
+    onError: (error, query) => {
+      if (error instanceof Error && query.state.data !== undefined) {
+        toast.error(`Somethign went wrong: ${error.message}`)
+      }
+    },
+  }),
+  ...defaultQueryClientConfig,
+})
+*/
