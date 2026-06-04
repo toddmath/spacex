@@ -1,12 +1,13 @@
-import type { FC } from "react"
-import Link from "next/link"
-import cn from "classnames"
+import type { FC } from "react";
+import cn from "classnames";
+// import { motion, AnimatePresence, LayoutGroup } from "framer-motion"
 
-import type { LaunchData } from "lib/launches"
-import { formatDate, isFuture } from "lib/date"
-import Card from "./Card"
+import type { LaunchData } from "lib/launches";
+import { formatDate, isFuture } from "lib/date";
+import Card from "./Card";
+import Link from "./Link";
 
-type LaunchCardProps = LaunchData & { index: number }
+type LaunchCardProps = LaunchData & { index: number };
 
 const LaunchCard: FC<LaunchCardProps> = ({
   id,
@@ -17,9 +18,10 @@ const LaunchCard: FC<LaunchCardProps> = ({
   links,
   ...props
 }) => {
-  const futureLaunch = isFuture(date_utc)
-  const success = !futureLaunch && (props.success ?? props.failures.length === 0)
-  const patchSrc = links.patch.small ?? links.patch.large
+  const futureLaunch = isFuture(date_utc);
+  const success =
+    !futureLaunch && (props.success ?? props.failures.length === 0);
+  const patchSrc = links.patch.small ?? links.patch.large;
 
   return (
     <Card
@@ -36,14 +38,13 @@ const LaunchCard: FC<LaunchCardProps> = ({
         sizes: "40vw",
         fill: true,
       }}
-      containProps={{
-        // contain: "content",
-        contentVisibility: "auto",
-      }}
+      // containProps={{
+      // contentVisibility: "auto",
+      // }}
     >
       <dl
         className={cn(
-          "w-full self-start justify-self-start block font-semibold text-base leading-none space-y-2",
+          "block w-full space-y-2 self-start justify-self-start text-base font-semibold leading-none",
           {
             "text-error": !success && !futureLaunch,
             "text-success": success,
@@ -53,10 +54,10 @@ const LaunchCard: FC<LaunchCardProps> = ({
           }
         )}
       >
-        <div className='w-full flex gap-2'>
-          <dt className='launch-stat-term'>Date</dt>
-          <dd className='flex-1'>
-            <time dateTime={date_utc} aria-label='launch date'>
+        <div className="flex w-full gap-2">
+          <dt className="launch-stat-term">Date</dt>
+          <dd className="flex-1">
+            <time dateTime={date_utc} aria-label="launch date">
               {formatDate(date_utc, {
                 month: "long",
                 year: "numeric",
@@ -66,17 +67,17 @@ const LaunchCard: FC<LaunchCardProps> = ({
           </dd>
         </div>
 
-        <div className='w-full flex gap-2'>
-          <dt className='flex-initial capitalize launch-stat-term'>Status</dt>
-          <dd className='flex-1'>
+        <div className="flex w-full gap-2">
+          <dt className="launch-stat-term flex-initial capitalize">Status</dt>
+          <dd className="flex-1">
             {futureLaunch ? "Upcoming" : success ? "Successfull" : "Failure"}
           </dd>
         </div>
       </dl>
 
-      {details ? <p className='w-fit line-clamp-6'>{details}</p> : null}
+      {details ? <p className="w-fit line-clamp-6">{details}</p> : null}
 
-      <div className='card-actions justify-end mt-2'>
+      <div className="card-actions mt-2 justify-end">
         <Link
           href={`/launch/${encodeURI(id)}`}
           className={cn("btn", {
@@ -84,13 +85,16 @@ const LaunchCard: FC<LaunchCardProps> = ({
             "btn-error": !success && !futureLaunch,
             "btn-primary": futureLaunch,
           })}
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.8 }}
+          // style={{ x: 100 }}
         >
           Details
         </Link>
       </div>
     </Card>
-  )
-}
+  );
+};
 
 // LaunchCard.displayName = "LaunchCard"
 
@@ -202,4 +206,4 @@ return (
 )
 */
 
-export default LaunchCard
+export default LaunchCard;

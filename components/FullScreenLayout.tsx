@@ -1,10 +1,11 @@
 import type { FC, ReactNode } from "react"
-import type { OpenGraphMedia } from "next-seo/lib/types"
+import type { OpenGraph, OpenGraphMedia } from "next-seo/lib/types"
 import cn from "classnames"
 import { NextSeo } from "next-seo"
 
 // import Seo from "components/Seo"
 import { defaultOgImages } from "../next-seo.config"
+import Header from "./Header"
 
 // type LayoutProps = PropsWithChildren<{
 // date?: string
@@ -22,6 +23,8 @@ type FullScreenLayoutProps = {
   className?: string
   image?: string
   description?: string
+  title?: string
+  ogImages?: OpenGraphMedia[]
 }
 
 const FullScreenLayout: FC<FullScreenLayoutProps> = ({
@@ -29,6 +32,8 @@ const FullScreenLayout: FC<FullScreenLayoutProps> = ({
   image,
   className,
   description,
+  title,
+  ogImages,
 }) => {
   const imageType =
     image?.substring(image.lastIndexOf(".") + 1) === "jpg" ? "image/jpeg" : undefined
@@ -40,13 +45,17 @@ const FullScreenLayout: FC<FullScreenLayoutProps> = ({
           width: 800,
           height: 600,
           type: imageType,
-        },
+      },
+      ...(ogImages ?? []),
       ]
-    : defaultOgImages
+    : ogImages ?? defaultOgImages
+
+  const openGraph = { title, description, images } satisfies OpenGraph
 
   return (
     <>
-      <NextSeo openGraph={{ images }} description={description} />
+      <NextSeo openGraph={openGraph} description={description} />
+      {title ? <Header title={title} tag="h1" /> : null}
       <main id='skip' className={cn(className, "min-h-full w-screen p-0 m-0")}>
         {children}
       </main>

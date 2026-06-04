@@ -7,7 +7,6 @@ import type {
   Diameter,
   Mass,
   Rockets as IRockets,
-  Rocket as IRocket,
   FirstStage,
   Thrust,
   SecondStage,
@@ -125,14 +124,20 @@ const Rocket: NextPage<RocketProps> = props => {
           role='list'
           className='divide-y divide-gray-200 rounded-md border border-gray-200'
         >
-          <li className='flex items-center justify-between py-3 pl-3 pr-4 text-sm'>
+          <li
+            role='listitem'
+            className='flex items-center justify-between py-3 pl-3 pr-4 text-sm'
+          >
             <div className='flex w-0 flex-1 items-center'>Composite Fairing</div>
             <div className='ml-4 flex-shrink-0'>
               {data.second_stage.payloads.composite_fairing.diameter.feet} ft or{" "}
               {data.second_stage.payloads.composite_fairing.diameter.meters} m
             </div>
           </li>
-          <li className='flex items-center justify-between py-3 pl-3 pr-4 text-sm'>
+          <li
+            role='listitem'
+            className='flex items-center justify-between py-3 pl-3 pr-4 text-sm'
+          >
             <div className='flex w-0 flex-1 items-center'>Option 1</div>
             <div className='ml-4 flex-shrink-0'>
               {data.second_stage.payloads.option_1}
@@ -176,9 +181,12 @@ const Rocket: NextPage<RocketProps> = props => {
           <p className='max-w-prose mx-auto'>{data.description}</p>
           <h3>Images</h3>
           <div className='divider' />
-          <ul className='not-prose m-0 p-0 list-none smol-flexbox-grid smol-aspect-ratio-gallery w-full h-auto max-w-5xl mx-auto rounded-md overflow-hidden shadow'>
+          <ul
+            role='list'
+            className='not-prose m-0 p-0 list-none smol-flexbox-grid smol-aspect-ratio-gallery w-full h-auto max-w-5xl mx-auto rounded-md overflow-hidden shadow'
+          >
             {data.flickr_images.map(img => (
-              <li key={img}>
+              <li key={img} role='listitem'>
                 <Image src={img} width={640} height={360} alt='' loading='lazy' />
               </li>
             ))}

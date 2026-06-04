@@ -63,7 +63,10 @@ function useRafLoop(cb: FrameRequestCallback, initActive = true): UseRafLoop {
   }, [initActive, start, stop])
 
   // return result
-  return useMemo(() => ({ stop, start, isActive } as UseRafLoop), [start, stop])
+  return useMemo(
+    () => ({ stop, start, isActive } satisfies UseRafLoop),
+    [start, stop]
+  );
 }
 
 export default useRafLoop

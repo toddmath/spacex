@@ -29,7 +29,6 @@ const Layout: FC<LayoutProps> = ({
   ...props
 }) => {
   const router = useRouter()
-
   const url = `https://spacex-one.vercel.app${router.asPath}`
 
   const description =

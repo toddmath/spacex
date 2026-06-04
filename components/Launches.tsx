@@ -2,6 +2,7 @@ import type { FC } from "react"
 import { useMemo, useState } from "react"
 import { RadioGroup } from "@headlessui/react"
 import cn from "classnames"
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion"
 
 import { isLaunchSuccess, type LaunchData } from "lib/launches"
 import useSearch from "lib/useQuery"
@@ -54,12 +55,9 @@ const Launches: FC<LaunchesProps> = ({
   )
 
   return (
-    <div className='mx-auto container lg:max-w-6xl flex flex-col gap-8 min-h-full'>
+    <div className='mx-auto container lg:max-w-6xl xl:max-w-7xl flex flex-col gap-8 min-h-full'>
       <form className='w-full flex gap-4 flex-wrap items-center justify-center rounded-box p-4 border-2 border-primary shadow bg-base-200'>
         <div className='form-control items-center justify-center w-full max-w-sm flex-1 md:basis-1/3'>
-          {/* <label className='label'>
-            <span className='label-text'>Search by name</span>
-          </label> */}
           <label className='input-group'>
             <span className='bg-neutral text-neutral-content'>Name</span>
             <input
@@ -69,7 +67,6 @@ const Launches: FC<LaunchesProps> = ({
               list='names'
               autoComplete='on'
               className='input w-full max-w-sm'
-              // placeholder='Name'
             />
             <datalist id='names'>
               {names.map(name => (
@@ -82,9 +79,6 @@ const Launches: FC<LaunchesProps> = ({
         </div>
 
         <div className='form-control items-center justify-center w-full max-w-xs flex-1 md:basis-1/3'>
-          {/* <label className='label'>
-            <span className='label-text'>Search by year</span>
-          </label> */}
           <label className='input-group'>
             <span className='bg-neutral text-neutral-content'>Year</span>
             <input
@@ -106,34 +100,6 @@ const Launches: FC<LaunchesProps> = ({
             </datalist>
           </label>
         </div>
-
-        {/* <div className='form-control items-center justify-center w-full max-w-xs flex-1 md:basis-1/3'>
-          <Listbox value={status} onChange={setStatus} name='status'>
-            <Listbox.Label className='input-group'>
-              <span className='bg-neutral text-neutral-content'>Status</span>
-              <Listbox.Button className='select w-full relative'>
-                {status}
-              </Listbox.Button>
-            </Listbox.Label>
-
-            <Transition
-              enter='transition duration-200 ease-out'
-              enterFrom='transform scale-95 opacity-0'
-              enterTo='transform scale-100 opacity-100'
-              leave='transition duration-100 ease-out'
-              leaveFrom='transform scale-100 opacity-100'
-              leaveTo='transform scale-95 opacity-0'
-            >
-              <Listbox.Options>
-                {showStatus.map(st => (
-                  <Listbox.Option key={st} value={st}>
-                    {st}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </Transition>
-          </Listbox>
-        </div> */}
 
         <RadioGroup
           value={status}
@@ -172,25 +138,40 @@ const Launches: FC<LaunchesProps> = ({
       </form>
 
       <ol
+        role='list'
         aria-label='Launches'
         className={cn(
-          "group w-full h-full flex-grow overflow-x-hidden overflow-y-auto list-none",
+          "overflow-hidden",
+          "group w-full flex-grow overflow-x-hidden overflow-y-auto list-none",
           "grid [grid-template-columns:repeat(auto-fit,minmax(35ch,1fr))] gap-6 auto-rows-max"
-          // "flex flex-wrap gap-6"
         )}
       >
-        {shownLaunches.map((launch, i) => (
-          <li key={launch.id}>
-            <LaunchCard
-              index={i}
-              {...launch}
-            />
-          </li>
-        ))}
+        <LayoutGroup id='launches'>
+          <AnimatePresence>
+            {shownLaunches.map((launch, i) => (
+              <LaunchCard key={launch.id} index={i} {...launch} />
+            ))}
+          </AnimatePresence>
+        </LayoutGroup>
       </ol>
     </div>
   )
 }
+
+/*
+{shownLaunches.map((launch, i) => (
+  <motion.li
+    key={launch.id}
+    role='listitem'
+    initial={{ opacity: 0.25 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0.25 }}
+    layout
+  >
+    <LaunchCard index={i} {...launch} />
+  </motion.li>
+))}
+*/
 
 /*
 {shownLaunches.map((launch, i) => (

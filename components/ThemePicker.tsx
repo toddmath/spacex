@@ -4,15 +4,17 @@ import { TbChevronDown, TbColorSwatch } from "react-icons/tb"
 
 import themesConfig from "themes.config.json"
 
+const { themes } = themesConfig
+
 const ThemePicker: React.FC = () => {
-  const { resolvedTheme, setTheme, theme: currentTheme } = useTheme()
+  const { setTheme, theme: currentTheme } = useTheme()
   // const scrollRef = useRef<HTMLDivElement>(null)
   // const { x, y } = useScroll(scrollRef)
   // console.log({ x, y })
 
   return (
     <div className='dropdown dropdown-end transition-all' title='Change Theme'>
-      <div tabIndex={0} className='btn btn-ghost gap-1 normal-case px-3 lg:px-4'>
+      <div tabIndex={0} className='btn btn-ghost gap-x-1 gap-y-0 normal-case px-2'>
         <TbColorSwatch
           aria-hidden='true'
           className='inline-block h-5 w-5 stroke-current md:h-6 md:w-6'
@@ -20,22 +22,28 @@ const ThemePicker: React.FC = () => {
         <span className='hidden md:inline'>Theme</span>
         <TbChevronDown
           aria-hidden='true'
-          className='ml-1 hidden h-3 w-3 stroke-current opacity-70 sm:inline-block'
+          className='hidden h-3 w-3 stroke-current opacity-70 sm:inline-block'
         />
       </div>
 
       <div
-        // aria-label='color palletes'
-        // ref={scrollRef}
         tabIndex={0}
         className='dropdown-content shadow-2xl bg-base-200 text-base-content rounded-t-box rounded-b-box top-px max-h-96 h-[70vh] overflow-y-auto w-52 mt-16'
       >
-        <ul className='grid grid-cols-1 gap-3 p-3 menu'>
-          {themesConfig.themes.map(theme => (
+        <menu
+          role='list'
+          aria-label='Change theme'
+          className='grid grid-cols-1 gap-3 p-3 menu'
+        >
+          {themes.map(theme => (
             <li
-              aria-label={theme}
               key={theme}
+              role='listitem'
+              aria-label={theme}
               // data-set-theme={theme}
+              aria-current={
+                currentTheme && theme === currentTheme ? "true" : "false"
+              }
               data-theme={theme}
               className='outline-base-content overflow-hidden rounded-btn outline-2 outline-offset-2'
             >
@@ -56,7 +64,10 @@ const ThemePicker: React.FC = () => {
                 {/* <div className='grid grid-cols-5 grid-rows-3'> */}
                 <div className='flex gap-1 py-3 px-4'>
                   <div className='flex-grow text-sm font-bold'>{theme}</div>
-                  <div className='flex items-center flex-shrink-0 flex-wrap gap-x-1 rounded overflow-hidden'>
+                  <div
+                    className='flex items-center flex-shrink-0 flex-wrap gap-x-1 rounded overflow-hidden'
+                    aria-hidden='true'
+                  >
                     <div className='rounded-full bg-primary w-3 h-3'></div>
                     <div className='rounded-full bg-secondary w-3 h-3'></div>
                     <div className='rounded-full bg-accent w-3 h-3'></div>
@@ -67,7 +78,7 @@ const ThemePicker: React.FC = () => {
               </div>
             </li>
           ))}
-        </ul>
+        </menu>
       </div>
     </div>
   )

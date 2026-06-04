@@ -1,36 +1,47 @@
 import type {
   PropsWithChildren,
   ComponentPropsWithoutRef,
-  FC,
   ReactNode,
-} from "react"
-import { memo } from "react"
-import Link from "next/link"
-import Image, { type ImageProps } from "next/image"
-import cn from "classnames"
+} from "react";
+import { useRef, forwardRef } from "react";
+import Image, { type ImageProps } from "next/image";
+import cn from "classnames";
+import { motion, useScroll } from "framer-motion";
 
-import { is } from "lib/utils"
+import { is } from "lib/utils";
+import { useParallax } from "lib/useParallax";
 
 type ContainProps = Partial<{
-  contain: "content" | "strict" | "layout" | "paint" | "size" | "style" | "none"
-  contentVisibility: "auto" | "hidden"
-}>
+  contain:
+    | "content"
+    | "strict"
+    | "layout"
+    | "paint"
+    | "size"
+    | "style"
+    | "none";
+  contentVisibility: "auto" | "hidden";
+}>;
 
 type CardProps = Omit<ComponentPropsWithoutRef<"section">, "title"> &
   PropsWithChildren<{
-    image?: string
-    title: NonNullable<ReactNode>
-    className?: string
-    containProps?: ContainProps
-    imageProps?: Partial<Omit<ImageProps, "src">>
-  }>
+    image?: string;
+    title: NonNullable<ReactNode>;
+    className?: string;
+    containProps?: ContainProps;
+    imageProps?: Partial<Omit<ImageProps, "src">>;
+    imageClassName?: string;
+    wrapperClassName?: string;
+  }>;
 
-const Card: FC<CardProps> = memo(
-  ({
+const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
+  {
     children,
+    id,
     image,
     title,
     className,
+    wrapperClassName,
     containProps,
     imageProps = {
       fill: true,
@@ -38,51 +49,95 @@ const Card: FC<CardProps> = memo(
       loading: "lazy",
       decoding: "async",
     } as Partial<ImageProps>,
+    imageClassName,
     ...props
-  }) => {
-    const { priority, ...imgProps } = imageProps
+  },
+  fwRef
+) {
+  const { priority, loading, ...imgProps } = imageProps;
+  const sectionRef = useRef(null);
+  const scrollRef = useRef(null);
+  // const isInView = useInView(sectionRef)
 
-    return (
-      <section
-        {...props}
-        aria-label={is.string(title) ? title : props["aria-label"]}
-        className={cn(
-          className,
-          "@container/card card shadow-xl w-full h-full flex-1 rounded-box overflow-hidden group/card isolate",
-          {
-            [`[contain:${containProps?.contain}] [contain-intrinsic-size:auto_theme(spacing.96)]`]:
-              containProps?.contain,
-            [`[content-visibility:${containProps?.contentVisibility}] [contain-intrinsic-size:auto_theme(spacing.96)]`]:
-              containProps?.contentVisibility,
-            "image-full bg-base-100": image,
-            // "bg-base-200": !image,
-          }
-        )}
+  const { scrollYProgress } = useScroll({ target: scrollRef });
+  const y = useParallax(scrollYProgress, 0);
+
+  return (
+    <motion.li
+      role="listitem"
+      ref={fwRef}
+      key={id}
+      layout
+      // layoutId={id}
+      className={cn(wrapperClassName)}
+    >
+      <motion.div
+        ref={sectionRef}
+        initial={{ opacity: 0.25 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0.25 }}
+        // layout
+        layoutId={id}
+        className="h-full w-full"
       >
-        {image ? (
-          <figure className='items-stretch object-cover rounded-none relative'>
-            <Image
-              src={image}
-              alt={is.string(title) ? title : ""}
-              className='w-full object-cover rounded-none'
-              priority={priority}
-              {...imgProps}
-            />
-          </figure>
-        ) : null}
-        <div className='card-body w-full @md/card:gap-3 @lg/card:gap-4'>
-          <header className='flex items-center text-center flex-wrap'>
-            <h2 className='card-title text-2xl @md/card:text-3xl mx-auto'>
-              {title}
-            </h2>
-          </header>
-          {children}
-        </div>
-      </section>
-    )
-  }
-)
+        <motion.div
+          ref={scrollRef}
+          layoutScroll
+          layoutId={id + "_inner"}
+          style={{ y }}
+          initial={{ opacity: 0.4 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.33 }}
+          viewport={{ amount: "some" }}
+          // animate={{ opacity: isInView ? 1 : 0.4 }}
+          className="h-full w-full"
+        >
+          <section
+            {...props}
+            aria-label={is.string(title) ? title : props["aria-label"]}
+            className={cn(
+              className,
+              "group/card card rounded-box isolate h-full w-full flex-1 overflow-hidden shadow-xl @container/card",
+              {
+                [`[contain:${containProps?.contain}] [contain-intrinsic-size:auto_theme(spacing.96)]`]:
+                  containProps?.contain,
+                [`[content-visibility:${containProps?.contentVisibility}] [contain-intrinsic-size:auto_theme(spacing.96)]`]:
+                  containProps?.contentVisibility,
+                "image-full bg-base-100": image,
+                "bg-neutral text-neutral-content": !image,
+              }
+            )}
+          >
+            {image ? (
+              <figure className="relative items-stretch rounded-none object-cover">
+                <Image
+                  src={image}
+                  alt={is.string(title) ? title : ""}
+                  className={cn(
+                    imageClassName,
+                    "w-full rounded-none object-cover"
+                  )}
+                  priority={priority}
+                  loading={priority ? "eager" : "lazy"}
+                  {...imgProps}
+                />
+              </figure>
+            ) : null}
+            <div className="card-body w-full @md/card:gap-3 @lg/card:gap-4">
+              <header className="flex flex-wrap items-center text-center">
+                <motion.h2 className="card-title mx-auto flex-wrap text-2xl @md/card:text-3xl">
+                  {title}
+                </motion.h2>
+              </header>
+              {children}
+            </div>
+          </section>
+        </motion.div>
+      </motion.div>
+    </motion.li>
+  );
+});
 
-Card.displayName = "Card"
+Card.displayName = "Card";
 
-export default Card
+export default Card;

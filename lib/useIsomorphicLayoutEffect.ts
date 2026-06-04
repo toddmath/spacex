@@ -1,6 +1,6 @@
-import { useEffect, useLayoutEffect } from "react"
-import { isBrowser } from "./utils"
+import { useEffect, useLayoutEffect } from "react";
+import { isBrowser } from "./utils";
 
-const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect
+const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
 
-export default useIsomorphicLayoutEffect
+export default useIsomorphicLayoutEffect;

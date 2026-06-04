@@ -1,6 +1,6 @@
 import type { FC } from "react"
 import Link from "next/link"
-import cn from "classnames"
+// import cn from "classnames"
 import { BiRightArrowAlt } from "react-icons/bi"
 import { SiWikipedia } from "react-icons/si"
 // import { CgDetailsMore } from "react-icons/cg"
@@ -30,7 +30,6 @@ const RocketCard: FC<RocketCardProps> = ({
       image={flickr_images[1]}
       className='border-4 border-accent rounded-box'
       imageProps={{
-        // loading: "lazy",
         priority: true,
         sizes: "40vw",
         fill: true,

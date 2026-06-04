@@ -1,7 +1,7 @@
 // const { fontFamily } = require("tailwindcss/defaultTheme")
 // const plugin = require('tailwindcss/plugin')
 
-const themesConfig = require("./themes.config.json")
+const themesConfig = require("./themes.config.json");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -94,7 +94,7 @@ module.exports = {
   daisyui: {
     themes: themesConfig.themes,
   },
-}
+};
 
 /*
 themes: [

@@ -1,6 +1,7 @@
 import type { FC } from "react"
 import { memo } from "react"
 import cn from "classnames"
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion"
 
 import type { Payload as IPayload } from "types/payloads"
 import { is } from "lib/utils"
@@ -36,8 +37,9 @@ const Payload: FC<PayloadProps> = memo(({ payload }) => {
   const nspecs = specs.length
 
   return (
-    <li
-      className={cn("list-none w-full", {
+    <Card
+      title={payload.name}
+      wrapperClassName={cn("list-none w-full", {
         "row-span-1": nspecs >= 0 && nspecs <= 8,
         "row-span-2": nspecs > 8 && nspecs <= 14,
         "row-span-3": nspecs > 14 && nspecs <= 20,
@@ -45,27 +47,23 @@ const Payload: FC<PayloadProps> = memo(({ payload }) => {
         "row-span-5": nspecs > 26 && nspecs <= 30,
         "row-span-6": nspecs > 30,
       })}
+      className='border-neutral border-4 w-full bg-primary text-primary-content'
+      containProps={{
+        contentVisibility: "auto",
+      }}
     >
-      <Card
-        title={payload.name}
-        className='border-neutral border-4 w-full bg-primary text-primary-content'
-        containProps={{
-          contentVisibility: "auto",
-        }}
-      >
-        <ul className='flex flex-col justify-center'>
-          {specs.map(([k, v]) => (
-            <li
-              key={`${payload.name}-${k}`}
-              className='flex gap-2 justify-between border-neutral border-b pt-2 items-center leading-tight'
-            >
-              <strong className='capitalize text-sm'>{k}:</strong>
-              <span className='flex-grow break-words text-primary-content'>{v}</span>
-            </li>
-          ))}
-        </ul>
-      </Card>
-    </li>
+      <ul className='flex flex-col justify-center'>
+        {specs.map(([k, v]) => (
+          <li
+            key={`${payload.name}-${k}`}
+            className='flex gap-2 justify-between border-neutral border-b pt-2 items-center leading-tight'
+          >
+            <strong className='capitalize text-sm'>{k}:</strong>
+            <span className='flex-grow break-words text-primary-content'>{v}</span>
+          </li>
+        ))}
+      </ul>
+    </Card>
   )
 })
 

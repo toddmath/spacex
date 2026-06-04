@@ -1,72 +1,89 @@
-import type { GetServerSideProps, GetStaticProps, NextPage } from "next"
-import type { DehydratedState } from "@tanstack/react-query"
-import { Suspense } from "react"
-import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
-import Image from "next/image"
-import Tilt from "react-parallax-tilt"
+import type { GetStaticProps, NextPage } from "next";
+import type { DehydratedState } from "@tanstack/react-query";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+import cn from "classnames";
+import { AnimatePresence, LayoutGroup } from "framer-motion";
+// import { Suspense } from "react"
+// import Image from "next/image"
+// import Link from "next/link"
+// import Tilt from "react-parallax-tilt"
 
-import Layout from "components/Layout"
-import Loader from "components/LoadingSpinner"
-import { getRockets, rocketKeys } from "lib/rockets"
-import Link from "next/link"
-import RocketCard from "components/RocketCard"
+import Layout from "components/Layout";
+import Loader from "components/LoadingSpinner";
+import { getRockets, rocketKeys } from "lib/rockets";
+// import RocketCard from "components/RocketCard"
+import RocketSection from "components/RocketSection";
+import DataViewer from "components/DataViewer";
+import FullScreenLayout from "../components/FullScreenLayout.jsx";
 
 export const getStaticProps: GetStaticProps<RocketProps> = async () => {
-  const queryClient = new QueryClient()
-  await queryClient.prefetchQuery(rocketKeys.all, getRockets)
-
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(rocketKeys.all, getRockets);
   return {
     props: { dehydratedState: dehydrate(queryClient) },
     revalidate: 60 * 30,
-  }
-}
+  };
+};
 
-type RocketProps = { dehydratedState: DehydratedState }
+type RocketProps = { dehydratedState: DehydratedState };
 
 const Rockets: NextPage<RocketProps> = () => {
   const { data, isLoading, isSuccess } = useQuery(rocketKeys.all, getRockets, {
     notifyOnChangeProps: ["data", "isLoading", "isSuccess"],
-  })
+  });
 
   if (isSuccess) {
-    const ogImages = data.flatMap(r =>
-      r.flickr_images.map(url => ({ url, alt: r.name }))
-    )
+    data.reverse();
+    const ogImages = data.flatMap((r) =>
+      r.flickr_images.map((url) => ({ url, alt: r.name }))
+    );
 
     return (
-      <Suspense fallback={<Loader />}>
-        <Layout title='Rockets' description='SpaceX Rockets.' ogImages={ogImages}>
+      <div className="my-16">
+        <FullScreenLayout
+          title="Rockets"
+          description="SpaceX Rockets."
+          ogImages={ogImages}
+        >
           <ol
-            className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,40ch),1fr))] gap-8 mx-auto container lg:max-w-5xl"
-            // className='grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mx-auto p-0 container lg:max-w-5xl'
+            role="list"
+            // className='grid grid-cols-[repeat(auto-fit,minmax(min(100%,40ch),1fr))] gap-8 mx-auto container lg:max-w-5xl'
+            className={cn(
+              // "container lg:max-w-5xl mx-auto relative"
+              "relative m-0 w-full snap-y snap-mandatory p-0"
+            )}
           >
-            {data.map(rocket => (
-              <li key={rocket.id} className="w-full h-full">
-                <RocketCard {...rocket} />
-              </li>
-            ))}
+            <LayoutGroup id="rockets">
+              {/* <AnimatePresence> */}
+              {data.map((rocket, i) => (
+                <RocketSection key={rocket.id} index={i} {...rocket} />
+              ))}
+              {/* </AnimatePresence> */}
+            </LayoutGroup>
           </ol>
 
-          <div className='mx-auto w-full mt-14 mockup-code container lg:max-w-5xl'>
-            <pre>
-              <code>{JSON.stringify(data, null, 2)}</code>
-            </pre>
-          </div>
-        </Layout>
-      </Suspense>
-    )
+          <DataViewer data={data} />
+        </FullScreenLayout>
+      </div>
+    );
   }
 
   if (isLoading) {
     return (
-      <Layout title='Rockets' description='Loading data for all rockets...'>
+      <Layout title="Rockets" description="SpaceX Rockets.">
         <Loader />
       </Layout>
-    )
+    );
   }
 
-  return null
-}
+  return null;
+};
+
+/*
+ {data.map(rocket => (
+    <RocketCard key={rocket.id} {...rocket} />
+  ))}
+*/
 
 /*
 {data.map(rocket => (
@@ -106,4 +123,4 @@ const Rockets: NextPage<RocketProps> = () => {
 ))}
 */
 
-export default Rockets
+export default Rockets;

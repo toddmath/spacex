@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  @apply transition-colors w-full h-full min-h-screen bg-base-100 text-base-content antialiased;
+  @apply h-full min-h-screen w-full bg-base-100 text-base-content antialiased transition-colors;
 }
 
 @layer components {
@@ -26,7 +26,7 @@ body {
   }
 
   .launch-stat-term {
-    @apply flex-initial capitalize relative after:[--tw-content:":"] after:inline-block;
+    @apply relative flex-initial capitalize after:inline-block after:[--tw-content:":"];
   }
 
   .card.image-full.op-60 {
@@ -34,11 +34,11 @@ body {
   }
 
   .subtitle {
-    @apply text-2xl lg:text-3xl font-medium transition break-normal md:break-words relative block focus:outline-none;
+    @apply relative block break-normal text-2xl font-medium transition focus:outline-none md:break-words lg:text-3xl;
     /* @apply text-gray-700 dark:text-gray-300; */
-    @apply after:block after:-bottom-1 after:left-0 after:h-0.5 after:absolute after:transform after:scale-x-0 after:origin-left after:w-full after:transition-transform after:duration-300;
-    @apply group-hover:after:bg-current group-hover:after:scale-x-100 group-hover:text-gray-900 dark:group-hover:text-gray-100;
-    @apply group-focus-within:after:bg-current group-focus-within:after:scale-x-100 group-focus-within:text-gray-900 dark:group-focus-within:text-gray-100;
+    @apply after:absolute after:-bottom-1 after:left-0 after:block after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transform after:transition-transform after:duration-300;
+    @apply group-hover:text-gray-900 group-hover:after:scale-x-100 group-hover:after:bg-current dark:group-hover:text-gray-100;
+    @apply group-focus-within:text-gray-900 group-focus-within:after:scale-x-100 group-focus-within:after:bg-current dark:group-focus-within:text-gray-100;
   }
 
   /* .timeline > li:first-child .timeline-point-inner {
@@ -63,7 +63,7 @@ body {
     @apply my-0;
   } */
 
-  .payload-card > :is(:where([data-testid="flowbite-card"]):only-child){
+  .payload-card > :is(:where([data-testid="flowbite-card"]):only-child) {
     @apply my-0;
   }
 }
@@ -77,8 +77,8 @@ body {
   --rotX: 0;
   --rotY: 0;
   --ps: 800px;
-  @apply transition-all duration-200 bg-center bg-no-repeat bg-[length:auto_112%] relative;
-  @apply after:rounded-lg after:block after:absolute after:inset-0 after:bg-gradient-to-b after:via-transparent after:from-gray-900/50  after:mix-blend-multiply;
+  @apply relative bg-[length:auto_112%] bg-center bg-no-repeat transition-all duration-200;
+  @apply after:absolute after:inset-0 after:block after:rounded-lg after:bg-gradient-to-b after:from-gray-900/50 after:via-transparent  after:mix-blend-multiply;
   transform: perspective(var(--ps)) rotateX(var(--rotX)) rotateY(var(--rotY));
 }
 
@@ -128,18 +128,18 @@ body {
 
 /* underline transition effect */
 .underlined {
-  @apply relative no-underline whitespace-nowrap focus:outline-none block font-medium transition text-lg;
-  @apply after:block after:-bottom-1 after:left-0 after:h-0.5 after:absolute after:transform after:scale-x-0 after:origin-left after:w-full after:transition-transform after:duration-300;
-  @apply text-gray-600 hover:after:bg-current hover:after:scale-x-100 hover:text-gray-900 dark:text-gray-400 hover:dark:text-gray-100;
-  @apply focus:after:bg-current focus:after:scale-x-100 focus:text-gray-900 dark:focus:text-gray-100 rounded ring-offset-4 focus:ring-2;
+  @apply relative block whitespace-nowrap text-lg font-medium no-underline transition focus:outline-none;
+  @apply after:absolute after:-bottom-1 after:left-0 after:block after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transform after:transition-transform after:duration-300;
+  @apply text-gray-600 hover:text-gray-900 hover:after:scale-x-100 hover:after:bg-current dark:text-gray-400 hover:dark:text-gray-100;
+  @apply rounded ring-offset-4 focus:text-gray-900 focus:ring-2 focus:after:scale-x-100 focus:after:bg-current dark:focus:text-gray-100;
 }
 
 .underlined.active {
-  @apply after:bg-current after:scale-x-100 text-gray-900 dark:text-gray-100;
+  @apply text-gray-900 after:scale-x-100 after:bg-current dark:text-gray-100;
 }
 
 .underlined > h1 {
-  @apply text-2xl font-bold text-gray-900 dark:text-gray-100 tracking-wider;
+  @apply text-2xl font-bold tracking-wider text-gray-900 dark:text-gray-100;
 }
 
 .smol-css-grid {
@@ -151,13 +151,13 @@ body {
 
 .smol-card-component {
   --img-ratio: 3/2;
-  @apply flex flex-col gap-4 rounded-box justify-between;
+  @apply rounded-box flex flex-col justify-between gap-4;
   /* @apply bg-gray-900 bg-opacity-10 bg-blend-screen; */
 }
 
 .smol-card-component img {
   aspect-ratio: var(--img-ratio);
-  @apply object-cover w-full rounded-box;
+  @apply rounded-box w-full object-cover;
 }
 
 /* aspect-ratio grid */
@@ -177,7 +177,7 @@ body {
 
 .smol-aspect-ratio-gallery li {
   height: max(25vh, 15rem);
-  @apply list-none relative;
+  @apply relative list-none;
 }
 
 @supports (aspect-ratio: 1) {
@@ -188,11 +188,11 @@ body {
 }
 
 .smol-aspect-ratio-gallery img {
-  @apply block object-cover w-full h-full;
+  @apply block h-full w-full object-cover;
 }
 
 #__next {
-  @apply w-full min-h-full relative;
+  @apply relative min-h-full w-full;
   /* @apply w-full h-full min-h-screen; */
   /* @apply transition-colors w-full h-full min-h-screen flex flex-col bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-50; */
   /* display: flex; */
@@ -201,7 +201,7 @@ body {
 }
 
 .skip-nav {
-  @apply absolute px-4 py-3 transition-transform duration-200 transform -translate-y-12 -left-1/4 focus:top-4 focus:translate-y-3 -top-8;
+  @apply absolute -left-1/4 -top-8 -translate-y-12 transform px-4 py-3 transition-transform duration-200 focus:top-4 focus:translate-y-3;
 }
 
 #skip {

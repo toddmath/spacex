@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react"
+import { useState, useCallback, useMemo } from "react";
 // import type { DispatchWithoutAction, Reducer } from "react"
 
 // function isBoolean(value?: unknown | boolean): value is boolean {
@@ -19,20 +19,20 @@ import { useState, useCallback, useMemo } from "react"
 // export type UseToggle = Readonly<[boolean, () => void]>
 // const useToggle = (init: boolean): UseToggle => useReducer(toggleReducer, init)
 
-type Noop = () => void
+type Noop = () => void;
 
 export type UseToggle = Readonly<{
-  isToggled: boolean
-  isNotToggled: boolean
-  toggle: Noop
-  toggleTrue: Noop
-  toggleFalse: Noop
-}>
+  isToggled: boolean;
+  isNotToggled: boolean;
+  toggle: Noop;
+  toggleTrue: Noop;
+  toggleFalse: Noop;
+}>;
 
-const useToggle = (initState = false): UseToggle => {
-  const [isToggled, setIsToggled] = useState(initState)
+function useToggle(initState = false): UseToggle {
+  const [isToggled, setIsToggled] = useState(initState);
 
-  const toggle = useCallback(() => setIsToggled(s => !s), [])
+  // const toggle = useCallback(() => setIsToggled((s) => !s), []);
 
   // const [isToggled, dispatch] = useReducer(toggleReducer, initState)
   // const toggle = () => dispatch({ type: "toggle" })
@@ -46,24 +46,20 @@ const useToggle = (initState = false): UseToggle => {
   //   toggleFalse,
   // } as const
 
-  const toggleTrue = () => setIsToggled(true)
-  const toggleFalse = () => setIsToggled(false)
+  // const toggleTrue = () => setIsToggled(true);
+  // const toggleFalse = () => setIsToggled(false);
 
   return useMemo(
     () =>
       ({
         isToggled,
         isNotToggled: !isToggled,
-        toggle,
-        toggleTrue,
-        toggleFalse,
+        toggle: () => setIsToggled((toggled) => !toggled),
+        toggleTrue: () => setIsToggled(true),
+        toggleFalse: () => setIsToggled(false),
       } as const),
-    [isToggled, toggle]
-  )
-
-  // const toggleTrue = useCallback(() => setIsToggled(true), [])
-  // const toggleFalse = useCallback(() => setIsToggled(false), [])
-  // return [isToggled, toggle] as const
+    [isToggled]
+  );
 }
 
-export default useToggle
+export default useToggle;

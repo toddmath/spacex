@@ -1,20 +1,11 @@
 import type { NextPage, GetStaticProps } from "next"
 import type { DehydratedState } from "@tanstack/react-query"
-import { Suspense } from "react"
 import { dehydrate, QueryClient } from "@tanstack/react-query"
-import Link from "next/link"
 
 import Layout from "components/Layout"
-import { getMissions, missionsKeys, useMissionsQuery } from "lib/missions"
-import { TbBrandTwitter, TbExternalLink } from "react-icons/tb"
-import { MdReadMore } from "react-icons/md"
-import { FaWikipediaW } from "react-icons/fa"
 import Loader from "components/LoadingSpinner"
 import MissionCard from "components/MissionCard"
-// import LongText from "components/LongText"
-// import SocialLinks from "components/SocialLinks"
-// import { ImWikipedia } from "react-icons/im"
-// import { BiDetail } from "react-icons/bi"
+import { getMissions, missionsKeys, useMissionsQuery } from "lib/missions"
 
 export const getStaticProps: GetStaticProps<MissionProps> = async () => {
   const queryClient = new QueryClient()
@@ -27,34 +18,36 @@ export const getStaticProps: GetStaticProps<MissionProps> = async () => {
 
 type MissionProps = { dehydrated: DehydratedState }
 
-const Missions: NextPage = () => {
+const Missions: NextPage<MissionProps> = () => {
   const { data, isLoading, isSuccess } = useMissionsQuery()
 
   if (isSuccess) {
     return (
-      <Suspense fallback={<Loader />}>
-        <Layout
-          title='All Missions'
-          description='List of every mission, both completed and upcoming.'
-        >
-          <div className='container max-w-5xl w-fit mx-auto'>
-            <ol
-              aria-label='missions'
-              className='grid grid-cols-1 md:grid-cols-2 gap-8'
-            >
-              {data.map(m => (
-                <MissionCard key={m.mission_id} data={m} />
-              ))}
-            </ol>
-          </div>
-        </Layout>
-      </Suspense>
+      <Layout
+        title='All Missions'
+        description='List of every mission, both completed and upcoming.'
+      >
+        <div className='container max-w-5xl w-fit mx-auto'>
+          <ol
+            role='list'
+            aria-label='missions'
+            className='grid grid-cols-1 md:grid-cols-2 gap-8'
+          >
+            {data.map(m => (
+              <MissionCard key={m.mission_id} data={m} />
+            ))}
+          </ol>
+        </div>
+      </Layout>
     )
   }
 
   if (isLoading) {
     return (
-      <Layout title='All Missions' description='Loading missions data...'>
+      <Layout
+        title='All Missions'
+        description='List of every mission, both completed and upcoming.'
+      >
         <Loader />
       </Layout>
     )

@@ -1,7 +1,7 @@
-export const fetcher = async <JSON = any>(
+export async function fetcher(
   input: RequestInfo | URL,
   init?: RequestInit
-): Promise<JSON> => {
-  const res = await fetch(input, init)
-  return res.json()
+): Promise<JSON> {
+  const res = await fetch(input, init);
+  return res.json();
 }
