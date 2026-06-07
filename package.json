@@ -48,6 +48,9 @@
     "sharp": "^0.34.5",
     "theme-change": "^2.3.0"
   },
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "devDependencies": {
     "@headlessui/tailwindcss": "^0.1.2",
     "@motionone/types": "^10.15.1",
