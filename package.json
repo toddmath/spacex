@@ -2,7 +2,6 @@
   "name": "spacex-nextjs",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "turbodev": "next dev --turbo",
@@ -45,8 +44,11 @@
     "react-waypoint": "^10.3.0",
     "react-window": "^1.8.8",
     "react-youtube": "^10.1.0",
-    "sharp": "^0.32.6",
+    "sharp": "^0.34.5",
     "theme-change": "^2.3.0"
+  },
+  "engines": {
+    "node": ">=18.17.0"
   },
   "devDependencies": {
     "@headlessui/tailwindcss": "^0.1.2",
