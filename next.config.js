@@ -35,11 +35,11 @@ const cspHeader = `
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // experimental: {
-  //   appDir: true,
-  // },
   reactStrictMode: true,
-  swcMinify: true,
+  turbopack: {},
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     qualities: [50, 75, 100],
     formats: ["image/webp"],
@@ -113,12 +113,6 @@ const nextConfig = {
         ],
       },
     ];
-  },
-  webpack: (config) => {
-    config.infrastructureLogging = {
-      level: "error",
-    };
-    return config;
   },
 };
 

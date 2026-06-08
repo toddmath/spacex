@@ -47,7 +47,7 @@ const defaultState: MouseState = {
   page: defaultVec,
 }
 
-function useMouse(ref: RefObject<Element>): MouseState {
+function useMouse(ref: RefObject<Element | null>): MouseState {
   if (process.env.NODE_ENV === "development") {
     if (typeof ref !== "object" || typeof ref.current === "undefined") {
       console.error("useMouse expects a single ref argument.")

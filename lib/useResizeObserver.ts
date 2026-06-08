@@ -15,7 +15,7 @@ import useLatest from "./useLatest";
  *   the `target` resizes
  */
 function useResizeObserver<T extends HTMLElement>(
-  target: React.RefObject<T> | T | null,
+  target: React.RefObject<T | null> | T | null,
   callback: UseResizeObserverCallback
 ): ResizeObserver {
   const resizeObserver = getResizeObserver();

@@ -28,9 +28,9 @@ function useDebounceCallback<T extends (...args: any[]) => ReturnType<T>>(
   const lastCallTime = useRef<number | null>(null) // !Maybe this should be initialized with 0
   const lastInvokeTime = useRef(0)
   const timerId = useRef<number | null>(null)
-  const lastArgs = useRef<Parameters<T>>()
-  const lastThis = useRef<ThisType<T>>()
-  const result = useRef<ReturnType<T>>()
+  const lastArgs = useRef<Parameters<T>>(undefined)
+  const lastThis = useRef<ThisType<T>>(undefined)
+  const result = useRef<ReturnType<T>>(undefined)
   const fnRef = useRef(fn)
   const mounted = useRef(true)
 

@@ -4,8 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "turbodev": "next dev --turbo",
-    "turbobuild": "next build --turbo",
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
@@ -28,7 +26,7 @@
     "flowbite-react": "^0.12.17",
     "framer-motion": "^9.1.7",
     "motion": "^10.18.0",
-    "next": "^14.2.35",
+    "next": "16.2.7",
     "next-seo": "^5.15.0",
     "next-sitemap": "^3.1.55",
     "next-themes": "^0.4.6",
@@ -36,8 +34,8 @@
     "node-gyp": "^12.4.0",
     "nuka-carousel": "^5.6.0",
     "plyr-react": "^5.3.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
     "react-hot-toast": "^2.6.0",
     "react-icons": "^4.12.0",
     "react-parallax-tilt": "^1.7.330",
@@ -62,14 +60,14 @@
     "@types/cors": "^2.8.19",
     "@types/google.maps": "^3.65.1",
     "@types/node": "^18.19.130",
-    "@types/react": "^18.3.31",
-    "@types/react-dom": "^18.3.7",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
     "@types/react-window": "^1.8.8",
     "@types/youtube-player": "^5.5.11",
     "autoprefixer": "^10.5.0",
     "concurrently": "^8.2.2",
     "eslint": "^9",
-    "eslint-config-next": "^15.5.19",
+    "eslint-config-next": "16.2.7",
     "postcss": "^8.5.15",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
@@ -79,5 +77,9 @@
   "browserslist": "> 1%",
   "allowScripts": {
     "sharp@0.34.5": true
+  },
+  "overrides": {
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3"
   }
 }

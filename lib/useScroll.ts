@@ -9,7 +9,7 @@ export interface Pos {
 
 const defaultPos = { x: 0, y: 0 }
 
-function useScroll(ref: RefObject<HTMLElement>): Pos {
+function useScroll(ref: RefObject<HTMLElement | null>): Pos {
   if (process.env.NODE_ENV === "development") {
     if (typeof ref !== "object" || typeof ref.current === "undefined") {
       console.error("`useScroll` expects a single ref argument.")

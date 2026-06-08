@@ -175,7 +175,7 @@ export function useInView({
   onChange,
 }: IntersectionOptions = {}): InViewResponse {
   const [ref, setRef] = useState<Element | null>(null)
-  const callback = useRef<typeof onChange>()
+  const callback = useRef<typeof onChange>(undefined)
   const [state, setState] = useState<{
     inView: boolean
     entry?: IntersectionObserverEntry
