@@ -14,7 +14,7 @@ export type NavLinkProps = {
 const NavLink: FC<NavLinkProps> = ({ position, href, text, pages }) => {
   if (pages) {
     return (
-      <motion.li tabIndex={0}>
+      <motion.li tabIndex={0} layout>
         <motion.div
           className={cn({
             "gap-1 px-3 normal-case": position === "center",
@@ -36,11 +36,13 @@ const NavLink: FC<NavLinkProps> = ({ position, href, text, pages }) => {
             "z-40 rounded bg-base-200 p-3 shadow-xl": position === "center",
             "bg-base-200 p-2": position === "start",
           })}
+          layout
         >
           {pages.map((page) => (
             <motion.li
               key={page}
               tabIndex={position === "center" ? 0 : undefined}
+              layout
               className={cn({
                 "w-full cursor-pointer font-sans text-base-content":
                   position === "center",
@@ -57,7 +59,7 @@ const NavLink: FC<NavLinkProps> = ({ position, href, text, pages }) => {
   }
 
   return (
-    <motion.li>
+    <motion.li layout>
       <Link
         href={href}
         className={cn({ "px-3 normal-case": position === "center" })}

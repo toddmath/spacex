@@ -1,11 +1,11 @@
-import cn from "classnames"
+import cn from "classnames";
 
 type TableProps = {
-  heads: string[]
-  data: string[][]
-  className?: string
-  layout?: "fixed" | "auto"
-}
+  heads: string[];
+  data: string[][];
+  className?: string;
+  layout?: "fixed" | "auto";
+};
 
 const Table: React.FC<TableProps> = ({
   heads,
@@ -22,7 +22,7 @@ const Table: React.FC<TableProps> = ({
     >
       <thead>
         <tr>
-          {heads.map(head => (
+          {heads.map((head) => (
             <th key={head}>{head}</th>
           ))}
         </tr>
@@ -30,14 +30,14 @@ const Table: React.FC<TableProps> = ({
       <tbody>
         {data.map((row, i) => (
           <tr key={`row-${heads[i]}`}>
-            {row.map(cell => (
+            {row.map((cell) => (
               <td key={cell}>{cell}</td>
             ))}
           </tr>
         ))}
       </tbody>
     </table>
-  )
-}
+  );
+};
 
-export default Table
+export default Table;

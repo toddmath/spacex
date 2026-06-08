@@ -1,8 +1,8 @@
 import type { GetStaticProps, NextPage } from "next";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
-import cn from "classnames";
-import { AnimatePresence, LayoutGroup } from "framer-motion";
+import { motion } from "framer-motion";
+// import cn from "classnames";
 // import { Suspense } from "react"
 // import Image from "next/image"
 // import Link from "next/link"
@@ -10,11 +10,10 @@ import { AnimatePresence, LayoutGroup } from "framer-motion";
 
 import Layout from "components/Layout";
 import Loader from "components/LoadingSpinner";
-import { getRockets, rocketKeys } from "lib/rockets";
-// import RocketCard from "components/RocketCard"
 import RocketSection from "components/RocketSection";
 import DataViewer from "components/DataViewer";
-import FullScreenLayout from "../components/FullScreenLayout.jsx";
+import FullScreenLayout from "components/FullScreenLayout";
+import { getRockets, rocketKeys } from "lib/rockets";
 
 export const getStaticProps: GetStaticProps<RocketProps> = async () => {
   const queryClient = new QueryClient();
@@ -32,6 +31,14 @@ const Rockets: NextPage<RocketProps> = () => {
     notifyOnChangeProps: ["data", "isLoading", "isSuccess"],
   });
 
+  if (isLoading) {
+    return (
+      <Layout title="Rockets" description="SpaceX Rockets.">
+        <Loader />
+      </Layout>
+    );
+  }
+
   if (isSuccess) {
     data.reverse();
     const ogImages = data.flatMap((r) =>
@@ -45,22 +52,15 @@ const Rockets: NextPage<RocketProps> = () => {
           description="SpaceX Rockets."
           ogImages={ogImages}
         >
-          <ol
+          <motion.ol
             role="list"
-            // className='grid grid-cols-[repeat(auto-fit,minmax(min(100%,40ch),1fr))] gap-8 mx-auto container lg:max-w-5xl'
-            className={cn(
-              // "container lg:max-w-5xl mx-auto relative"
-              "relative m-0 w-full snap-y snap-mandatory p-0"
-            )}
+            className="relative m-0 w-full snap-y snap-mandatory p-0"
+            layout
           >
-            <LayoutGroup id="rockets">
-              {/* <AnimatePresence> */}
-              {data.map((rocket, i) => (
-                <RocketSection key={rocket.id} index={i} {...rocket} />
-              ))}
-              {/* </AnimatePresence> */}
-            </LayoutGroup>
-          </ol>
+            {data.map((rocket, i) => (
+              <RocketSection key={rocket.id} index={i} {...rocket} />
+            ))}
+          </motion.ol>
 
           <DataViewer data={data} />
         </FullScreenLayout>
@@ -68,13 +68,6 @@ const Rockets: NextPage<RocketProps> = () => {
     );
   }
 
-  if (isLoading) {
-    return (
-      <Layout title="Rockets" description="SpaceX Rockets.">
-        <Loader />
-      </Layout>
-    );
-  }
 
   return null;
 };

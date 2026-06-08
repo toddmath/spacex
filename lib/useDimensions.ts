@@ -27,22 +27,24 @@ function getDimensionObject(node: HTMLElement): DimensionObject {
   return {
     width: rect.width,
     height: rect.height,
-    top: "x" in rect ? rect.x : rect.top,
-    left: "y" in rect ? rect.y : rect.left,
-    x: "x" in rect ? rect.x : rect.left,
-    y: "y" in rect ? rect.y : rect.top,
+    top: rect.x ?? rect?.top,
+    left: rect.y ?? rect?.left,
+    x: rect.x ?? rect?.left,
+    y: rect.y ?? rect?.top,
     right: rect.right,
     bottom: rect.bottom,
   };
 }
 
-function useDimensions({
+export function useDimensions({
   liveMeasure = true,
 }: UseDimensionsArgs = {}): UseDimensionsHook {
-  const [dimensions, setDimensions] = useState({});
-  const [node, setNode] = useState<HTMLElement | null>(null);
+  const [dimensions, setDimensions] = useState<DimensionObject>(
+    {} as DimensionObject
+  );
+  const [node, setNode] = useState<HTMLElement>();
 
-  const ref = useCallback((node) => {
+  const ref = useCallback<(node: HTMLElement) => void>((node) => {
     setNode(node);
   }, []);
 
@@ -72,7 +74,7 @@ function useDimensions({
   return [ref, dimensions, node!];
 }
 
-export default useDimensions;
+// export default useDimensions;
 
 /*
 import { useState, useEffect, RefObject } from "react";

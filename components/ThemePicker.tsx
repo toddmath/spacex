@@ -2,15 +2,15 @@ import { useTheme } from "next-themes"
 import cn from "classnames"
 import { TbChevronDown, TbColorSwatch } from "react-icons/tb"
 
-import themesConfig from "themes.config.json"
+import themeConfig from "themes.config.json"
 
-const { themes } = themesConfig
+const { themes } = themeConfig
+
 
 const ThemePicker: React.FC = () => {
-  const { setTheme, theme: currentTheme } = useTheme()
-  // const scrollRef = useRef<HTMLDivElement>(null)
-  // const { x, y } = useScroll(scrollRef)
-  // console.log({ x, y })
+  const { setTheme, theme: currentTheme, systemTheme } = useTheme()
+
+  const isTheme = (t: string) => t === currentTheme
 
   return (
     <div className='dropdown dropdown-end transition-all' title='Change Theme'>
@@ -41,9 +41,7 @@ const ThemePicker: React.FC = () => {
               role='listitem'
               aria-label={theme}
               // data-set-theme={theme}
-              aria-current={
-                currentTheme && theme === currentTheme ? "true" : "false"
-              }
+              aria-current={isTheme(theme)}
               data-theme={theme}
               className='outline-base-content overflow-hidden rounded-btn outline-2 outline-offset-2'
             >
@@ -53,10 +51,8 @@ const ThemePicker: React.FC = () => {
                 className={cn(
                   "bg-base-100 text-base-content w-full cursor-pointer font-sans p-0 m-0 block border-2",
                   {
-                    "border-primary shadow-inner":
-                      currentTheme && theme === currentTheme,
-                    "border-transparent shadow-lg":
-                      !currentTheme || theme !== currentTheme,
+                    "border-primary shadow-inner": isTheme(theme),
+                    "border-transparent shadow-lg": !isTheme(theme),
                   }
                 )}
                 onClick={() => setTheme(theme)}

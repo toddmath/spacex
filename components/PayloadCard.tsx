@@ -1,21 +1,21 @@
-import type { FC } from "react"
-import { memo } from "react"
-import cn from "classnames"
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion"
+import type { FC } from "react";
+import { memo } from "react";
+import cn from "classnames";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 
-import type { Payload as IPayload } from "types/payloads"
-import { is } from "lib/utils"
-import { SlimPayload } from "pages/payloads"
-import Card from "./Card"
+import type { Payload as IPayload } from "types/payloads";
+import { is } from "lib/utils";
+import { SlimPayload } from "pages/payloads";
+import Card from "./Card";
 
-type Key = keyof SlimPayload
+type Key = keyof SlimPayload;
 
 const filterStats = ([k, v]: [Key, unknown]): boolean => {
   if (v == null || k === "id" || k === "name") {
-    return false
+    return false;
   }
-  return is.array(v) ? v.length > 0 : true
-}
+  return is.array(v) ? v.length > 0 : true;
+};
 
 const mapStats = ([k, v]: [Key, IPayload[Key]]) => {
   const value = is.boolean(v)
@@ -24,17 +24,17 @@ const mapStats = ([k, v]: [Key, IPayload[Key]]) => {
       : "No"
     : is.array(v)
     ? v.join(", ")
-    : v?.toString() ?? ""
-  return [k.replaceAll("_", " "), value.replaceAll("-", " ")] as const
-}
+    : v?.toString() ?? "";
+  return [k.replaceAll("_", " "), value.replaceAll("-", " ")] as const;
+};
 
-type PayloadProps = { payload: SlimPayload }
+type PayloadProps = { payload: SlimPayload };
 
 const Payload: FC<PayloadProps> = memo(({ payload }) => {
   const specs = (Object.entries(payload) as Array<[Key, IPayload[Key]]>)
     .filter(filterStats)
-    .map(mapStats)
-  const nspecs = specs.length
+    .map(mapStats);
+  const nspecs = specs.length;
 
   return (
     <Card
@@ -47,27 +47,29 @@ const Payload: FC<PayloadProps> = memo(({ payload }) => {
         "row-span-5": nspecs > 26 && nspecs <= 30,
         "row-span-6": nspecs > 30,
       })}
-      className='border-neutral border-4 w-full bg-primary text-primary-content'
+      className="w-full border-4 border-neutral bg-primary text-primary-content"
       containProps={{
         contentVisibility: "auto",
       }}
     >
-      <ul className='flex flex-col justify-center'>
+      <ul className="flex flex-col justify-center">
         {specs.map(([k, v]) => (
           <li
             key={`${payload.name}-${k}`}
-            className='flex gap-2 justify-between border-neutral border-b pt-2 items-center leading-tight'
+            className="flex items-center justify-between gap-2 border-b border-neutral pt-2 leading-tight"
           >
-            <strong className='capitalize text-sm'>{k}:</strong>
-            <span className='flex-grow break-words text-primary-content'>{v}</span>
+            <strong className="text-sm capitalize">{k}:</strong>
+            <span className="flex-grow break-words text-primary-content">
+              {v}
+            </span>
           </li>
         ))}
       </ul>
     </Card>
-  )
-})
+  );
+});
 
-Payload.displayName = "PayloadCard"
+Payload.displayName = "PayloadCard";
 
 /*
 <li
@@ -106,4 +108,4 @@ Payload.displayName = "PayloadCard"
 </li>
 */
 
-export default Payload
+export default Payload;

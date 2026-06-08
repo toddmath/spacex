@@ -1,23 +1,37 @@
 import { type FC } from "react";
-import YouTube from "react-youtube";
+import YouTube, { type YouTubeProps } from "react-youtube";
+// import { YoutubeLite } from "@lite-embed/react";
+// import { YouTube } from "react-youtube-lazyload";
+// import "react-youtube-lazyload/dist/index.css";
 
-type Props = {
-  videoId: string;
-  autoPlay?: boolean;
-  className?: string;
-  iframeClassName?: string;
-};
+// import Youtube from "react-youtube-liteframe";
+// import "react-youtube-liteframe/dist/index.css";
+
+// type Props = {
+//   videoId: string;
+//   autoPlay?: boolean;
+//   className?: string;
+//   iframeClassName?: string;
+// };
+
+type Props = Pick<
+  YouTubeProps,
+  "videoId" | "className" | "iframeClassName" | "opts"
+> & { title?: string };
 
 const Video: FC<Props> = ({
   videoId,
-  autoPlay = false,
+  title = "",
   className,
   iframeClassName,
+  opts = {},
 }) => {
   return (
     <YouTube
       videoId={videoId}
-      opts={{ playerVars: { autoplay: autoPlay ? 1 : 0 } }}
+      title={title}
+      loading="lazy"
+      opts={opts}
       className={className}
       iframeClassName={iframeClassName}
     />

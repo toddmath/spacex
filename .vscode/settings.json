@@ -12,14 +12,15 @@
     "iframeClassName",
     "containerClassName"
   ],
+  "tailwindCSS.hovers": true,
   "tailwindCSS.validate": true,
   "files.watcherExclude": {
     "**/node_modules": true,
     "**/.next": true
   },
   "workbench.editor.tabSizing": "shrink",
-  "typescript.tsdk": "./node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "js/ts.tsdk.path": "./node_modules/typescript/lib",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
   "editor.semanticTokenColorCustomizations": {
     "enabled": true
   },

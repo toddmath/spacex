@@ -1,19 +1,16 @@
-import type { FC } from "react"
-import { memo, useRef } from "react"
-import Image, { type ImageProps } from "next/image"
-import cn from "classnames"
-import { useInView, motion, useScroll, useSpring, useTransform } from "framer-motion"
+import type { FC } from "react";
+import { useRef } from "react";
+import Image from "next/image";
+import { useInView, motion, useScroll, useTransform } from "framer-motion";
 
-import type { Rocket as IRocket } from "types/rockets"
-import Stats, { type Stat } from "./Stats"
-import { useParallax } from "lib/useParallax"
-// import Card from "./Card"
-// import { is, prettierFmt } from "lib/utils"
+import type { Rocket as IRocket } from "types/rockets";
+import Stats, { type Stat } from "./Stats";
+import { useParallax } from "lib/useParallax";
 
-type RocketSectionProps = IRocket & { index: number }
+type RocketSectionProps = IRocket & { index: number };
 
-const MotionImage = motion(Image)
-const MotionStats = motion(Stats)
+const MotionImage = motion(Image);
+const MotionStats = motion(Stats);
 
 const RocketSection: FC<RocketSectionProps> = ({
   name,
@@ -28,25 +25,41 @@ const RocketSection: FC<RocketSectionProps> = ({
   index,
   ...rocket
 }) => {
-  const heroRef = useRef(null)
-  const scrollRef = useRef(null)
-  const isInView = useInView(heroRef)
-  const { scrollYProgress } = useScroll({ target: scrollRef })
-  const [title, body] = [150, 125] as const
+  const heroRef = useRef(null);
+  const scrollRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: scrollRef });
+  // const isInView = useInView(heroRef);
 
-  const titleY = useParallax(scrollYProgress, title)
-  const bodyY = useParallax(scrollYProgress, body)
-  const statsY = useParallax(scrollYProgress, 300)
-  // const imgY = useParallax(scrollYProgress, 100)
+  const dist = {
+    title: 250,
+    body: 100,
+    stats: 150,
+  };
 
-  // const titleOpacity = useTransform(titleY, [-title, 0, 0, title], [0, 1, 1, 0])
-  // const bodyOpacity = useTransform(bodyY, [-body, 0, 0, body], [0, 1, 1, 0])
+  const titleY = useParallax(scrollYProgress, dist.title);
+  const bodyY = useParallax(scrollYProgress, dist.body);
+  const statsY = useParallax(scrollYProgress, dist.stats);
+
+  // const bgOpacity = useTransform(imgY, [-100, 0, 100], [0.5, 1, 0.75])
+  // const titleOpacity = useTransform(
+  //   titleY,
+  //   [-title, -title / 2, title],
+  //   [0, 1, 0]
+  // );
+  // const bodyOpacity = useTransform(bodyY, [-body, 0, 0, body], [0, 1, 1, 0.75]);
+  // const statsOpacity = useTransform(statsY, [-300, 0, 300], [0.5, 1, 1]);
 
   // const scale = useTransform(scrollYProgress, [0, 1], [1, 0.4])
-  const scale = useTransform(titleY, [-title, 0, title], [1.1, 1.1, 1])
+  // const bodyScale = useTransform(bodyY, [-body, 0, body], [0.75, 1, 0.75]);
+  // const titleScale = useTransform(titleY, [-title, title], [1, 2])
+  // const statsScale = useTransform(statsY, [-150, 100, 100], [0, 1, 1]);
 
   const stats: Stat[] = [
-    { title: "Launches", value: `${rocket.success_rate_pct}%`, desc: "Success" },
+    {
+      title: "Launches",
+      value: `${rocket.success_rate_pct}%`,
+      desc: "Success",
+    },
     {
       title: "Per Launch",
       value: cost_per_launch.toLocaleString("en-US", {
@@ -55,76 +68,62 @@ const RocketSection: FC<RocketSectionProps> = ({
         maximumSignificantDigits: 1,
       }),
     },
-  ]
+  ];
 
   return (
     <motion.li
-      role='listitem'
+      role="listitem"
       ref={heroRef}
       key={id}
-      initial={{ opacity: 0.25 }}
-      animate={{ opacity: isInView ? 1 : 0 }}
+      // initial={{ opacity: 0.25 }}
+      // animate={{ opacity: isInView ? 1 : 0.25 }}
       // exit={{ opacity: 0.25 }}
-      transition={{ opacity: { duration: 2 } }}
+      // transition={{ opacity: { duration: 2 } }}
       layout
-      className={cn("hero bg-base-100 min-h-screen snap-center")}
+      className="hero min-h-screen snap-y snap-mandatory snap-center"
+      initial={{ scale: 1 }}
+      whileHover={{ scale: 1.2 }}
     >
-      <motion.figure className='w-full h-full hero-overlay bg-opacity-60 relative object-cover'>
-        <MotionImage
-          src={flickr_images[0]}
-          alt={name}
-          fill
-          sizes='100vw'
-          className='w-full h-auto object-cover object-center'
-          // className='w-full h-full'
-          // style={{ y: imgY }}
-        />
-      </motion.figure>
-
       <motion.section
         ref={scrollRef}
         aria-label={name}
-        className={cn(
-          // "col-start-1 col-span-1 row-start-1 row-span-1",
-          "hero-content",
-          "w-full h-auto",
-          "flex items-center justify-center max-w-7xl gap-0 p-0"
-        )}
-        style={{ transformStyle: "preserve-3d" }}
+        className="hover-3d container card card-bordered image-full prose glass card-normal isolate rounded-lg bg-primary px-4 text-center sm:px-0"
+        layout
+        layoutScroll
+        whileInView={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0.75, scale: 0.9 }}
+        // transition={{ duration: 0.5 }}
       >
-        {/* <motion.div className={cn("z-10 text-center")}> */}
-        <div className={cn("max-w-md space-y-6 isolate text-center")}>
+        {/* <div className="image-full"> */}
+        <motion.figure
+        // className="image-full"
+        // className="hero-overlay relative h-full w-full bg-opacity-60 object-cover"
+        >
+          <MotionImage
+            src={flickr_images[0]}
+            alt={name}
+            fill
+            sizes="50vw"
+            // sizes="100vw"
+            className="h-auto w-full object-cover object-center"
+          />
+        </motion.figure>
+        <div className="card-body">
           <motion.h2
-            className={cn(
-              "will-change-transform z-20 relative text-5xl font-bold w-fit mx-auto  shadow-xl",
-              "rounded-lg px-4 py-2",
-              "backdrop-blur mix-blend-screen",
-              "bg-neutral text-neutral-content bg-opacity-90"
-            )}
-            style={{ y: titleY, scale }}
+            className="card-title justify-center text-4xl font-bold"
+            layout
           >
             {name}
           </motion.h2>
-          <motion.p
-            className={cn(
-              "will-change-transform z-10 relative w-full rounded-lg p-4 text-lg shadow-lg",
-              "backdrop-blur mix-blend-screen",
-              "bg-neutral text-neutral-content bg-opacity-90"
-            )}
-            style={{ y: bodyY }}
-          >
+          <motion.p className="w-auto text-lg" layout>
             {description}
           </motion.p>
-          <MotionStats
-            data={stats}
-            className='will-change-transform shadow-2xl relative z-30 bg-neutral text-neutral-content bg-opacity-95 mix-blend-screen backdrop-blur'
-            style={{ y: statsY, scale }}
-          />
+          <MotionStats data={stats} className="card-actions" layout />
         </div>
-        {/* </motion.div> */}
+        {/* </div> */}
       </motion.section>
     </motion.li>
-  )
-}
+  );
+};
 
-export default RocketSection
+export default RocketSection;

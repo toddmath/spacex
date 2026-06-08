@@ -2,9 +2,13 @@ const isDev = process.env.NODE_ENV === "development";
 
 const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
+    script-src 'self' 'unsafe-inline'${
+      isDev ? " 'unsafe-eval'" : ""
+    } https://cdn.vercel-insights.com https://va.vercel-scripts.com https://www.youtube.com https://www.youtube-nocookie.com;
+    frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;
+    connect-src 'self' https://api.spacexdata.com https://vitals.vercel-insights.com;
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data:;
+    img-src 'self' blob: data: https://i.ytimg.com;
     font-src 'self';
     object-src 'none';
     base-uri 'self';
@@ -37,7 +41,13 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    formats: ["image/avif", "image/webp"],
+    qualities: [50, 75, 100],
+    formats: ["image/webp"],
+    /*
+     * was ["image/avif", "image/webp"] but changed to reduce built time
+     * and complexity, and because webp is widely supported.
+     */
+    minimumCacheTTL: 86400, // 1 day (default 4 hours = 14400)
     remotePatterns: [
       {
         protocol: "https",
@@ -62,6 +72,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "photos.marinetraffic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images2.imgbox.com",
       },
     ],
   },

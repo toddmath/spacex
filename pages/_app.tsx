@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import type { QueryClientConfig } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { useState } from "react";
 import { ThemeProvider } from "next-themes";
 import {
@@ -16,6 +17,7 @@ import { MotionConfig } from "framer-motion";
 import NavBar from "components/NavBar";
 import Footer from "components/Footer";
 import seoConfig from "next-seo.config";
+import themeConfig from "themes.config.json";
 
 const defaultQueryClientConfig: QueryClientConfig = {
   defaultOptions: {
@@ -33,13 +35,15 @@ function MyApp({ Component, pageProps }: AppProps<Props>) {
   );
 
   return (
-    <MotionConfig
-    // reducedMotion='user'
-    >
+    <MotionConfig>
       <DefaultSeo {...seoConfig} />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <ThemeProvider enableSystem enableColorScheme>
+          <ThemeProvider
+            enableSystem
+            enableColorScheme
+            themes={themeConfig.themes}
+          >
             <NavBar />
             <Component {...pageProps} />
             <Footer />
@@ -52,6 +56,7 @@ function MyApp({ Component, pageProps }: AppProps<Props>) {
         </Hydrate>
       </QueryClientProvider>
       <Analytics />
+      <SpeedInsights />
     </MotionConfig>
   );
 }

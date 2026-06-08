@@ -1,17 +1,17 @@
-import type { FC } from "react"
-import type { ImageProps } from "next/image"
-import { FiExternalLink } from "react-icons/fi"
+import type { FC } from "react";
+import type { ImageProps } from "next/image";
+import { FiExternalLink } from "react-icons/fi";
 
-import type { Ship } from "types/ships"
-import Card from "./Card"
-import { is } from "lib/utils"
+import type { Ship } from "types/ships";
+import Card from "./Card";
+import { is } from "lib/utils";
 
 type ShipCardProps = {
-  ship: Ship
-  cardKey: string
-  wrapperClassName?: string
-  imageProps?: Partial<ImageProps>
-}
+  ship: Ship;
+  cardKey: string;
+  wrapperClassName?: string;
+  imageProps?: Partial<ImageProps>;
+};
 
 const ShipCard: FC<ShipCardProps> = ({
   ship,
@@ -40,9 +40,9 @@ const ShipCard: FC<ShipCardProps> = ({
         k === "status" ||
         k === "class"
       ) {
-        return false
+        return false;
       }
-      return is.array(v) ? v.length > 0 : true
+      return is.array(v) ? v.length > 0 : true;
     })
     .map(([k, v]) => {
       const value = is.boolean(v)
@@ -51,9 +51,9 @@ const ShipCard: FC<ShipCardProps> = ({
           : "False"
         : is.array(v)
         ? v.join(", ")
-        : v?.toString() ?? ""
-      return [k.replaceAll("_", " "), value.replaceAll("-", " ")] as const
-    })
+        : v?.toString() ?? "";
+      return [k.replaceAll("_", " "), value.replaceAll("-", " ")] as const;
+    });
 
   return (
     <Card
@@ -62,14 +62,14 @@ const ShipCard: FC<ShipCardProps> = ({
       image={ship.image ?? undefined}
       wrapperClassName={wrapperClassName}
       imageProps={imageProps}
-      className='@xs/wrapper:[aspect-ratio:3/4] @sm/wrapper:[aspect-ratio:2/3] @md/wrapper:[aspect-ratio:1/1] @lg/wrapper:[aspect-ratio:3/2]'
-      imageClassName='object-center'
+      className="@xs/wrapper:[aspect-ratio:3/4] @sm/wrapper:[aspect-ratio:2/3] @md/wrapper:[aspect-ratio:1/1] @lg/wrapper:[aspect-ratio:3/2]"
+      imageClassName="object-center"
     >
-      <ul className='flex justify-center flex-wrap gap-x-2 gap-y-3 my-4'>
+      <ul className="my-4 flex flex-wrap justify-center gap-x-2 gap-y-3">
         {specs.map(([k, v]) => (
           <li
             key={`${ship.name}-${k}`}
-            className='badge badge-secondary badge-lg gap-1 capitalize'
+            className="badge-secondary badge badge-lg gap-1 capitalize"
           >
             {k}: {v}
           </li>
@@ -77,22 +77,22 @@ const ShipCard: FC<ShipCardProps> = ({
       </ul>
 
       {ship.link ? (
-        <div className='card-actions mt-auto justify-end'>
+        <div className="card-actions mt-auto justify-end">
           <a
             href={ship.link}
-            target='_blank'
-            rel='noreferrer'
-            className='btn btn-secondary btn-circle'
+            target="_blank"
+            rel="noreferrer"
+            className="btn-secondary btn-circle btn"
           >
-            <FiExternalLink title='external link' className='w-5 h-5' />
+            <FiExternalLink title="external link" className="size-5 h-5 w-5" />
           </a>
         </div>
       ) : null}
     </Card>
-  )
-}
+  );
+};
 
-export default ShipCard
+export default ShipCard;
 
 /*
 <Stats

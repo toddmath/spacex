@@ -52,15 +52,13 @@ const navLinks = [
 const NavBar: FC = () => {
   return (
     <div
-      className="sticky top-0 z-30 flex h-16 w-full justify-center bg-base-300 bg-opacity-75 text-base-content shadow
-    backdrop-blur transition-all duration-100"
+      className="sticky top-0 z-30 flex h-16 w-full justify-center bg-base-300/60 text-base-content shadow backdrop-blur transition-all duration-100"
     >
       <ScrollIndicator className="top-15 fixed bottom-0 left-0 right-0 h-1 origin-[0%]" />
       <nav aria-label="primary" className="navbar">
-        {/* <a href='#skip' className='skip-nav'>Skip to content</a> */}
         <div className="navbar-start">
           <div className="dropdown">
-            <label tabIndex={0} className="btn-ghost btn-circle btn lg:hidden">
+            <label tabIndex={0} className="btn btn-ghost btn-circle btn lg:hidden">
               <FiMenu
                 className="h-5 w-5 fill-none stroke-current"
                 strokeWidth="2"
@@ -70,7 +68,7 @@ const NavBar: FC = () => {
               tabIndex={0}
               className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-200 p-2 shadow"
             >
-              <LayoutGroup id="navlinks-start">
+              <LayoutGroup id="navlinks">
                 {navLinks.map((link) => (
                   <NavLink key={link.href} position="start" {...link} />
                 ))}

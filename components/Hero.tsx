@@ -15,25 +15,18 @@ const Hero: FC<HeroProps> = ({ title, summary, children }) => {
         <Image
           src={bg}
           sizes='100vw'
-          // width={3000}
-          // height={2000}
-          // fill
           priority
           placeholder='blur'
           alt='rocket ship launching during daytime'
           className='w-full h-full object-cover [object-position:25%_25%]'
         />
       </figure>
-      <div className='bg-primary bg-opacity-[0.25] hero-overlay mix-blend-color' />
+      <div className='bg-primary/10 hero-overlay mix-blend-screen' />
 
       <div
-        // className='bg-neutral bg-opacity-40 backdrop-blur hero-content text-center text-neutral-content rounded-box max-w-lg flex-col p-8 shadow-2xl'
-        className='prose md:prose-lg bg-neutral text-neutral-content bg-opacity-70 backdrop-blur hero-content block text-center max-w-lg rounded-box shadow-2xl md:p-6 lg:p-8'
+        className='glass text-accent-content prose prose-xl hero-content block text-center max-w-lg rounded-box md:p-6 lg:p-8 depth'
       >
-        <h1
-          // className='text-5xl font-bold flex-1 w-full'
-          className='text-neutral-content'
-        >
+        <h1 className='text-accent-content'>
           {title}
         </h1>
         <p>{summary}</p>

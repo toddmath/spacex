@@ -1,17 +1,20 @@
-import cn from "classnames"
-import { Fragment } from "react"
+import cn from "classnames";
+import { Fragment } from "react";
 
 type TiltCardProps = React.PropsWithChildren<{
-  title?: string
-  description?: string
-  imgSrc: string
-  trackerClassName?: string
-  className?: string
-  trackerRows?: number
-  trackerColumns?: number
-}>
+  title?: string;
+  description?: string;
+  imgSrc: string;
+  trackerClassName?: string;
+  className?: string;
+  trackerRows?: number;
+  trackerColumns?: number;
+}>;
 
-const TrackerCells: React.FC<{ rows: number; cols: number }> = ({ rows, cols }) => {
+const TrackerCells: React.FC<{ rows: number; cols: number }> = ({
+  rows,
+  cols,
+}) => {
   return (
     <Fragment>
       {Array.from({ length: rows }, (_, i) => (
@@ -28,8 +31,8 @@ const TrackerCells: React.FC<{ rows: number; cols: number }> = ({ rows, cols }) 
         </Fragment>
       ))}
     </Fragment>
-  )
-}
+  );
+};
 
 const TiltCard: React.FC<TiltCardProps> = ({
   title,
@@ -45,9 +48,9 @@ const TiltCard: React.FC<TiltCardProps> = ({
     <section
       className={cn(
         trackerClassName,
-        "grid relative duration-300 transition",
-        "prose-invert prose w-full p-0 mx-auto",
-        "max-w-lg group"
+        "relative grid transition duration-300",
+        "prose-invert prose mx-auto w-full p-0",
+        "group max-w-lg"
       )}
       style={{
         gridTemplateColumns: `repeat(${trackerColumns}, 1fr)`,
@@ -70,15 +73,15 @@ const TiltCard: React.FC<TiltCardProps> = ({
         }}
       >
         {title && (
-          <header className='p-0 m-0'>
-            <h3 className='m-0 p-0 text-3xl'>{title}</h3>
+          <header className="m-0 p-0">
+            <h3 className="m-0 p-0 text-3xl">{title}</h3>
           </header>
         )}
-        {description && <p className='m-0 p-0'>{description}</p>}
+        {description && <p className="m-0 p-0">{description}</p>}
         {children}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default TiltCard
+export default TiltCard;
