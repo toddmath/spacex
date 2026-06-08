@@ -37,9 +37,6 @@ const cspHeader = `
 const nextConfig = {
   reactStrictMode: true,
   turbopack: {},
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     qualities: [50, 75, 100],
     formats: ["image/webp"],
@@ -208,4 +205,4 @@ const nextConfig = {
 //   },
 // ];
 
-module.exports = nextConfig;
+export default nextConfig;

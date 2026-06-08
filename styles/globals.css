@@ -1,22 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-::selection {
-  /* @apply bg-emerald-400/75 text-gray-900 dark:text-gray-50 dark:bg-emerald-600/60; */
+/* ::selection {
   @apply bg-accent/75 text-accent-content;
 }
 
 html {
   @apply scroll-smooth;
-  /* @apply scroll-smooth min-w-[360px]; */
-}
+} */
 
-body {
+/* body {
   @apply h-full min-h-screen w-full bg-base-100 text-base-content antialiased transition-colors;
-}
+} */
 
-@layer components {
+/* @layer components {
   .card.image-full:where(figure) {
     @apply rounded-none;
   }
@@ -35,21 +31,10 @@ body {
 
   .subtitle {
     @apply relative block break-normal text-2xl font-medium transition focus:outline-none md:break-words lg:text-3xl;
-    /* @apply text-gray-700 dark:text-gray-300; */
     @apply after:absolute after:-bottom-1 after:left-0 after:block after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transform after:transition-transform after:duration-300;
     @apply group-hover:text-gray-900 group-hover:after:scale-x-100 group-hover:after:bg-current dark:group-hover:text-gray-100;
     @apply group-focus-within:text-gray-900 group-focus-within:after:scale-x-100 group-focus-within:after:bg-current dark:group-focus-within:text-gray-100;
   }
-
-  /* .timeline > li:first-child .timeline-point-inner {
-    @apply mt-0;
-  }
-  .timeline > li:last-child .timeline-point-inner {
-    @apply mt-0;
-  }
-  .timeline-point-inner {
-    @apply mt-3;
-  } */
 
   .launches-grid {
     --min: 35ch;
@@ -58,10 +43,6 @@ body {
     gap: var(--gap);
     grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
   }
-
-  /* .payload-card > *:only-child {
-    @apply my-0;
-  } */
 
   .payload-card > :is(:where([data-testid="flowbite-card"]):only-child) {
     @apply my-0;
@@ -86,7 +67,6 @@ body {
   background-size: auto 100%;
 }
 
-/* vertical motion */
 .mouse-tracker.r1:hover ~ .tilt-content {
   --rotX: var(--deg);
 }
@@ -106,7 +86,6 @@ body {
   --rotX: calc(var(--deg) * -1);
 }
 
-/* horizontal motion */
 .mouse-tracker.c1:hover ~ .tilt-content {
   --rotY: calc(var(--deg) * -1);
 }
@@ -126,7 +105,6 @@ body {
   --rotY: var(--deg);
 }
 
-/* underline transition effect */
 .underlined {
   @apply relative block whitespace-nowrap text-lg font-medium no-underline transition focus:outline-none;
   @apply after:absolute after:-bottom-1 after:left-0 after:block after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transform after:transition-transform after:duration-300;
@@ -152,7 +130,6 @@ body {
 .smol-card-component {
   --img-ratio: 3/2;
   @apply rounded-box flex flex-col justify-between gap-4;
-  /* @apply bg-gray-900 bg-opacity-10 bg-blend-screen; */
 }
 
 .smol-card-component img {
@@ -160,7 +137,6 @@ body {
   @apply rounded-box w-full object-cover;
 }
 
-/* aspect-ratio grid */
 .smol-flexbox-grid {
   --min: 15ch;
   @apply flex flex-wrap gap-4;
@@ -193,11 +169,6 @@ body {
 
 #__next {
   @apply relative min-h-full w-full;
-  /* @apply w-full h-full min-h-screen; */
-  /* @apply transition-colors w-full h-full min-h-screen flex flex-col bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-50; */
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* min-height: 100vh; */
 }
 
 .skip-nav {
@@ -206,14 +177,13 @@ body {
 
 #skip {
   @apply scroll-mt-5;
-  /* scroll-margin-top: 1.125rem; */
 }
 
 @supports not (backdrop-filter: none) {
   .sticky-nav {
     @apply bg-opacity-100 backdrop-filter-none;
   }
-}
+} */
 
 /* html,
 body {
