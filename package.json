@@ -9,7 +9,7 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@googlemaps/react-wrapper": "^1.2.0",
@@ -68,7 +68,7 @@
     "@types/youtube-player": "^5.5.11",
     "autoprefixer": "^10.5.0",
     "concurrently": "^8.2.2",
-    "eslint": "^8.57.1",
+    "eslint": "^9",
     "eslint-config-next": "^15.5.19",
     "postcss": "^8.5.15",
     "prettier": "^3.8.3",

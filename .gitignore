@@ -38,3 +38,5 @@ next-env.d.ts
 .vscode
 .nvimlog
 Caddyfile
+# next-agents-md
+.next-docs/
