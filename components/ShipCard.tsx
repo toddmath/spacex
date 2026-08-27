@@ -2,8 +2,8 @@ import type { FC } from "react";
 import type { ImageProps } from "next/image";
 import { FiExternalLink } from "react-icons/fi";
 
-import type { Ship } from "types/ships";
-import Card from "./Card";
+import type { Ship } from "types/ships.ts";
+import Card from "components/Card";
 import { is } from "lib/utils";
 
 type ShipCardProps = {
@@ -50,8 +50,8 @@ const ShipCard: FC<ShipCardProps> = ({
           ? "True"
           : "False"
         : is.array(v)
-        ? v.join(", ")
-        : v?.toString() ?? "";
+          ? v.join(", ")
+          : (v?.toString() ?? "");
       return [k.replaceAll("_", " "), value.replaceAll("-", " ")] as const;
     });
 
@@ -62,7 +62,7 @@ const ShipCard: FC<ShipCardProps> = ({
       image={ship.image ?? undefined}
       wrapperClassName={wrapperClassName}
       imageProps={imageProps}
-      className="@xs/wrapper:[aspect-ratio:3/4] @sm/wrapper:[aspect-ratio:2/3] @md/wrapper:[aspect-ratio:1/1] @lg/wrapper:[aspect-ratio:3/2]"
+      className="@xs/wrapper:aspect-3/4 @sm/wrapper:aspect-2/3 @md/wrapper:aspect-square @lg/wrapper:aspect-3/2"
       imageClassName="object-center"
     >
       <ul className="my-4 flex flex-wrap justify-center gap-x-2 gap-y-3">
@@ -93,16 +93,3 @@ const ShipCard: FC<ShipCardProps> = ({
 };
 
 export default ShipCard;
-
-/*
-<Stats
-  data={specs.map(
-    ([k, v]) =>
-      ({
-        title: k,
-        value: v,
-      } as Stat)
-  )}
-  className='w-min stats-vertical mx-auto'
-/>
-*/

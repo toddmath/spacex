@@ -17,7 +17,10 @@ import DataViewer from "components/DataViewer";
 
 export const getStaticProps: GetStaticProps<RoadsterProps> = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(roadsterKey, getRoadster);
+  await queryClient.prefetchQuery({
+    queryKey: roadsterKey,
+    queryFn: getRoadster,
+  });
   return {
     props: {
       dehydrated: dehydrate(queryClient),
@@ -30,9 +33,10 @@ type RoadsterProps = { dehydrated: DehydratedState };
 // TODO: finish refactoring this page
 
 const Roadster: NextPage = () => {
-  const { data, isLoading, isSuccess } = useQuery(roadsterKey, getRoadster, {
+  const { data, isLoading, isSuccess } = useQuery({
+    queryKey: roadsterKey,
+    queryFn: getRoadster,
     notifyOnChangeProps: ["isLoading", "isSuccess", "data"],
-    // suspense: true,
   });
 
   if (isSuccess) {

@@ -42,7 +42,7 @@ const CrewPage: NextPage<CrewProps> = () => {
                 image={member.image}
                 wrapperClassName="w-full h-full rounded-box @container/wrapper"
                 imageClassName="object-[50%_25%]"
-                className="[aspect-ratio:3/4] @xs/wrapper:[aspect-ratio:3/4] @sm/wrapper:[aspect-ratio:3/4] @md/wrapper:[aspect-ratio:1/1] @lg/wrapper:[aspect-ratio:3/2]"
+                className="aspect-3/4 @xs/wrapper:aspect-3/4 @sm/wrapper:aspect-3/4 @md/wrapper:aspect-square @lg/wrapper:aspect-3/2"
               >
                 <div className="stats mx-auto mt-auto w-fit bg-primary text-primary-content shadow">
                   <div className="stat">
@@ -80,7 +80,7 @@ const CrewPage: NextPage<CrewProps> = () => {
 {data.map(member => (
   <li
     key={member.id}
-    className='card image-full shadow-xl w-full h-full [aspect-ratio:1/1] rounded-box'
+    className='card image-full shadow-xl w-full h-full aspect-square rounded-box'
   >
     <figure>
       <Image

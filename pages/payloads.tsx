@@ -1,58 +1,62 @@
-import type { NextPage, GetStaticProps } from "next"
-import type { DehydratedState } from "@tanstack/react-query"
-import { dehydrate, QueryClient } from "@tanstack/react-query"
-import { AnimatePresence, LayoutGroup } from "framer-motion"
+import type { NextPage, GetStaticProps } from "next";
+import type { DehydratedState } from "@tanstack/react-query";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { LayoutGroup } from "framer-motion";
 
-import type { Payload as IPayload } from "types/payloads"
-import Layout from "components/Layout"
-import PayloadCard from "components/PayloadCard"
-import Loader from "components/LoadingSpinner"
-import { getSlimPayloads, payloadKeys, useSlimPayloadsQuery } from "lib/payloads"
+import type { Payload as IPayload } from "types/payloads";
+import Layout from "components/Layout";
+import PayloadCard from "components/PayloadCard";
+import Loader from "components/LoadingSpinner";
+import {
+  getSlimPayloads,
+  payloadKeys,
+  useSlimPayloadsQuery,
+} from "lib/payloads";
 
 export const getStaticProps: GetStaticProps<PayloadsProps> = async () => {
-  const queryClient = new QueryClient()
-  await queryClient.prefetchQuery(payloadKeys.slim, getSlimPayloads)
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(payloadKeys.slim, getSlimPayloads);
 
   return {
     props: { dehydratedState: dehydrate(queryClient) },
     revalidate: 60 * 30,
-  }
-}
+  };
+};
 
-type PayloadsProps = { dehydratedState: DehydratedState }
+type PayloadsProps = { dehydratedState: DehydratedState };
 
-export type SlimPayload = Omit<IPayload, "norad_ids" | "launch" | "dragon">
+export type SlimPayload = Omit<IPayload, "norad_ids" | "launch" | "dragon">;
 
 const Payloads: NextPage = () => {
-  const { data, isLoading, isSuccess } = useSlimPayloadsQuery()
+  const { data, isLoading, isSuccess } = useSlimPayloadsQuery();
 
   if (isSuccess) {
     return (
-      <Layout title='Payloads' description='Every SpaceX payload.'>
+      <Layout title="Payloads" description="Every SpaceX payload.">
         <ol
-          role='list'
-          aria-label='payloads'
-          className='grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-min grid-flow-dense container mx-auto lg:max-w-6xl'
+          role="list"
+          aria-label="payloads"
+          className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-min grid-flow-dense container mx-auto lg:max-w-6xl"
         >
-          <LayoutGroup id='payloads'>
-            {data.map(payload => (
+          <LayoutGroup id="payloads">
+            {data.map((payload) => (
               <PayloadCard payload={payload} key={payload.id} />
             ))}
           </LayoutGroup>
         </ol>
       </Layout>
-    )
+    );
   }
 
   if (isLoading) {
     return (
-      <Layout title='Payloads' description='Every SpaceX payload.'>
+      <Layout title="Payloads" description="Every SpaceX payload.">
         <Loader />
       </Layout>
-    )
+    );
   }
 
-  return null
-}
+  return null;
+};
 
-export default Payloads
+export default Payloads;

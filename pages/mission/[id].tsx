@@ -43,7 +43,7 @@ const Mission: NextPage<MissionProps> = props => {
     return (
       <Layout title={data.mission_name} description={data.description}>
         <div className='container mx-auto prose dark:prose-invert space-y-8'>
-          <p className='text-ellipsis break-words'>{data.description}</p>
+          <p className='text-ellipsis wrap-break-word'>{data.description}</p>
 
           <div className='btn-group'>
             {data.twitter && (

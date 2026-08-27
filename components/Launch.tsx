@@ -1,12 +1,12 @@
-import type { FC } from "react"
-import Image from "next/image"
-import { Carousel } from "flowbite-react"
-import cn from "classnames"
+import type { FC } from "react";
+import Image from "next/image";
+import { Carousel } from "flowbite-react";
+import cn from "classnames";
 import dynamic from "next/dynamic";
 
 import type { Launch as ILaunch } from "types/launches";
 import TimeBadge from "components/TimeBadge";
-import { formatDate } from "lib/date";
+// import { formatDate } from "lib/date";
 // import YoutubePlayer from "components/YoutubePlayer";
 // import Video from "./Video";
 // import YouTube from "react-youtube";
@@ -52,7 +52,7 @@ const Launch: FC<LaunchProps> = ({ data }) => {
                   quality={75}
                   style={{
                     shapeOutside: `url('/_next/image?url=${encodeURI(
-                      patchSrc
+                      patchSrc,
                     )}&w=3840&q=75')`,
                     shapeImageThreshold: "0.8",
                     shapeMargin: "0.7rem",
@@ -82,17 +82,17 @@ const Launch: FC<LaunchProps> = ({ data }) => {
 
         {data.links.youtube_id ? (
           <div className="container mx-auto h-auto w-full overflow-hidden rounded-lg object-cover shadow-lg lg:max-w-5xl">
-            <YouTube
-              videoId={data.links.youtube_id}
-              autoPlay={false}
-              className="w-full object-cover [aspect-ratio:16/9]"
-              iframeClassName="w-full h-full object-cover"
-            />
+            <div className="w-full object-cover aspect-video">
+              <YouTube
+                videoid={data.links.youtube_id}
+                title={"Play launch video of " + data.name}
+              />
+            </div>
           </div>
         ) : null}
 
         {data.links.flickr.original.length ? (
-          <div className="not-prose mx-auto mt-12 w-full max-w-5xl shadow-lg [aspect-ratio:16/9]">
+          <div className="not-prose mx-auto mt-12 w-full max-w-5xl shadow-lg aspect-video">
             <Carousel slideInterval={5000} slide={false}>
               {data.links.flickr.original.map((src, i) => (
                 <Image
@@ -118,7 +118,7 @@ const Launch: FC<LaunchProps> = ({ data }) => {
   );
 };
 
-export default Launch
+export default Launch;
 
 /*
 <p
@@ -138,7 +138,7 @@ export default Launch
 //   <YoutubePlayer
 //     videoId={data.links.youtube_id}
 //     title={`${data.name} launch video`}
-//     className='[aspect-ratio:16/9] w-full object-cover'
+//     className='aspect-video w-full object-cover'
 //     iframeClassName='object-cover w-full h-full'
 //   />
 // </div>

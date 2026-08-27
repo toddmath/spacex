@@ -1,23 +1,24 @@
 import "../styles/globals.css";
 import type { QueryClientConfig } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { useState } from "react";
 import { ThemeProvider } from "next-themes";
 import {
-  Hydrate,
+  HydrationBoundary,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { DefaultSeo } from "next-seo";
+import { generateDefaultSeo } from "next-seo/pages";
 import { MotionConfig } from "framer-motion";
 
 import NavBar from "components/NavBar";
 import Footer from "components/Footer";
-import seoConfig from "next-seo.config";
-import themeConfig from "themes.config.json";
+import seoConfig from "@/next-seo.config";
+import themeConfig from "@/themes.config.json";
 
 const defaultQueryClientConfig: QueryClientConfig = {
   defaultOptions: {
@@ -31,33 +32,35 @@ type Props = { dehydratedState: QueryClient };
 
 function MyApp({ Component, pageProps }: AppProps<Props>) {
   const [queryClient] = useState(
-    () => new QueryClient(defaultQueryClientConfig)
+    () => new QueryClient(defaultQueryClientConfig),
   );
 
   return (
-    <MotionConfig>
-      <DefaultSeo {...seoConfig} />
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <ThemeProvider
-            enableSystem
-            enableColorScheme
-            themes={themeConfig.themes}
-          >
-            <NavBar />
-            <Component {...pageProps} />
-            <Footer />
-            <ReactQueryDevtools
-              closeButtonProps={{
-                className: "!btn !btn-ghost !normal-case",
-              }}
-            />
-          </ThemeProvider>
-        </Hydrate>
-      </QueryClientProvider>
-      <Analytics />
-      <SpeedInsights />
-    </MotionConfig>
+    <>
+      <Head>{generateDefaultSeo(seoConfig)}</Head>
+      <MotionConfig>
+        <QueryClientProvider client={queryClient}>
+          <HydrationBoundary state={pageProps.dehydratedState}>
+            <ThemeProvider
+              enableSystem
+              enableColorScheme
+              themes={themeConfig.themes}
+            >
+              <NavBar />
+              <Component {...pageProps} />
+              <Footer />
+              <ReactQueryDevtools
+              // closeButtonProps={{
+              //   className: "!btn !btn-ghost normal-case!",
+              // }}
+              />
+            </ThemeProvider>
+          </HydrationBoundary>
+        </QueryClientProvider>
+        <Analytics />
+        <SpeedInsights />
+      </MotionConfig>
+    </>
   );
 }
 

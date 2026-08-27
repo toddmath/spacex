@@ -6,7 +6,7 @@ import { VscLoading } from "react-icons/vsc";
 import Hero from "components/Hero";
 import FullScreenLayout from "components/FullScreenLayout";
 import { getCompanyInfo, companyInfoKey } from "lib/companyInfo";
-import { description } from "next-seo.config";
+import { description } from "@/next-seo.config";
 
 type HomeProps = { dehydrated: DehydratedState };
 

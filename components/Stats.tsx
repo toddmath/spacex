@@ -26,7 +26,7 @@ const Stats: FC<StatsProps> = forwardRef<HTMLDivElement, StatsProps>(
           .map((stat) => (
             <div key={stat.title} className="stat">
               <div className="stat-title">{stat.title}</div>
-              <div className="stat-value break-words">{stat.value}</div>
+              <div className="stat-value wrap-break-word">{stat.value}</div>
               {stat.desc ? (
                 <div className="stat-desc capitalize">{stat.desc}</div>
               ) : null}

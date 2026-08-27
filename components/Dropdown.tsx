@@ -1,14 +1,14 @@
-import cn from "classnames"
-import { Dropdown as DropD } from "flowbite-react"
-import { ReactNode } from "react"
+import type { ReactNode } from "react";
+import { Dropdown as DropD } from "flowbite-react";
+// import cn from "classnames"
 
 type DropdownProps = {
-  inline?: boolean
-  label: string
-  header?: ReactNode
-  items: NonNullable<ReactNode>[]
-  onClick?: () => void
-}
+  inline?: boolean;
+  label: string;
+  header?: ReactNode;
+  items: NonNullable<ReactNode>[];
+  onClick?: () => void;
+};
 
 const Dropdown: React.FC<DropdownProps> = ({
   inline,
@@ -20,13 +20,13 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <DropD inline label={label}>
       {header ? <DropD.Header>{header}</DropD.Header> : null}
-      {items.map(item => (
+      {items.map((item) => (
         <DropD.Item key={item.toString()} onClick={onClick}>
           {item}
         </DropD.Item>
       ))}
     </DropD>
-  )
-}
+  );
+};
 
-export default Dropdown
+export default Dropdown;

@@ -98,7 +98,7 @@ const RippleButton = forwardRef<HTMLDivElement, RippleButtonProps>(
           // variants={buttonVariants}
         >
           <motion.span
-            className="absolute w-fit scale-0 rounded-full bg-primary-content/70 [aspect-ratio:1/1]"
+            className="absolute w-fit scale-0 rounded-full bg-primary-content/70 aspect-square"
             variants={rippleVariants}
           />
           {children}

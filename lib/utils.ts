@@ -14,7 +14,7 @@ export function on<T extends Elem>(
 ): void {
   if (obj?.addEventListener) {
     obj.addEventListener(
-      ...(args as Parameters<HTMLElement["addEventListener"]>)
+      ...(args as Parameters<HTMLElement["addEventListener"]>),
     );
   }
 }
@@ -27,7 +27,7 @@ export function off<T extends Elem>(
 ): void {
   if (obj?.removeEventListener) {
     obj.removeEventListener(
-      ...(args as Parameters<HTMLElement["removeEventListener"]>)
+      ...(args as Parameters<HTMLElement["removeEventListener"]>),
     );
   }
 }
@@ -48,42 +48,26 @@ export const is = {
 } as const;
 
 export const prettierFmt = <T extends number | string | Date>(
-  value: T
+  value: T,
 ): string => {
   return value.toLocaleString("en-US");
 };
 
-// export function isOfType<T extends Record<K, unknown>, K extends keyof T>(
-//   value: any,
-//   prop: K
-// ): value is T {
-//   if (value && typeof value === "object" && "hasOwnProperty" in value) {
-//     return (value as T).hasOwnProperty(prop) && value[prop] != null
-//   }
-//   return false
-//   // return (
-//   //   value &&
-//   //   "hasOwnProperty" in value &&
-//   //   value.hasOwnProperty(prop) &&
-//   //   (value as T)[prop] != null
-//   // )
-// }
-
-export function isOfType<T extends Record<K, unknown>, K extends keyof T>(
-  varToBeChecked: unknown,
-  propertyToCheckFor: K
-): varToBeChecked is T {
-  return (varToBeChecked as T)[propertyToCheckFor] !== undefined;
+export function isOfType<T extends Record<K, any>, K extends keyof T>(
+  value: any,
+  key: K,
+): value is T {
+  return (value as T)[key] != null;
 }
 
 export function isRefObject<T extends React.RefObject<any>>(
-  value: ModifiedAcceptedElements
+  value: ModifiedAcceptedElements,
 ): value is T {
-  return typeof value !== "string" && "current" in value;
+  return !is.string(value) && !is.array(value) && "current" in value;
 }
 
 export const convertRefsToElement = (
-  sequence: SequenceDefination
+  sequence: SequenceDefination,
 ): TimelineDefinition => {
   const newArray = [...sequence];
   for (const array of newArray) {

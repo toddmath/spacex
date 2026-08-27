@@ -142,8 +142,8 @@ const Launches: FC<LaunchesProps> = ({
         aria-label='Launches'
         className={cn(
           "overflow-hidden",
-          "group w-full flex-grow overflow-x-hidden overflow-y-auto list-none",
-          "grid [grid-template-columns:repeat(auto-fit,minmax(35ch,1fr))] gap-6 auto-rows-max"
+          "group w-full grow overflow-x-hidden overflow-y-auto list-none",
+          "grid grid-cols-[repeat(auto-fit,minmax(35ch,1fr))] gap-6 auto-rows-max"
         )}
       >
         <LayoutGroup id='launches'>

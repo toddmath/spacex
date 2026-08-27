@@ -20,7 +20,7 @@ export const getStaticProps: GetStaticProps<CapsulesProps> = async () => {
   }
 }
 
-/* [grid-template-columns:repeat(auto-fit,minmax(min(100%,40ch),1fr))] */
+/* grid-cols-[repeat(auto-fit,minmax(min(100%,40ch),1fr))] */
 
 const MotionCard = motion(Card);
 
@@ -40,7 +40,7 @@ const Capsules: NextPage<CapsulesProps> = () => {
           <motion.ol
             role="list"
             layout
-            className="container mx-auto my-0 grid w-full list-none grid-cols-[repeat(auto-fit,minmax(min(100%,theme(spacing.80)),1fr))] gap-8 p-0 lg:max-w-6xl"
+            className="container mx-auto my-0 grid w-full list-none grid-cols-[repeat(auto-fit,minmax(min(100%,--spacing(80)),1fr))] gap-8 p-0 lg:max-w-6xl"
           >
             <LayoutGroup id="capsules">
               {data.map((cap) => (

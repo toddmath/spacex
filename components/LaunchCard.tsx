@@ -49,8 +49,8 @@ const LaunchCard: FC<LaunchCardProps> = ({
             "text-error": !success && !futureLaunch,
             "text-success": success,
             "text-primary": futureLaunch,
-            "flex-grow": !details,
-            "flex-grow-0": details,
+            "grow": !details,
+            "grow-0": details,
           }
         )}
       >
@@ -104,7 +104,7 @@ return (
     key={id}
     aria-label={name}
     className={cn(
-      "card card-bordered flex-shrink flex-grow basis-[35ch] shadow-xl w-full",
+      "card card-bordered shrink grow basis-[35ch] shadow-xl w-full",
       {
         "image-full bg-base-100 overflow-hidden before:rounded-none grid-cols-1 grid-rows-1":
           patchSrc,
@@ -161,8 +161,8 @@ return (
             "text-error": !success && !futureLaunch,
             "text-success": success && !futureLaunch,
             "text-neutral-content": futureLaunch,
-            "flex-grow": !details,
-            "flex-grow-0": details,
+            "grow": !details,
+            "grow-0": details,
           }
         )}
       >

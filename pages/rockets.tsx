@@ -89,7 +89,7 @@ const Rockets: NextPage<RocketProps> = () => {
       }}
       className='isolate bg-primary text-primary-content card image-full shadow-xl w-fit h-full bg-opacity-30'
     >
-      <figure className='[transform:translateZ(0px)]'>
+      <figure className='transform-[translateZ(0px)]'>
         <Image
           src={rocket.flickr_images[1]}
           alt=''
@@ -97,10 +97,10 @@ const Rockets: NextPage<RocketProps> = () => {
           height={1200}
           priority
           quality={50}
-          className='[transform:translateZ(0px)] w-full h-auto object-cover'
+          className='transform-[translateZ(0px)] w-full h-auto object-cover'
         />
       </figure>
-      <div className='card-body [transform:translateZ(theme(spacing.20))] bg-primary text-primary-content bg-opacity-30 rounded-box'>
+      <div className='card-body transform-[translateZ(--spacing(20))] bg-primary text-primary-content bg-opacity-30 rounded-box'>
         <header className='card-title flex-1 basis-6'>
           <h3 className='text-2xl'>{rocket.name}</h3>
         </header>

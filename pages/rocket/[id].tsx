@@ -129,7 +129,7 @@ const Rocket: NextPage<RocketProps> = props => {
             className='flex items-center justify-between py-3 pl-3 pr-4 text-sm'
           >
             <div className='flex w-0 flex-1 items-center'>Composite Fairing</div>
-            <div className='ml-4 flex-shrink-0'>
+            <div className='ml-4 shrink-0'>
               {data.second_stage.payloads.composite_fairing.diameter.feet} ft or{" "}
               {data.second_stage.payloads.composite_fairing.diameter.meters} m
             </div>
@@ -139,7 +139,7 @@ const Rocket: NextPage<RocketProps> = props => {
             className='flex items-center justify-between py-3 pl-3 pr-4 text-sm'
           >
             <div className='flex w-0 flex-1 items-center'>Option 1</div>
-            <div className='ml-4 flex-shrink-0'>
+            <div className='ml-4 shrink-0'>
               {data.second_stage.payloads.option_1}
             </div>
           </li>

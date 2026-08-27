@@ -22,7 +22,7 @@ const FourZeroFour: NextPage = () => {
 
       <div className='absolute inset-0 w-full h-full flex items-center justify-center'>
         <div className='relative self-center text-center p-6 md:p-8 mx-auto bg-base-300/75 text-base-content rounded-box'>
-          <h1 className='relative text-9xl tracking-tighter [text-shadow:-8px_0_0_theme(colors.indigo.600)] text-shadow font-sans font-bold'>
+          <h1 className='relative text-9xl tracking-tighter [text-shadow:-8px_0_0_var(--color-indigo-600)] text-shadow font-sans font-bold'>
             <span>4</span>
             <span>0</span>
             <span>4</span>

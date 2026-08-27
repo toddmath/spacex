@@ -26,10 +26,10 @@
   },
   "editor.semanticHighlighting.enabled": false,
   "[typescriptreact]": {
-    "editor.semanticHighlighting.enabled": false
+    "editor.semanticHighlighting.enabled": true
   },
   "[typescript]": {
-    "editor.semanticHighlighting.enabled": false
+    "editor.semanticHighlighting.enabled": true
   },
   "astro.typescript.enabled": false,
   "astro.css.enabled": false,

@@ -1,5 +1,5 @@
-import type { OpenGraphMedia } from "next-seo/lib/types";
-import { DefaultSeoProps } from "next-seo";
+import type { OpenGraphMedia } from "next-seo/pages";
+import { DefaultSeoProps } from "next-seo/pages";
 
 export const name = "SpaceX" as const;
 

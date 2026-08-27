@@ -1,5 +1,6 @@
 import { type FC } from "react";
-import YouTube, { type YouTubeProps } from "react-youtube";
+import { YouTubeEmbed } from "@next/third-parties/google";
+// import YouTube, { type YouTubeProps } from "react-youtube";
 // import { YoutubeLite } from "@lite-embed/react";
 // import { YouTube } from "react-youtube-lazyload";
 // import "react-youtube-lazyload/dist/index.css";
@@ -7,33 +8,37 @@ import YouTube, { type YouTubeProps } from "react-youtube";
 // import Youtube from "react-youtube-liteframe";
 // import "react-youtube-liteframe/dist/index.css";
 
-// type Props = {
-//   videoId: string;
-//   autoPlay?: boolean;
-//   className?: string;
-//   iframeClassName?: string;
-// };
+type Props = {
+  videoid: string;
+  autoPlay?: boolean;
+  className?: string;
+  iframeClassName?: string;
+  title?: string;
+};
 
-type Props = Pick<
-  YouTubeProps,
-  "videoId" | "className" | "iframeClassName" | "opts"
-> & { title?: string };
+// type Props = Pick<
+//   YouTubeProps,
+//   "videoId" | "className" | "iframeClassName" | "opts"
+// > & { title?: string };
 
 const Video: FC<Props> = ({
-  videoId,
+  videoid,
+  autoPlay = false,
+  className = "",
+  iframeClassName = "",
   title = "",
-  className,
-  iframeClassName,
-  opts = {},
 }) => {
   return (
-    <YouTube
-      videoId={videoId}
-      title={title}
-      loading="lazy"
-      opts={opts}
-      className={className}
-      iframeClassName={iframeClassName}
+    <YouTubeEmbed
+      videoid={videoid}
+      height={720}
+      width={1280}
+      playlabel={title}
+      // playlabel=""
+      // loading="lazy"
+      // opts={opts}
+      // className={className}
+      // iframeClassName={iframeClassName}
     />
   );
 };

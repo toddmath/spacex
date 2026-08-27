@@ -59,7 +59,7 @@ const Payload: FC<PayloadProps> = memo(({ payload }) => {
             className="flex items-center justify-between gap-2 border-b border-neutral pt-2 leading-tight"
           >
             <strong className="text-sm capitalize">{k}:</strong>
-            <span className="flex-grow break-words text-primary-content">
+            <span className="grow wrap-break-word text-primary-content">
               {v}
             </span>
           </li>
@@ -98,7 +98,7 @@ Payload.displayName = "PayloadCard";
           className='flex gap-2 justify-between border-neutral border-b pt-2 items-center'
         >
           <strong className='capitalize text-sm leading-tight'>{k}:</strong>
-          <span className='flex-grow break-words leading-tight text-primary-content'>
+          <span className='grow wrap-break-word leading-tight text-primary-content'>
             {v}
           </span>
         </li>

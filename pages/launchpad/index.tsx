@@ -72,19 +72,19 @@ const LaunchPads: NextPage<LaunchPadProps> = () => {
                 // aria-label={pad.full_name}
               >
                 <div className="flex flex-wrap gap-2">
-                  <p className="badge-primary badge w-fit flex-shrink flex-grow-0">
+                  <p className="badge-primary badge w-fit shrink grow-0">
                     {pad.locality}
                   </p>
-                  <p className="badge-primary badge w-fit flex-shrink flex-grow-0">
+                  <p className="badge-primary badge w-fit shrink grow-0">
                     {pad.region}
                   </p>
-                  <p className="badge-primary badge w-fit flex-shrink flex-grow-0">
+                  <p className="badge-primary badge w-fit shrink grow-0">
                     Status:&nbsp;{pad.status}
                   </p>
-                  {/* <p className='badge badge-secondary flex-shrink flex-grow-0 w-fit'>
+                  {/* <p className='badge badge-secondary shrink grow-0 w-fit'>
                       Attempts:&nbsp;{pad.launch_attempts}
                     </p>
-                    <p className='badge badge-secondary flex-shrink flex-grow-0 w-fit'>
+                    <p className='badge badge-secondary shrink grow-0 w-fit'>
                       Success&apos;s:&nbsp;{pad.launch_successes}
                     </p> */}
                 </div>
@@ -144,7 +144,7 @@ const LaunchPads: NextPage<LaunchPadProps> = () => {
 {data.map(pad => (
   <li
     key={pad.id}
-    className='flex-grow flex-shrink basis-[35ch] card bg-base-200 btext-base-content image-full shadow-xl relative'
+    className='grow shrink basis-[35ch] card bg-base-200 btext-base-content image-full shadow-xl relative'
   >
     <figure className='relative'>
       <Image

@@ -1,23 +1,23 @@
-import type { FC, PropsWithChildren } from "react"
-import type { OpenGraphMedia } from "next-seo/lib/types"
-import { useRouter } from "next/router"
-import cn from "classnames"
-import { NextSeo } from "next-seo"
+import type { FC, PropsWithChildren } from "react";
+import { useRouter } from "next/router";
+import cn from "classnames";
+import { generateNextSeo, type OpenGraphMedia } from "next-seo/pages";
 
-import Header from "components/Header"
-import { defaultOgImages } from "next-seo.config"
+import Header from "components/Header";
+import { defaultOgImages } from "@/next-seo.config";
+import Head from "next/head";
 
 type LayoutProps = PropsWithChildren<{
-  date?: string
-  title?: string
-  description?: string
-  image?: string
-  ogImages?: OpenGraphMedia[]
-  type?: string
-  className?: string
-  containerClassName?: string
-  headerTag?: "h1" | "h2" | null
-}>
+  date?: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  ogImages?: OpenGraphMedia[];
+  type?: string;
+  className?: string;
+  containerClassName?: string;
+  headerTag?: "h1" | "h2" | null;
+}>;
 
 const Layout: FC<LayoutProps> = ({
   headerTag = "h1",
@@ -28,17 +28,17 @@ const Layout: FC<LayoutProps> = ({
   children,
   ...props
 }) => {
-  const router = useRouter()
-  const url = `https://spacex-one.vercel.app${router.asPath}`
+  const router = useRouter();
+  const url = `https://spacex-one.vercel.app${router.asPath}`;
 
   const description =
     props.description ??
-    "Information on everything related with SpaceX: launches, rockets, missions, capsules, payloads, Elon Musk's tesla roadster, company info, and more."
+    "Information on everything related with SpaceX: launches, rockets, missions, capsules, payloads, Elon Musk's tesla roadster, company info, and more.";
 
   const imageType =
     props.image?.substring(props.image.lastIndexOf(".") + 1) === "jpg"
       ? "image/jpeg"
-      : undefined
+      : undefined;
 
   const images: OpenGraphMedia[] = props.image
     ? [
@@ -50,39 +50,42 @@ const Layout: FC<LayoutProps> = ({
         },
         ...(ogImages ?? []),
       ]
-    : ogImages ?? defaultOgImages
+    : (ogImages ?? defaultOgImages);
 
   return (
-    <div
-      className={cn(
-        containerClassName,
-        "transition-colors w-full bg-base-100 text-base-content relative space-y-14"
-      )}
-    >
-      <NextSeo
-        title={title === "SpaceX" ? undefined : title}
-        description={description}
-        canonical={url}
-        openGraph={{
+    <>
+      <Head>
+        {generateNextSeo({
           title: title === "SpaceX" ? undefined : title,
-          url,
           description,
-          images,
-        }}
-      />
-      {/* <Seo {...meta} /> */}
-      {headerTag ? <Header title={title} tag={headerTag} /> : null}
-      <main
-        id='skip'
+          canonical: url,
+          openGraph: {
+            title: title === "SpaceX" ? undefined : title,
+            url,
+            description,
+            images,
+          },
+        })}
+      </Head>
+      <div
         className={cn(
-          className,
-          "flex gap-y-14 flex-col justify-start items-start px-8 h-full min-h-[70vh] bg-inherit text-inherit"
+          containerClassName,
+          "transition-colors w-full bg-base-100 text-base-content relative space-y-14",
         )}
       >
-        {children}
-      </main>
-    </div>
-  )
-}
+        {headerTag ? <Header title={title} tag={headerTag} /> : null}
+        <main
+          id="skip"
+          className={cn(
+            className,
+            "flex gap-y-14 flex-col justify-start items-start px-8 h-full min-h-[70vh] bg-inherit text-inherit",
+          )}
+        >
+          {children}
+        </main>
+      </div>
+    </>
+  );
+};
 
-export default Layout
+export default Layout;

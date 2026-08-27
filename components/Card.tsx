@@ -52,7 +52,7 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
     imageClassName,
     ...props
   },
-  fwRef
+  fwRef,
 ) {
   const { priority, loading, ...imgProps } = imageProps;
   const sectionRef = useRef(null);
@@ -99,13 +99,13 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
               className,
               "group/card card rounded-box isolate h-full w-full flex-1 overflow-hidden shadow-xl @container/card",
               {
-                [`[contain:${containProps?.contain}] [contain-intrinsic-size:auto_theme(spacing.96)]`]:
+                [`[contain:${containProps?.contain}] [contain-intrinsic-size:auto_--spacing(96)]`]:
                   containProps?.contain,
-                [`[content-visibility:${containProps?.contentVisibility}] [contain-intrinsic-size:auto_theme(spacing.96)]`]:
+                [`[content-visibility:${containProps?.contentVisibility}] [contain-intrinsic-size:auto_--spacing(96)]`]:
                   containProps?.contentVisibility,
                 "image-full bg-base-100": image,
                 "bg-neutral text-neutral-content": !image,
-              }
+              },
             )}
           >
             {image ? (
@@ -115,7 +115,7 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
                   alt={is.string(title) ? title : ""}
                   className={cn(
                     imageClassName,
-                    "w-full rounded-none object-cover"
+                    "w-full rounded-none object-cover",
                   )}
                   priority={priority}
                   loading={priority ? "eager" : "lazy"}

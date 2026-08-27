@@ -3,9 +3,9 @@ import { ThemeModeScript } from "flowbite-react";
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="en" suppressHydrationWarning>
       <Head>
-        <ThemeModeScript />
+        <ThemeModeScript suppressHydrationWarning />
       </Head>
       <body>
         <Main />
