@@ -73,7 +73,7 @@ const Layout: FC<LayoutProps> = ({
           "transition-colors w-full bg-base-100 text-base-content relative space-y-14",
         )}
       >
-        {headerTag ? <Header title={title} tag={headerTag} /> : null}
+        {headerTag && <Header title={title} tag={headerTag} />}
         <main
           id="skip"
           className={cn(

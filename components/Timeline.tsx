@@ -1,59 +1,59 @@
-import cn from "classnames"
-import Link from "next/link"
-import type { ComponentProps, PropsWithChildren, PropsWithoutRef, FC } from "react"
+import cn from "classnames";
+import Link from "next/link";
+import type {
+  ComponentProps,
+  PropsWithChildren,
+  PropsWithoutRef,
+  FC,
+} from "react";
 
 type TimelineProps = PropsWithChildren<
   PropsWithoutRef<ComponentProps<"ol">> & { className?: string }
->
+>;
 
 const TimelineComp: FC<TimelineProps> = ({ children, className, ...props }) => {
   return (
     <ol
-      className={cn(
-        "timeline relative mx-auto transition",
-        className
-        // "relative border-l border-gray-200 dark:border-gray-700",
-      )}
+      className={cn("timeline relative mx-auto transition", className)}
       {...props}
     >
       {children}
     </ol>
-  )
-}
+  );
+};
 
 type TimelineItemProps = PropsWithChildren<
   PropsWithoutRef<ComponentProps<"li">> & { className?: string }
->
+>;
 
-const TimelineItem: FC<TimelineItemProps> = ({ children, className, ...props }) => {
+const TimelineItem: FC<TimelineItemProps> = ({
+  children,
+  className,
+  ...props
+}) => {
   return (
     <li
       className={cn(
-        "border-l border-t-gray-200 dark:border-t-gray-700 border-l-blue-300 dark:border-l-gray-700 last:border-0",
-        "pb-10 pl-4 sm:pl-6 last:pb-0",
-        "group",
-        className
-        // "mb-10 ml-6 last:mb-0",
-        // "pb-10 pl-3 ml-3",
-        // "relative before:absolute before:block before:h-full before:w-[2px] last:before:w-0 before:-left-4 before:bg-gray-200 dark:before:bg-gray-700",
+        "border-l border-t-gray-200 dark:border-t-gray-700 border-l-blue-300 dark:border-l-gray-700 last:border-0 pb-10 pl-4 sm:pl-6 last:pb-0 group",
+        className,
       )}
       {...props}
     >
       {children}
     </li>
-  )
-}
+  );
+};
 
 type TimelinePointProps = PropsWithChildren<
   PropsWithoutRef<ComponentProps<"div">> & {
-    className?: string
-    innerClassName?: string
-    icon?: FC<ComponentProps<"svg">>
-    rounded?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full"
-    size?: "sm" | "md" | "lg" | "xl"
-    color?: "red" | "green" | "blue" | "gray"
+    className?: string;
+    innerClassName?: string;
+    icon?: FC<ComponentProps<"svg">>;
+    rounded?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full";
+    size?: "sm" | "md" | "lg" | "xl";
+    color?: "red" | "green" | "blue" | "gray";
   }
->
+>;
 
 const TimelinePoint: React.FC<TimelinePointProps> = ({
   children,
@@ -93,17 +93,17 @@ const TimelinePoint: React.FC<TimelinePointProps> = ({
               "bg-gray-200 dark:bg-gray-900 text-gray-600 dark:text-gray-300":
                 color === "gray",
             },
-            innerClassName
+            innerClassName,
           )}
         >
           <Icon
             aria-hidden
             strokeWidth={2.5}
             className={cn("text-current stroke-250", {
-              "h-3 w-3": size === "sm",
-              "h-4 w-4": size === "md",
-              "h-5 w-5": size === "lg",
-              "h-6 w-6": size === "xl",
+              "size-3": size === "sm",
+              "size-4": size === "md",
+              "size-5": size === "lg",
+              "size-6": size === "xl",
             })}
           />
         </span>
@@ -121,10 +121,10 @@ const TimelinePoint: React.FC<TimelinePointProps> = ({
               "rounded-2xl": rounded === "2xl",
               "rounded-3xl": rounded === "3xl",
               "rounded-full": rounded === "full",
-              "h-3 w-3": size === "sm",
-              "h-4 w-4": size === "md",
-              "h-5 w-5": size === "lg",
-              "h-6 w-6": size === "xl",
+              "size-3": size === "sm",
+              "size-4": size === "md",
+              "size-5": size === "lg",
+              "size-6": size === "xl",
               "bg-green-200 dark:bg-green-900 text-green-600 dark:text-green-300":
                 color === "green",
               "bg-red-200 dark:bg-red-900 text-red-600 dark:text-red-300":
@@ -134,20 +134,20 @@ const TimelinePoint: React.FC<TimelinePointProps> = ({
               "bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-white dark:border-gray-900":
                 color === "gray",
             },
-            innerClassName
+            innerClassName,
           )}
         />
       )}
     </div>
-  )
-}
+  );
+};
 
 type TimelineContentProps = PropsWithChildren<
   PropsWithoutRef<ComponentProps<"a">> & {
-    className?: string
-    href: string | URL
+    className?: string;
+    href: string | URL;
   }
->
+>;
 
 const TimelineContent: FC<TimelineContentProps> = ({
   children,
@@ -157,49 +157,51 @@ const TimelineContent: FC<TimelineContentProps> = ({
 }) => {
   return (
     <Link
-      href={href}
+      href={{ pathname: href }}
       passHref
       className={cn(
-        "w-full prose dark:prose-invert flex flex-col",
-        "bg-gray-200 dark:bg-gray-800 p-4 rounded shadow-lg",
-        "transition hover:scale-100 group-hover:scale-95 group-focus-within:scale-95",
-        className
+        "w-full prose dark:prose-invert flex flex-col bg-gray-200 dark:bg-gray-800 p-4 rounded shadow-lg transition hover:scale-100 group-hover:scale-95 group-focus-within:scale-95",
+        className,
       )}
       {...props}
     >
       {children}
     </Link>
-  )
-}
+  );
+};
 
 type TimelineTimeProps = PropsWithChildren<
   PropsWithoutRef<ComponentProps<"time">> & {
-    className?: string
+    className?: string;
   }
->
+>;
 
-const TimelineTime: FC<TimelineTimeProps> = ({ children, className, ...props }) => {
+const TimelineTime: FC<TimelineTimeProps> = ({
+  children,
+  className,
+  ...props
+}) => {
   return (
     <time
       className={cn(
         "mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-500",
-        className
+        className,
       )}
       {...props}
     >
       {children}
     </time>
-  )
-}
+  );
+};
 
-type HeadingLevel = `h${1 | 2 | 3 | 4 | 5 | 6}`
+type HeadingLevel = `h${1 | 2 | 3 | 4 | 5 | 6}`;
 
 type TimelineTitleProps = PropsWithChildren<
   PropsWithoutRef<ComponentProps<HeadingLevel>> & {
-    className?: string
-    as?: HeadingLevel
+    className?: string;
+    as?: HeadingLevel;
   }
->
+>;
 
 const TimelineTitle: FC<TimelineTitleProps> = ({
   children,
@@ -207,47 +209,51 @@ const TimelineTitle: FC<TimelineTitleProps> = ({
   as = "h3",
   ...props
 }) => {
-  const Tag = as
+  const Tag = as;
   return (
     <Tag
       className={cn(
         "text-xl font-semibold text-gray-900 dark:text-gray-100 my-0 text-center sm:text-start",
-        className
+        className,
       )}
       {...props}
     >
       {children}
     </Tag>
-  )
-}
+  );
+};
 
 type TimelineBodyProps = PropsWithChildren<
   PropsWithoutRef<ComponentProps<"p">> & {
-    className?: string
+    className?: string;
   }
->
+>;
 
-const TimelineBody: FC<TimelineBodyProps> = ({ children, className, ...props }) => {
+const TimelineBody: FC<TimelineBodyProps> = ({
+  children,
+  className,
+  ...props
+}) => {
   return (
     <p
       className={cn(
         "mb-4 text-base font-normal text-gray-500 dark:text-gray-400",
-        className
+        className,
       )}
       {...props}
     >
       {children}
     </p>
-  )
-}
+  );
+};
 
-TimelineComp.displayName = "Timeline"
-TimelineItem.displayName = "Timeline.Item"
-TimelinePoint.displayName = "Timeline.Point"
-TimelineContent.displayName = "Timeline.Content"
-TimelineTime.displayName = "Timeline.Time"
-TimelineTitle.displayName = "Timeline.Title"
-TimelineBody.displayName = "Timeline.Body"
+TimelineComp.displayName = "Timeline";
+TimelineItem.displayName = "Timeline.Item";
+TimelinePoint.displayName = "Timeline.Point";
+TimelineContent.displayName = "Timeline.Content";
+TimelineTime.displayName = "Timeline.Time";
+TimelineTitle.displayName = "Timeline.Title";
+TimelineBody.displayName = "Timeline.Body";
 
 const Timeline = Object.assign(TimelineComp, {
   Item: TimelineItem,
@@ -256,6 +262,6 @@ const Timeline = Object.assign(TimelineComp, {
   Time: TimelineTime,
   Title: TimelineTitle,
   Body: TimelineBody,
-})
+});
 
-export default Timeline
+export default Timeline;

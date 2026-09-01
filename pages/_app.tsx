@@ -1,5 +1,5 @@
-import "../styles/globals.css";
-import type { QueryClientConfig } from "@tanstack/react-query";
+import "styles/globals.css";
+import type { DehydratedState, QueryClientConfig } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Analytics } from "@vercel/analytics/react";
@@ -28,7 +28,7 @@ const defaultQueryClientConfig: QueryClientConfig = {
   },
 };
 
-type Props = { dehydratedState: QueryClient };
+type Props = { dehydratedState?: DehydratedState };
 
 function MyApp({ Component, pageProps }: AppProps<Props>) {
   const [queryClient] = useState(
@@ -49,11 +49,7 @@ function MyApp({ Component, pageProps }: AppProps<Props>) {
               <NavBar />
               <Component {...pageProps} />
               <Footer />
-              <ReactQueryDevtools
-              // closeButtonProps={{
-              //   className: "!btn !btn-ghost normal-case!",
-              // }}
-              />
+              <ReactQueryDevtools />
             </ThemeProvider>
           </HydrationBoundary>
         </QueryClientProvider>

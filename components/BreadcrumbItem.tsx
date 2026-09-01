@@ -1,9 +1,13 @@
-import type { PropsWithChildren, ComponentPropsWithoutRef } from "react"
-import Link from "next/link"
-import cn from "classnames"
+import type { PropsWithChildren, ComponentPropsWithoutRef } from "react";
+import Link, { LinkProps } from "next/link";
+import cn from "classnames";
+import { UrlObject } from "node:url";
 
-type BreadcrumbItemProps = PropsWithChildren<{ href: string; isCurrent: boolean }> &
-  ComponentPropsWithoutRef<"li">
+type BreadcrumbItemProps = PropsWithChildren<{
+  href: LinkProps<UrlObject>["href"];
+  isCurrent: boolean;
+}> &
+  ComponentPropsWithoutRef<"li">;
 
 // type BreadcrumbItemProps = PropsWithChildren<{ href: string; isCurrent: boolean }> &
 //   PropsWithoutRef<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>>
@@ -20,13 +24,12 @@ const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
         href={href}
         passHref
         className={cn({ "text-blue-500": isCurrent })}
-        aria-current={isCurrent ? "location" : "false"}>
-
+        aria-current={isCurrent ? "location" : "false"}
+      >
         {children}
-
       </Link>
     </li>
   );
-}
+};
 
-export default BreadcrumbItem
+export default BreadcrumbItem;

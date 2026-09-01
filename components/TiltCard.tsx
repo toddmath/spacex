@@ -50,7 +50,7 @@ const TiltCard: React.FC<TiltCardProps> = ({
         trackerClassName,
         "relative grid transition duration-300",
         "prose-invert prose mx-auto w-full p-0",
-        "group max-w-lg"
+        "group max-w-lg",
       )}
       style={{
         gridTemplateColumns: `repeat(${trackerColumns}, 1fr)`,
@@ -60,12 +60,11 @@ const TiltCard: React.FC<TiltCardProps> = ({
       }}
     >
       <TrackerCells rows={trackerRows} cols={trackerColumns} />
-
       <div
         className={cn(
           className,
           "tilt-content origin-center",
-          "col-span-full row-span-full grid place-content-center rounded-lg shadow-lg"
+          "col-span-full row-span-full grid place-content-center rounded-lg shadow-lg",
         )}
         style={{
           backgroundImage: `url('${imgSrc}')`,

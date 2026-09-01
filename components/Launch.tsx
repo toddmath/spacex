@@ -6,10 +6,7 @@ import dynamic from "next/dynamic";
 
 import type { Launch as ILaunch } from "types/launches";
 import TimeBadge from "components/TimeBadge";
-// import { formatDate } from "lib/date";
-// import YoutubePlayer from "components/YoutubePlayer";
-// import Video from "./Video";
-// import YouTube from "react-youtube";
+import DataViewer from "./DataViewer";
 
 const YouTube = dynamic(() => import("./Video"));
 
@@ -34,42 +31,43 @@ const Launch: FC<LaunchProps> = ({ data }) => {
           />
         </p>
 
-        {patchSrc || data.details ? (
-          <div className="m-0 block w-full p-0">
-            {patchSrc ? (
-              <>
-                <Image
-                  src={patchSrc}
-                  alt={`${data.name} patch`}
-                  width={224}
-                  height={224}
-                  sizes="screen and (min-width: 40em) 400px, (min-width: 60em) 200px"
-                  crossOrigin="anonymous"
-                  referrerPolicy="same-origin"
-                  loading="lazy"
-                  placeholder="empty"
-                  decoding="async"
-                  quality={75}
-                  style={{
-                    shapeOutside: `url('/_next/image?url=${encodeURI(
-                      patchSrc,
-                    )}&w=3840&q=75')`,
-                    shapeImageThreshold: "0.8",
-                    shapeMargin: "0.7rem",
-                  }}
-                  className={cn("mx-auto h-full max-w-sm p-0", {
-                    "mt-0 mb-4 sm:float-left sm:my-0 sm:mx-0 sm:pr-2":
-                      data.details,
-                    "my-0 block w-full": !data.details,
-                  })}
-                />
-                {data.details && <p className="m-0 block">{data.details}</p>}
-              </>
-            ) : data.details ? (
-              <p className="m-0 block">{data.details}</p>
-            ) : null}
-          </div>
-        ) : null}
+        {patchSrc ||
+          (data.details && (
+            <div className="m-0 block w-full p-0">
+              {patchSrc ? (
+                <>
+                  <Image
+                    src={patchSrc}
+                    alt={`${data.name} patch`}
+                    width={224}
+                    height={224}
+                    sizes="screen and (min-width: 40em) 400px, (min-width: 60em) 200px"
+                    crossOrigin="anonymous"
+                    referrerPolicy="same-origin"
+                    loading="lazy"
+                    placeholder="empty"
+                    decoding="async"
+                    quality={75}
+                    style={{
+                      shapeOutside: `url('/_next/image?url=${encodeURI(
+                        patchSrc,
+                      )}&w=3840&q=75')`,
+                      shapeImageThreshold: "0.8",
+                      shapeMargin: "0.7rem",
+                    }}
+                    className={cn("mx-auto h-full max-w-sm p-0", {
+                      "mt-0 mb-4 sm:float-left sm:my-0 sm:mx-0 sm:pr-2":
+                        data.details,
+                      "my-0 block w-full": !data.details,
+                    })}
+                  />
+                  <p className="m-0 block">{data.details}</p>
+                </>
+              ) : (
+                <p className="m-0 block">{data.details}</p>
+              )}
+            </div>
+          ))}
       </div>
 
       <section
@@ -80,7 +78,7 @@ const Launch: FC<LaunchProps> = ({ data }) => {
           <h2 className="border-b border-accent">Media</h2>
         </header>
 
-        {data.links.youtube_id ? (
+        {data.links.youtube_id && (
           <div className="container mx-auto h-auto w-full overflow-hidden rounded-lg object-cover shadow-lg lg:max-w-5xl">
             <div className="w-full object-cover aspect-video">
               <YouTube
@@ -89,9 +87,9 @@ const Launch: FC<LaunchProps> = ({ data }) => {
               />
             </div>
           </div>
-        ) : null}
+        )}
 
-        {data.links.flickr.original.length ? (
+        {data.links.flickr.original.length && (
           <div className="not-prose mx-auto mt-12 w-full max-w-5xl shadow-lg aspect-video">
             <Carousel slideInterval={5000} slide={false}>
               {data.links.flickr.original.map((src, i) => (
@@ -108,37 +106,12 @@ const Launch: FC<LaunchProps> = ({ data }) => {
               ))}
             </Carousel>
           </div>
-        ) : null}
+        )}
       </section>
 
-      <pre>
-        <code>{JSON.stringify(data, null, 2)}</code>
-      </pre>
+      <DataViewer data={Object.entries(data)} />
     </div>
   );
 };
 
 export default Launch;
-
-/*
-<p
-  className={cn("badge gap-1", {
-    "badge-success": success,
-    "badge-error": !success,
-  })}
->
-  Launched
-  <time dateTime={data.date_utc} className="inline-block">
-    {formatDate(data.date_utc)}
-  </time>
-</p>
-*/
-
-// <div className="container mx-auto h-auto w-full overflow-hidden rounded-lg object-cover shadow-lg lg:max-w-5xl">
-//   <YoutubePlayer
-//     videoId={data.links.youtube_id}
-//     title={`${data.name} launch video`}
-//     className='aspect-video w-full object-cover'
-//     iframeClassName='object-cover w-full h-full'
-//   />
-// </div>

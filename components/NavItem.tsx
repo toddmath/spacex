@@ -1,20 +1,19 @@
-import type { ReactNode } from "react"
-import { forwardRef } from "react"
-import Link from "next/link"
-import cn from "classnames"
+import type { ReactNode } from "react";
+import type { Route } from "next";
+
+import { forwardRef } from "react";
+import Link from "next/link";
+import cn from "classnames";
 
 type NavItemProps = {
-  href: string
-  children: ReactNode
-  className?: string
-  isCurrent: boolean
-}
+  href: Route;
+  children: ReactNode;
+  className?: string;
+  isCurrent: boolean;
+};
 
 const NavItem = forwardRef<HTMLAnchorElement, NavItemProps>(
   ({ href, children, className, isCurrent }, ref) => {
-    // const router = useRouter()
-    // const isCurrent = router.asPath === href
-    // if (router.asPath === "/" && href === "/") return null
     return (
       <Link
         href={href}
@@ -24,10 +23,10 @@ const NavItem = forwardRef<HTMLAnchorElement, NavItemProps>(
       >
         {href === "/" ? <h1>{children}</h1> : children}
       </Link>
-    )
-  }
-)
+    );
+  },
+);
 
-NavItem.displayName = "NavItem"
+NavItem.displayName = "NavItem";
 
-export default NavItem
+export default NavItem;

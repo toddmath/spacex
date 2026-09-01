@@ -1,6 +1,5 @@
 import type { FC } from "react";
 import cn from "classnames";
-// import { motion, AnimatePresence, LayoutGroup } from "framer-motion"
 
 import type { LaunchData } from "lib/launches";
 import { formatDate, isFuture } from "lib/date";
@@ -38,9 +37,6 @@ const LaunchCard: FC<LaunchCardProps> = ({
         sizes: "40vw",
         fill: true,
       }}
-      // containProps={{
-      // contentVisibility: "auto",
-      // }}
     >
       <dl
         className={cn(
@@ -49,9 +45,9 @@ const LaunchCard: FC<LaunchCardProps> = ({
             "text-error": !success && !futureLaunch,
             "text-success": success,
             "text-primary": futureLaunch,
-            "grow": !details,
+            grow: !details,
             "grow-0": details,
-          }
+          },
         )}
       >
         <div className="flex w-full gap-2">
@@ -79,7 +75,7 @@ const LaunchCard: FC<LaunchCardProps> = ({
 
       <div className="card-actions mt-2 justify-end">
         <Link
-          href={`/launch/${encodeURI(id)}`}
+          href={{ pathname: "/launch/[id]", query: { id } }}
           className={cn("btn", {
             "btn-success": success,
             "btn-error": !success && !futureLaunch,
@@ -87,7 +83,6 @@ const LaunchCard: FC<LaunchCardProps> = ({
           })}
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.8 }}
-          // style={{ x: 100 }}
         >
           Details
         </Link>
@@ -95,115 +90,5 @@ const LaunchCard: FC<LaunchCardProps> = ({
     </Card>
   );
 };
-
-// LaunchCard.displayName = "LaunchCard"
-
-/*
-return (
-  <li
-    key={id}
-    aria-label={name}
-    className={cn(
-      "card card-bordered shrink grow basis-[35ch] shadow-xl w-full",
-      {
-        "image-full bg-base-100 overflow-hidden before:rounded-none grid-cols-1 grid-rows-1":
-          patchSrc,
-        "border-primary bg-neutral text-neutral-content":
-          !patchSrc && futureLaunch,
-        "border-error": !success && !futureLaunch,
-        "border-success": success,
-      }
-    )}
-  >
-    {patchSrc ? (
-      <figure className='items-stretch object-cover rounded-none'>
-        <Image
-          src={patchSrc}
-          alt={`${name} patch`}
-          width={200}
-          height={200}
-          quality={40}
-          loading={isLazy ? "lazy" : "eager"}
-          priority={!isLazy}
-          decoding='async'
-          className='w-auto object-cover rounded-none'
-        />
-      </figure>
-    ) : null}
-    <section
-      aria-label={name}
-      className={cn(
-        "card-body gap-2 h-full w-full rounded-box justify-between",
-        {
-          "bg-neutral text-neutral-content": futureLaunch || !patchSrc,
-          "bg-opacity-30 bg-blend-overlay": !futureLaunch && patchSrc,
-          "bg-primary text-error": !success && !futureLaunch && patchSrc,
-          "bg-primary text-success": success && !futureLaunch && patchSrc,
-        }
-      )}
-    >
-      <header className='card-title flex-wrap w-full text-center mb-2'>
-        <h2
-          className={cn("text-2xl mx-auto", {
-            "text-error": !success && !futureLaunch,
-            "text-success": success && !futureLaunch,
-            "text-neutral-content": futureLaunch,
-          })}
-        >
-          {name}
-        </h2>
-      </header>
-
-      <dl
-        className={cn(
-          "w-full self-start justify-self-start block font-semibold text-base leading-none space-y-2",
-          {
-            "text-error": !success && !futureLaunch,
-            "text-success": success && !futureLaunch,
-            "text-neutral-content": futureLaunch,
-            "grow": !details,
-            "grow-0": details,
-          }
-        )}
-      >
-        <div className='w-full flex gap-2'>
-          <dt className='launch-stat-term'>Date</dt>
-          <dd className='flex-1'>
-            <time dateTime={date_utc} aria-label='launch date'>
-              {formatDate(date_utc, {
-                month: "long",
-                year: "numeric",
-                day: "numeric",
-              })}
-            </time>
-          </dd>
-        </div>
-
-        <div className='w-full flex gap-2'>
-          <dt className='flex-initial capitalize launch-stat-term'>Status</dt>
-          <dd className='flex-1'>
-            {futureLaunch ? "Upcoming" : success ? "Successfull" : "Failure"}
-          </dd>
-        </div>
-      </dl>
-
-      {details ? <p className='w-fit line-clamp-6'>{details}</p> : null}
-
-      <div className='card-actions justify-end mt-2'>
-        <Link
-          href={`/launch/${encodeURI(id)}`}
-          className={cn("btn", {
-            "btn-success": success && !futureLaunch,
-            "btn-error": !success && !futureLaunch,
-            "btn-primary": futureLaunch,
-          })}
-        >
-          Details
-        </Link>
-      </div>
-    </section>
-  </li>
-)
-*/
 
 export default LaunchCard;

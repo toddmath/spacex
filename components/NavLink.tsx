@@ -1,4 +1,4 @@
-import { forwardRef, type FC } from "react";
+import { type FC } from "react";
 import Link from "next/link";
 import { TbChevronDown, TbChevronRight } from "react-icons/tb";
 import { motion } from "framer-motion";
@@ -48,7 +48,10 @@ const NavLink: FC<NavLinkProps> = ({ position, href, text, pages }) => {
                   position === "center",
               })}
             >
-              <Link href={`${href}/${page}`} className="capitalize">
+              <Link
+                href={{ pathname: `${href}/${page}` }}
+                className="capitalize"
+              >
                 {page}
               </Link>
             </motion.li>
@@ -61,7 +64,7 @@ const NavLink: FC<NavLinkProps> = ({ position, href, text, pages }) => {
   return (
     <motion.li layout>
       <Link
-        href={href}
+        href={{ pathname: href }}
         className={cn({ "px-3 normal-case": position === "center" })}
       >
         {text}

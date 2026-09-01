@@ -27,14 +27,14 @@ const Stats: FC<StatsProps> = forwardRef<HTMLDivElement, StatsProps>(
             <div key={stat.title} className="stat">
               <div className="stat-title">{stat.title}</div>
               <div className="stat-value wrap-break-word">{stat.value}</div>
-              {stat.desc ? (
+              {stat.desc && (
                 <div className="stat-desc capitalize">{stat.desc}</div>
-              ) : null}
+              )}
             </div>
           ))}
       </motion.div>
     );
-  }
+  },
 );
 
 Stats.displayName = "Stats";

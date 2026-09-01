@@ -11,11 +11,11 @@ const defaultOptions: DateTimeFormatOptions = {
 
 export function formatDate(
   dateString: string,
-  options?: DateTimeFormatOptions
+  options?: DateTimeFormatOptions,
 ): string {
   return new Date(dateString).toLocaleDateString(
     "en-US",
-    options ?? defaultOptions
+    options ?? defaultOptions,
   );
 }
 

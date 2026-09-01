@@ -3,13 +3,12 @@ import type {
   ComponentPropsWithoutRef,
   ReactNode,
 } from "react";
-import { useRef, forwardRef } from "react";
+import { forwardRef } from "react";
 import Image, { type ImageProps } from "next/image";
 import cn from "classnames";
-import { motion, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { is } from "lib/utils";
-// import { useParallax } from "lib/useParallax";
 
 type CardProps = Omit<
   ComponentPropsWithoutRef<"section">,
@@ -39,7 +38,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       },
       ...props
     },
-    ref
+    ref,
   ) => {
     const cardTitle = is.string(title) ? title : undefined;
 
@@ -61,7 +60,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
               "bg-base-100 @xs/card:image-full @sm/card:image-full @md/card:flex @md/card:card-side":
                 image,
               "bg-neutral text-neutral-content": !image,
-            }
+            },
           )}
           {...props}
         >
@@ -72,13 +71,16 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
                 alt={cardTitle ?? ""}
                 className={cn(
                   imageClassName,
-                  "@xs/card:w-full @xs/card:rounded-none @xs/card:object-cover"
+                  "@xs/card:w-full @xs/card:rounded-none @xs/card:object-cover",
                 )}
-                loading={imageProps.priority ? "eager" : "lazy"}
+                loading={
+                  imageProps.loading ?? (imageProps.preload ? "eager" : "lazy")
+                }
                 {...imageProps}
               />
             </figure>
           ) : null}
+
           <motion.div className="card-body @md/card:gap-3 @lg/card:gap-4 @lg/card:text-lg">
             <header className="flex flex-wrap items-center text-center">
               <motion.h2 className="card-title mx-auto flex-wrap text-xl @sm/card:text-2xl @md/card:text-3xl">
@@ -90,7 +92,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         </section>
       </motion.div>
     );
-  }
+  },
 );
 
 Card.displayName = "Card";

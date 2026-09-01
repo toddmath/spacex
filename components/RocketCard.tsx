@@ -1,14 +1,10 @@
 import type { FC } from "react";
 import Link from "next/link";
-// import cn from "classnames"
 import { BiRightArrowAlt } from "react-icons/bi";
 import { SiWikipedia } from "react-icons/si";
-// import { CgDetailsMore } from "react-icons/cg"
-// import { IoIosArrowForward } from "react-icons/io"
 
 import type { Rocket as IRocket } from "types/rockets";
-// import { formatDate, isFuture } from "lib/date"
-import Card from "./Card";
+import Card from "components/Card";
 import { prettierFmt } from "lib/utils";
 
 type RocketCardProps = IRocket;
@@ -17,8 +13,6 @@ const RocketCard: FC<RocketCardProps> = ({
   name,
   flickr_images,
   description,
-  engines,
-  stages,
   payload_weights,
   cost_per_launch,
   wikipedia,
@@ -44,7 +38,7 @@ const RocketCard: FC<RocketCardProps> = ({
           <div className="stat-title">Payload</div>
           <div className="stat-value text-2xl @lg/card:text-3xl">
             {prettierFmt(
-              payload_weights.filter(({ id }) => id === "leo")[0].lb
+              payload_weights.filter(({ id }) => id === "leo")[0].lb,
             )}
             &nbsp;
             <abbr title="pounds" className="decoration-accent">
@@ -69,7 +63,6 @@ const RocketCard: FC<RocketCardProps> = ({
           href={`/rocket/${id}`}
           className="group/link btn-accent rounded-btn btn gap-2"
         >
-          {/* <IoIosArrowForward title='Detailed Information' className='w-6 h-6' /> */}
           <BiRightArrowAlt
             title="Rocket details page"
             className="h-6 w-6 transition-all group-hover/link:animate-shake"

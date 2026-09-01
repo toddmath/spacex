@@ -1,12 +1,10 @@
 import type { FC } from "react";
-import { memo } from "react";
 import cn from "classnames";
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 
 import type { Payload as IPayload } from "types/payloads";
 import { is } from "lib/utils";
 import { SlimPayload } from "pages/payloads";
-import Card from "./Card";
+import Card from "components/Card";
 
 type Key = keyof SlimPayload;
 
@@ -23,14 +21,14 @@ const mapStats = ([k, v]: [Key, IPayload[Key]]) => {
       ? "Yes"
       : "No"
     : is.array(v)
-    ? v.join(", ")
-    : v?.toString() ?? "";
+      ? v.join(", ")
+      : (v?.toString() ?? "");
   return [k.replaceAll("_", " "), value.replaceAll("-", " ")] as const;
 };
 
 type PayloadProps = { payload: SlimPayload };
 
-const Payload: FC<PayloadProps> = memo(({ payload }) => {
+const Payload: FC<PayloadProps> = ({ payload }) => {
   const specs = (Object.entries(payload) as Array<[Key, IPayload[Key]]>)
     .filter(filterStats)
     .map(mapStats);
@@ -48,9 +46,7 @@ const Payload: FC<PayloadProps> = memo(({ payload }) => {
         "row-span-6": nspecs > 30,
       })}
       className="w-full border-4 border-neutral bg-primary text-primary-content"
-      containProps={{
-        contentVisibility: "auto",
-      }}
+      containProps={{ contentVisibility: "auto" }}
     >
       <ul className="flex flex-col justify-center">
         {specs.map(([k, v]) => (
@@ -67,45 +63,8 @@ const Payload: FC<PayloadProps> = memo(({ payload }) => {
       </ul>
     </Card>
   );
-});
+};
 
-Payload.displayName = "PayloadCard";
-
-/*
-<li
-  aria-label={name}
-  className={cn(
-    "card card-bordered border-neutral border-4 bg-primary text-primary-content shadow-xl w-full",
-    {
-      "row-span-1": nspecs >= 0 && nspecs <= 8,
-      "row-span-2": nspecs > 8 && nspecs <= 14,
-      "row-span-3": nspecs > 14 && nspecs <= 20,
-      "row-span-4": nspecs > 20 && nspecs <= 26,
-      "row-span-5": nspecs > 26 && nspecs <= 30,
-      "row-span-6": nspecs > 30,
-    }
-  )}
->
-  <div className='card-body w-full gap-4'>
-    <header className='card-title flex-wrap text-center'>
-      <h3 className='text-primary-content w-full'>{name}</h3>
-    </header>
-
-    <ul className='flex flex-col justify-center'>
-      {specs.map(([k, v]) => (
-        <li
-          key={`${name} ${k}`}
-          className='flex gap-2 justify-between border-neutral border-b pt-2 items-center'
-        >
-          <strong className='capitalize text-sm leading-tight'>{k}:</strong>
-          <span className='grow wrap-break-word leading-tight text-primary-content'>
-            {v}
-          </span>
-        </li>
-      ))}
-    </ul>
-  </div>
-</li>
-*/
+// Payload.displayName = "PayloadCard";
 
 export default Payload;

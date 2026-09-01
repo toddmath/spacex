@@ -3,8 +3,7 @@ import cn from "classnames";
 import { TbChevronDown, TbColorSwatch } from "react-icons/tb";
 
 const ThemePicker: React.FC = () => {
-  const { setTheme, themes, theme: currentTheme, systemTheme } = useTheme();
-
+  const { setTheme, themes, theme: currentTheme } = useTheme();
   const isTheme = (t: string) => t === currentTheme;
 
   return (
@@ -38,7 +37,6 @@ const ThemePicker: React.FC = () => {
               key={theme}
               role="listitem"
               aria-label={theme}
-              // data-set-theme={theme}
               aria-current={isTheme(theme)}
               data-theme={theme}
               className="outline-base-content overflow-hidden rounded-btn outline-2 outline-offset-2"
@@ -55,20 +53,18 @@ const ThemePicker: React.FC = () => {
                 )}
                 onClick={() => setTheme(theme)}
               >
-                {/* <div className='grid grid-cols-5 grid-rows-3'> */}
                 <div className="flex gap-1 py-3 px-4">
                   <div className="grow text-sm font-bold">{theme}</div>
                   <div
                     className="flex items-center shrink-0 flex-wrap gap-x-1 rounded overflow-hidden"
                     aria-hidden="true"
                   >
-                    <div className="rounded-full bg-primary w-3 h-3"></div>
-                    <div className="rounded-full bg-secondary w-3 h-3"></div>
-                    <div className="rounded-full bg-accent w-3 h-3"></div>
-                    <div className="rounded-full bg-neutral w-3 h-3"></div>
+                    <div className="rounded-full bg-primary size-3"></div>
+                    <div className="rounded-full bg-secondary size-3"></div>
+                    <div className="rounded-full bg-accent size-3"></div>
+                    <div className="rounded-full bg-neutral size-3"></div>
                   </div>
                 </div>
-                {/* </div> */}
               </div>
             </li>
           ))}

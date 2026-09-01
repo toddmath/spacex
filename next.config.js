@@ -33,7 +33,7 @@ const cspHeader = `
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  reactCompiler: true,
+  // reactCompiler: true,
   typedRoutes: true,
   devIndicators: {
     position: "bottom-right",

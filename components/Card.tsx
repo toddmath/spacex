@@ -54,7 +54,6 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
   },
   fwRef,
 ) {
-  const { priority, loading, ...imgProps } = imageProps;
   const sectionRef = useRef(null);
   const scrollRef = useRef(null);
   // const isInView = useInView(sectionRef)
@@ -68,7 +67,6 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
       ref={fwRef}
       key={id}
       layout
-      // layoutId={id}
       className={cn(wrapperClassName)}
     >
       <motion.div
@@ -76,7 +74,6 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
         initial={{ opacity: 0.25 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0.25 }}
-        // layout
         layoutId={id}
         className="h-full w-full"
       >
@@ -89,7 +86,6 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.33 }}
           viewport={{ amount: "some" }}
-          // animate={{ opacity: isInView ? 1 : 0.4 }}
           className="h-full w-full"
         >
           <section
@@ -108,21 +104,14 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
               },
             )}
           >
-            {image ? (
-              <figure className="relative items-stretch rounded-none object-cover">
-                <Image
-                  src={image}
-                  alt={is.string(title) ? title : ""}
-                  className={cn(
-                    imageClassName,
-                    "w-full rounded-none object-cover",
-                  )}
-                  priority={priority}
-                  loading={priority ? "eager" : "lazy"}
-                  {...imgProps}
-                />
-              </figure>
-            ) : null}
+            {image && (
+              <CardImage
+                image={image}
+                imageProps={imageProps}
+                title={is.string(title) ? title : ""}
+                className={imageClassName}
+              />
+            )}
             <div className="card-body w-full @md/card:gap-3 @lg/card:gap-4">
               <header className="flex flex-wrap items-center text-center">
                 <motion.h2 className="card-title mx-auto flex-wrap text-2xl @md/card:text-3xl">
@@ -137,6 +126,28 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
     </motion.li>
   );
 });
+
+const CardImage: React.FC<{
+  image: string;
+  imageProps: Partial<Omit<ImageProps, "src">>;
+  title: string;
+  className?: string;
+}> = ({ image, imageProps, title, className }) => {
+  const { preload, loading, ...imgProps } = imageProps;
+
+  return (
+    <figure className="relative items-stretch rounded-none object-cover">
+      <Image
+        src={image}
+        alt={is.string(title) ? title : ""}
+        className={cn(className, "w-full rounded-none object-cover")}
+        preload={preload}
+        loading={loading ?? (preload ? "eager" : "lazy")}
+        {...imgProps}
+      />
+    </figure>
+  );
+};
 
 Card.displayName = "Card";
 

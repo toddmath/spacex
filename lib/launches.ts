@@ -1,5 +1,5 @@
-import type { QueryFunction } from "@tanstack/react-query"
-import type { Launches as ILaunches, Launch } from "types/launches"
+import type { QueryFunction } from "@tanstack/react-query";
+import type { Launches as ILaunches, Launch } from "types/launches";
 
 export type LaunchData = Pick<
   Launch,
@@ -17,11 +17,11 @@ export type LaunchData = Pick<
   | "upcoming"
   | "cores"
   | "id"
->
+>;
 
-export type LaunchesData = LaunchData[]
+export type LaunchesData = LaunchData[];
 
-const allLaunchesKey = ["launches"] as const
+const allLaunchesKey = ["launches"] as const;
 
 export const launchesKeys = {
   all: allLaunchesKey,
@@ -30,10 +30,10 @@ export const launchesKeys = {
   latest: [...allLaunchesKey, "latest"] as const,
   next: [...allLaunchesKey, "next"] as const,
   launch: (id: string) => [...allLaunchesKey, id] as const,
-} as const
+} as const;
 
 export function isLaunchSuccess(launch: LaunchData): boolean {
-  return launch.success ?? launch.failures.length === 0
+  return launch.success ?? launch.failures.length === 0;
 }
 
 const mapLaunch = (x: Launch): LaunchData => ({
@@ -51,61 +51,58 @@ const mapLaunch = (x: Launch): LaunchData => ({
   upcoming: x.upcoming,
   cores: x.cores,
   id: x.id,
-})
-// export function mapLaunches(data: ILaunches): LaunchesData {
-//   return data.map(mapLaunch)
-// }
+});
 
 export const getPastLaunches: QueryFunction<LaunchesData> = async () => {
-  const res = await fetch("https://api.spacexdata.com/v4/launches/past")
-  const data: ILaunches = await res.json()
-  return data.map(mapLaunch)
-}
+  const res = await fetch("https://api.spacexdata.com/v4/launches/past");
+  const data: ILaunches = await res.json();
+  return data.map(mapLaunch);
+};
 
 export const getAllLaunches: QueryFunction<LaunchesData> = async () => {
-  const res = await fetch("https://api.spacexdata.com/v4/launches")
-  const data: ILaunches = await res.json()
-  return data.map(mapLaunch)
-}
+  const res = await fetch("https://api.spacexdata.com/v4/launches");
+  const data: ILaunches = await res.json();
+  return data.map(mapLaunch);
+};
 
 export const getUpcomingLaunches: QueryFunction<LaunchesData> = async () => {
-  const res = await fetch("https://api.spacexdata.com/v4/launches/upcoming")
-  const data: ILaunches = await res.json()
-  return data.map(mapLaunch)
-}
+  const res = await fetch("https://api.spacexdata.com/v4/launches/upcoming");
+  const data: ILaunches = await res.json();
+  return data.map(mapLaunch);
+};
 
 export const getLatestLaunches: QueryFunction<
   Launch,
-  typeof launchesKeys["latest"]
+  (typeof launchesKeys)["latest"]
 > = async () => {
-  const res = await fetch("https://api.spacexdata.com/v4/launches/latest")
-  const data: Launch = await res.json()
-  return data
-}
+  const res = await fetch("https://api.spacexdata.com/v4/launches/latest");
+  const data: Launch = await res.json();
+  return data;
+};
 
 export const getNextLaunches: QueryFunction<
   Launch,
-  typeof launchesKeys["next"]
+  (typeof launchesKeys)["next"]
 > = async () => {
-  const res = await fetch("https://api.spacexdata.com/v4/launches/next")
-  const data: Launch = await res.json()
-  return data
-}
+  const res = await fetch("https://api.spacexdata.com/v4/launches/next");
+  const data: Launch = await res.json();
+  return data;
+};
 
 export const getLaunch: QueryFunction<
   Launch,
-  ReturnType<typeof launchesKeys["launch"]>
+  ReturnType<(typeof launchesKeys)["launch"]>
 > = async ({ queryKey }) => {
-  const [_, id] = queryKey
-  const res = await fetch(`https://api.spacexdata.com/v4/launches/${id}`)
+  const [, id] = queryKey;
+  const res = await fetch(`https://api.spacexdata.com/v4/launches/${id}`);
   if (!res.ok) {
     throw new Error(
-      `Failed to fetch launch (id: ${id}), received status ${res.status}`
-    )
+      `Failed to fetch launch (id: ${id}), received status ${res.status}`,
+    );
   }
-  const data: Launch = await res.json()
-  return data
-}
+  const data: Launch = await res.json();
+  return data;
+};
 
 // export const getLaunch = (id: string) => {
 //   const fn: QueryFunction<Launch> = async () => {

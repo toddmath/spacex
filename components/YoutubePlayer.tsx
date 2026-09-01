@@ -1,37 +1,14 @@
 import YouTube, { type YouTubeProps } from "react-youtube";
 import { Suspense } from "react";
 import cn from "classnames";
-// import dynamic from "next/dynamic"
 
 import Loader from "components/LoadingSpinner";
 
-type YoutubeOpts = {
-  height?: string;
-  width?: string;
-  playerVars: NonNullable<YouTubeProps["opts"]>["playerVars"];
-};
-
 type YTProps = Omit<YouTubeProps, "loading">;
-//   & {
-//   loading?: string | undefined | null
-// }
 
 const YoutubePlayer: React.FC<YTProps> = ({ className, ...rest }) => {
   const onPlayerReady: YouTubeProps["onReady"] = (event) => {
-    // access to player in all event handlers via event.target
     event.target.pauseVideo();
-  };
-
-  const yt_opts: YoutubeOpts = {
-    height: "100%",
-    width: "100%",
-    playerVars: {
-      autoplay: 0,
-      color: "white",
-      controls: 1,
-      loop: 0,
-      modestbranding: 1,
-    },
   };
 
   return (
@@ -40,9 +17,8 @@ const YoutubePlayer: React.FC<YTProps> = ({ className, ...rest }) => {
         className={cn(className, "group mx-auto")}
         iframeClassName={cn(
           rest.iframeClassName,
-          "object-cover w-full h-full outline-none focus-visible:outline-none"
+          "object-cover w-full h-full outline-none focus-visible:outline-none",
         )}
-        // opts={yt_opts}
         opts={{
           playerVars: {
             autoplay: 0,

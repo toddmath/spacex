@@ -4,20 +4,8 @@ import Head from "next/head";
 import { generateNextSeo } from "next-seo/pages";
 import cn from "classnames";
 
-// import Seo from "components/Seo"
 import { defaultOgImages } from "@/next-seo.config";
 import Header from "./Header";
-
-// type LayoutProps = PropsWithChildren<{
-// date?: string
-// title?: string
-// description?: string
-// image?: string
-// type?: string
-// className?: string
-// containerClassName?: string
-// headerTag?: "h1" | "h2" | null
-// }>
 
 type FullScreenLayoutProps = {
   children: NonNullable<ReactNode>;
@@ -64,7 +52,7 @@ const FullScreenLayout: FC<FullScreenLayoutProps> = ({
           title,
         })}
       </Head>
-      {title ? <Header title={title} tag="h1" /> : null}
+      {title && <Header title={title} tag="h1" />}
       <main id="skip" className={cn(className, "min-h-full w-screen p-0 m-0")}>
         {children}
       </main>

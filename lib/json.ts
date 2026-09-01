@@ -1,6 +1,6 @@
 export function json<T = unknown>(
   data: T,
-  config?: Partial<ResponseInit>
+  config?: Partial<ResponseInit>,
 ): Response {
   return new Response(JSON.stringify(data), {
     ...config,
@@ -8,5 +8,5 @@ export function json<T = unknown>(
     headers: {
       "Content-Type": "application/json",
     },
-  })
+  });
 }

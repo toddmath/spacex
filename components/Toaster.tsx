@@ -1,45 +1,36 @@
-import type { FC, PropsWithChildren } from "react"
-import {
-  toast,
-  Toaster as HotToaster,
-  ToastBar,
-  resolveValue,
-} from "react-hot-toast"
+import type { FC } from "react";
+import { toast, Toaster as HotToaster, ToastBar } from "react-hot-toast";
+import { FiX } from "react-icons/fi";
 
-import { FiX } from "react-icons/fi"
-// import { IoClose } from "react-icons/io5"
-
-type ToasterProps = PropsWithChildren<{}>
-
-const Toaster: FC<ToasterProps> = ({ children }) => {
+const Toaster: FC = () => {
   return (
     <HotToaster
       containerStyle={{ top: "5rem" }}
-      containerClassName='toast toast-top toast-center gap-4'
+      containerClassName="toast toast-top toast-center gap-4"
       gutter={16}
-      position='top-center'
+      position="top-center"
       toastOptions={{
         className: "alert alert-info shadow-lg",
       }}
     >
-      {t => (
+      {(t) => (
         <ToastBar toast={t}>
           {({ icon, message }) => (
             <>
               {icon}
               {message}
               <button
-                className='btn btn-primary text-primary-content'
+                className="btn btn-primary text-primary-content"
                 onClick={() => toast.dismiss(t.id)}
               >
-                <FiX className='w-4 h-4 stroke-current' size='1rem' />
+                <FiX className="size-4 stroke-current" size="1rem" />
               </button>
             </>
           )}
         </ToastBar>
       )}
     </HotToaster>
-  )
-}
+  );
+};
 
-export default Toaster
+export default Toaster;

@@ -47,8 +47,6 @@ const navLinks = [
   },
 ] satisfies Array<Omit<NavLinkProps, "position">>;
 
-// top-[calc(--spacing(16)-(--spacing(1)))]
-
 const NavBar: FC = () => {
   return (
     <div className="sticky top-0 z-30 flex h-16 w-full justify-center bg-base-300/60 text-base-content shadow backdrop-blur transition-all duration-100">
@@ -104,86 +102,3 @@ const NavBar: FC = () => {
 };
 
 export default NavBar;
-
-/*
-<div className='navbar-start'>
-  <div className='dropdown'>
-    <label tabIndex={0} className='btn btn-square btn-ghost lg:hidden'>
-      <FiMenu className='w-5 h-5 stroke-current fill-none' strokeWidth='2' />
-    </label>
-    <ul
-      tabIndex={0}
-      className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-200 rounded-box w-52'
-    >
-      {navLinks.map(({ href, text, pages }) => (
-        <Fragment key={href}>
-          <li tabIndex={pages ? 0 : undefined}>
-            {pages ? (
-              <>
-                <div className='justify-between'>
-                  {text}
-                  <TbChevronRight />
-                </div>
-                <ul className='p-2 bg-base-200'>
-                  {pages.map(page => (
-                    <li key={page}>
-                      <Link href={`${href}/${page}`} className='capitalize'>
-                        {page}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <Link href={href}>{text}</Link>
-            )}
-          </li>
-        </Fragment>
-      ))}
-    </ul>
-  </div>
-
-  <Link
-    href='/'
-    className='btn btn-ghost rounded-btn normal-case text-lg md:text-xl'
-  >
-    SpaceX
-  </Link>
-</div>
-
-<div className='navbar-center hidden lg:flex'>
-  <ul className='menu menu-horizontal p-0'>
-    {navLinks.map(({ href, text, pages }) => (
-      <Fragment key={href}>
-        {pages ? (
-          <li tabIndex={0}>
-            <div className='px-3 normal-case'>
-              {text}
-              <TbChevronDown />
-            </div>
-
-            <ul className='p-3 bg-base-200 z-40 shadow-xl rounded'>
-              {pages.map(page => (
-                <li
-                  key={page}
-                  className='text-base-content w-full cursor-pointer font-sans'
-                >
-                  <Link href={`${href}/${page}`} className='capitalize'>
-                    {page}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ) : (
-          <li key={href}>
-            <Link href={href} className='px-3 normal-case'>
-              {text}
-            </Link>
-          </li>
-        )}
-      </Fragment>
-    ))}
-  </ul>
-</div>
-*/

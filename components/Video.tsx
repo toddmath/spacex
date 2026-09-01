@@ -10,9 +10,9 @@ import { YouTubeEmbed } from "@next/third-parties/google";
 
 type Props = {
   videoid: string;
-  autoPlay?: boolean;
-  className?: string;
-  iframeClassName?: string;
+  // autoPlay?: boolean;
+  // className?: string;
+  // iframeClassName?: string;
   title?: string;
 };
 
@@ -21,24 +21,13 @@ type Props = {
 //   "videoId" | "className" | "iframeClassName" | "opts"
 // > & { title?: string };
 
-const Video: FC<Props> = ({
-  videoid,
-  autoPlay = false,
-  className = "",
-  iframeClassName = "",
-  title = "",
-}) => {
+const Video: FC<Props> = ({ videoid, title = "" }) => {
   return (
     <YouTubeEmbed
       videoid={videoid}
       height={720}
       width={1280}
       playlabel={title}
-      // playlabel=""
-      // loading="lazy"
-      // opts={opts}
-      // className={className}
-      // iframeClassName={iframeClassName}
     />
   );
 };
