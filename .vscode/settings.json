@@ -2,16 +2,16 @@
   "files.associations": {
     "*.css": "tailwindcss"
   },
+  "tailwindCSS.classAttributes": ["class", "className", "theme", "iframeClassName", "containerClassName"],
+  "tailwindCSS.experimental.classRegex": [
+    ["twMerge\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["createTheme(?:<\\w+>)?\\s*\\(([^)]*)\\)", "{?\\s?[\\w].*:\\s*?[\"'`]([^\"'`]*).*?,?\\s?}?"]
+  ],
   "editor.quickSuggestions": {
     "other": "on",
     "comments": "off",
     "strings": "inline"
   },
-  "tailwindCSS.classAttributes": [
-    "className",
-    "iframeClassName",
-    "containerClassName"
-  ],
   "tailwindCSS.hovers": true,
   "tailwindCSS.validate": true,
   "files.watcherExclude": {

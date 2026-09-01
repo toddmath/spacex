@@ -1,15 +1,25 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import tailwindcss from "eslint-plugin-tailwindcss"
+// import { fileURLToPath } from "node:url";
+// import path from "node:path";
 
-const __filename = fileURLToPath(import.meta.url);
+// const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
 
 const eslintConfig = defineConfig([
   ...nextCoreWebVitals,
   ...nextTs,
+  ...tailwindcss.configs["flat/recommended"],
+  {
+    settings: {
+      tailwindcss: {
+        callees: ["twMerge", "createTheme"],
+        classRegex: "^(class(Name)|theme)?$",
+      },
+    }
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
