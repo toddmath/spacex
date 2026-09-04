@@ -46,11 +46,9 @@ const LaunchPads: NextPage<LaunchPadProps> = () => {
       <Layout
         title="Launchpads"
         description="All SpaceX rocket launchpads."
-        ogImages={data
-          .map(({ images, full_name }) =>
-            images.large.map((url) => ({ url, alt: full_name })),
-          )
-          .flat(2)}
+        ogImages={data.flatMap(({ images, full_name }) =>
+          (images?.large || []).map((url) => ({ url, alt: full_name })),
+        )}
       >
         <div className="container mx-auto space-y-10 lg:max-w-6xl">
           <motion.ul

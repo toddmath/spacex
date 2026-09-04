@@ -18,7 +18,7 @@ const cspHeader = `
     } ${vercel} ${yt};
     child-src ${yt};
     frame-src 'self' ${yt};
-    connect-src 'self' https://api.spacexdata.com https://vitals.vercel-insights.com;
+    connect-src 'self' https://gateway.pipeworx.io https://api.spacexdata.com https://vitals.vercel-insights.com;
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: https://i.ytimg.com;
     font-src 'self';

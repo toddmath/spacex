@@ -16,16 +16,22 @@ import type {
 import Layout from "components/Layout";
 import Loader from "components/LoadingSpinner";
 import Specs, { type SpecData } from "components/Specs";
-import { getRocket, rocketKeys } from "lib/rockets";
+import { getRocket, getRockets, rocketKeys } from "lib/rockets";
 import { is, prettierFmt } from "lib/utils";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch("https://api.spacexdata.com/v4/rockets");
-  const data: IRockets = await res.json();
-  return {
-    paths: data.map(({ id }) => ({ params: { id } })),
-    fallback: false,
-  };
+  try {
+    const data = await getRockets();
+    return {
+      paths: (data || []).map(({ id }) => ({ params: { id } })),
+      fallback: "blocking",
+    };
+  } catch {
+    return {
+      paths: [],
+      fallback: "blocking",
+    };
+  }
 };
 
 export const getStaticProps: GetStaticProps<RocketProps> = async ({
@@ -56,7 +62,15 @@ const Rocket: NextPage<RocketProps> = (props) => {
     queryFn: getRocket,
   });
 
-  if (isSuccess) {
+  if (isLoading) {
+    return (
+      <Layout title="" description="Loading rocket data...">
+        <Loader />
+      </Layout>
+    );
+  }
+
+  if (isSuccess && data) {
     const specs = Object.keys(data) as Array<keyof typeof data>;
 
     const rocketSpecData = specs
@@ -177,14 +191,6 @@ const Rocket: NextPage<RocketProps> = (props) => {
 
     const payloadWeightSpecData = data.payload_weights;
 
-    if (isLoading) {
-      return (
-        <Layout title="" description="Loading rocket data...">
-          <Loader />
-        </Layout>
-      );
-    }
-
     return (
       <Layout
         title={data.name}
@@ -282,6 +288,8 @@ const Rocket: NextPage<RocketProps> = (props) => {
       </Layout>
     );
   }
+
+  return null;
 };
 
 export default Rocket;

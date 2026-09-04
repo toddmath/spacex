@@ -1,16 +1,13 @@
-import type { TimelineDefinition } from "@motionone/dom/types/timeline/types";
-import type {
-  ModifiedAcceptedElements,
-  SequenceDefination,
-} from "./useMotionTimeline";
-
 export const noop = () => {};
 
 type Elem = Window | Document | HTMLElement | EventTarget;
+type EventHandler = (...args: unknown[]) => void;
 
 export function on<T extends Elem>(
   obj: T | null | undefined,
-  ...args: Parameters<T["addEventListener"]> | [string, Function | null, ...any]
+  ...args:
+    | Parameters<T["addEventListener"]>
+    | [string, EventHandler | null, ...unknown[]]
 ): void {
   if (obj?.addEventListener) {
     obj.addEventListener(
@@ -23,7 +20,7 @@ export function off<T extends Elem>(
   obj: T | null | undefined,
   ...args:
     | Parameters<T["removeEventListener"]>
-    | [string, Function | null, ...any]
+    | [string, EventHandler | null, ...unknown[]]
 ): void {
   if (obj?.removeEventListener) {
     obj.removeEventListener(
@@ -53,29 +50,9 @@ export const prettierFmt = <T extends number | string | Date>(
   return value.toLocaleString("en-US");
 };
 
-export function isOfType<T extends Record<K, any>, K extends keyof T>(
-  value: any,
+export function isOfType<T extends Record<K, unknown>, K extends keyof T>(
+  value: unknown,
   key: K,
 ): value is T {
-  return (value as T)[key] != null;
+  return value != null && typeof value === "object" && (value as T)[key] != null;
 }
-
-export function isRefObject<T extends React.RefObject<any>>(
-  value: ModifiedAcceptedElements,
-): value is T {
-  return !is.string(value) && !is.array(value) && "current" in value;
-}
-
-export const convertRefsToElement = (
-  sequence: SequenceDefination,
-): TimelineDefinition => {
-  const newArray = [...sequence];
-  for (const array of newArray) {
-    if (isRefObject(array[0])) array[0] = array[0].current;
-    // if (typeof array[0] !== "string" && "current" in array[0]) {
-    //   array[0] = array[0].current
-    // }
-    // if (isOfType(array[0], "current")) array[0] = array[0].current
-  }
-  return newArray as TimelineDefinition;
-};

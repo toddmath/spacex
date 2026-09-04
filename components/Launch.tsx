@@ -15,8 +15,8 @@ type LaunchProps = {
 };
 
 const Launch: FC<LaunchProps> = ({ data }) => {
-  const success = data.success ?? data.failures.length === 0;
-  const patchSrc = data.links.patch.small ?? data.links.patch.large;
+  const success = data.success ?? (data.failures ? data.failures.length === 0 : true);
+  const patchSrc = data.links?.patch?.small ?? data.links?.patch?.large;
 
   return (
     <div className="prose mx-auto w-full max-w-6xl space-y-20 dark:prose-invert">
@@ -78,7 +78,7 @@ const Launch: FC<LaunchProps> = ({ data }) => {
           <h2 className="border-b border-accent">Media</h2>
         </header>
 
-        {data.links.youtube_id && (
+        {data.links?.youtube_id && (
           <div className="container mx-auto h-auto w-full overflow-hidden rounded-lg object-cover shadow-lg lg:max-w-5xl">
             <div className="w-full object-cover aspect-video">
               <YouTube
@@ -89,10 +89,10 @@ const Launch: FC<LaunchProps> = ({ data }) => {
           </div>
         )}
 
-        {data.links.flickr.original.length && (
+        {Boolean(data.links?.flickr?.original?.length) && (
           <div className="not-prose mx-auto mt-12 w-full max-w-5xl shadow-lg aspect-video">
             <Carousel slideInterval={5000} slide={false}>
-              {data.links.flickr.original.map((src, i) => (
+              {(data.links?.flickr?.original || []).map((src, i) => (
                 <Image
                   key={`carousel-image-${i}`}
                   src={src}
