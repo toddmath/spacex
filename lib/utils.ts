@@ -1,12 +1,13 @@
-export const noop = () => {}
+export const noop = () => {};
 
-type Elem = Window | Document | HTMLElement | EventTarget
+type Elem = Window | Document | HTMLElement | EventTarget;
+type EventHandler = (...args: unknown[]) => void;
 
 export function on<T extends Elem>(
   obj: T | null | undefined,
   ...args:
     | Parameters<T["addEventListener"]>
-    | [string, ((...args: unknown[]) => unknown) | null, ...unknown[]]
+    | [string, EventHandler | null, ...unknown[]]
 ): void {
   if (obj?.addEventListener) {
     obj.addEventListener(...(args as Parameters<HTMLElement["addEventListener"]>))
@@ -17,7 +18,7 @@ export function off<T extends Elem>(
   obj: T | null | undefined,
   ...args:
     | Parameters<T["removeEventListener"]>
-    | [string, ((...args: unknown[]) => unknown) | null, ...unknown[]]
+    | [string, EventHandler | null, ...unknown[]]
 ): void {
   if (obj?.removeEventListener) {
     obj.removeEventListener(
@@ -41,31 +42,15 @@ export const is = {
   array: <T>(value: unknown): value is T[] => Array.isArray(value),
 } as const
 
-export const prettierFmt = <T extends number | string | Date>(value: T) => {
-  return value.toLocaleString("en-US")
-}
+export const prettierFmt = <T extends number | string | Date>(
+  value: T,
+): string => {
+  return value.toLocaleString("en-US");
+};
 
 export function isOfType<T extends Record<K, unknown>, K extends keyof T>(
   value: unknown,
-  key: K
+  key: K,
 ): value is T {
-  return (value as T)[key] != null
-}
-
-export function isRefObject<T extends React.RefObject<unknown>>(
-  value: unknown
-): value is T {
-  return (
-    !is.string(value) &&
-    !is.array(value) &&
-    value != null &&
-    typeof value === "object" &&
-    "current" in value
-  )
-}
-
-export const convertRefsToElement = <T extends React.RefObject<HTMLElement>>(
-  sequence: T[][]
-): HTMLElement[][] => {
-  return sequence.map(array => array.map(item => item.current))
+  return value != null && typeof value === "object" && (value as T)[key] != null;
 }

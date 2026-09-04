@@ -34,7 +34,14 @@ type CardProps = Omit<ComponentPropsWithoutRef<"section">, "title"> &
     wrapperClassName?: string;
   }>;
 
-const Card = forwardRef<HTMLLIElement, CardProps>((
+const defaultImageProps: Partial<ImageProps> = {
+  fill: true,
+  sizes: "50vw",
+  loading: "lazy",
+  decoding: "async",
+};
+
+const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
   {
     children,
     id,
@@ -43,12 +50,7 @@ const Card = forwardRef<HTMLLIElement, CardProps>((
     className,
     wrapperClassName,
     containProps,
-    imageProps = {
-      fill: true,
-      sizes: "50vw",
-      loading: "lazy",
-      decoding: "async",
-    } as Partial<ImageProps>,
+    imageProps = defaultImageProps,
     imageClassName,
     ...props
   },

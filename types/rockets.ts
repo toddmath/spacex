@@ -17,7 +17,7 @@ export interface Rocket {
   boosters: number
   cost_per_launch: number
   success_rate_pct: number
-  first_flight: Date
+  first_flight: string
   country: string
   company: string
   wikipedia: string

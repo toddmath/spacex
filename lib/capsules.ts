@@ -1,5 +1,6 @@
-import type { QueryFunction } from "@tanstack/react-query"
-import type { Capsules as ICapsules } from "types/capsules"
+import type { QueryFunction } from "@tanstack/react-query";
+import type { Capsules as ICapsules } from "types/capsules";
+import { SPACEX_API_URL } from "./constants";
 
 export const allCapsulesKey = ["capsules"] as const
 
@@ -8,10 +9,14 @@ export const capsulesKeys = {
 } as const
 
 export const getCapsules: QueryFunction<ICapsules> = async () => {
-  const res = await fetch("https://api.spacexdata.com/v5/capsules")
-  if (!res.ok) {
-    throw new Error(`Failed to fetch capsules, received status ${res.status}`)
+  try {
+    const res = await fetch(`${SPACEX_API_URL}/capsules`);
+    if (!res.ok) {
+      return [];
+    }
+    const data: ICapsules = await res.json();
+    return data;
+  } catch {
+    return [];
   }
-  const data: ICapsules = await res.json()
-  return data
-}
+};

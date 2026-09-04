@@ -8,15 +8,22 @@ import Launch from "components/Launch";
 import { getLaunch, getAllLaunches, launchesKeys } from "lib/launches";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const queryClient = new QueryClient();
-  const data = await queryClient.fetchQuery({
-    queryKey: launchesKeys.all,
-    queryFn: getAllLaunches,
-  });
-  return {
-    paths: data.map(({ id }) => ({ params: { id } })),
-    fallback: false, // can also be true or 'blocking'
-  };
+  try {
+    const queryClient = new QueryClient();
+    const data = await queryClient.fetchQuery({
+      queryKey: launchesKeys.all,
+      queryFn: getAllLaunches,
+    });
+    return {
+      paths: (data || []).map(({ id }) => ({ params: { id } })),
+      fallback: "blocking",
+    };
+  } catch {
+    return {
+      paths: [],
+      fallback: "blocking",
+    };
+  }
 };
 
 export const getStaticProps: GetStaticProps<LaunchProps> = async ({
@@ -57,13 +64,13 @@ const LaunchPage: NextPage<LaunchProps> = (props) => {
     );
   }
 
-  if (isSuccess) {
-    const ogImages = data.links.flickr.original.map((url) => ({
+  if (isSuccess && data) {
+    const ogImages = (data.links?.flickr?.original || []).map((url) => ({
       url,
       alt: data.name,
     }));
 
-    if (data.links.patch.large) {
+    if (data.links?.patch?.large) {
       ogImages.unshift({
         url: data.links.patch.large,
         alt: `${data.name} mission patch`,
@@ -71,7 +78,11 @@ const LaunchPage: NextPage<LaunchProps> = (props) => {
     }
 
     return (
-      <Layout title={data.name} description={data.details} ogImages={ogImages}>
+      <Layout
+        title={data.name}
+        description={data.details ?? undefined}
+        ogImages={ogImages}
+      >
         <Launch data={data} />
       </Layout>
     );

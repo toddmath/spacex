@@ -5,19 +5,27 @@ import { TbBrandTwitter } from "react-icons/tb"
 import { ImWikipedia } from "react-icons/im"
 import { FiExternalLink } from "react-icons/fi"
 
-import Layout from "components/Layout"
-import type { Missions as IMissions } from "types/missions"
-import { getMission, missionsKeys } from "lib/missions"
-import Loader from "components/LoadingSpinner"
+import Layout from "components/Layout";
+import type { Missions as IMissions } from "types/missions";
+import { getMission, getMissions, missionsKeys } from "lib/missions";
+import Loader from "components/LoadingSpinner";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch("https://api.spacexdata.com/v5/missions")
-  const data: IMissions = await res.json()
-  return {
-    paths: data.map(({ mission_id }) => ({ params: { id: mission_id } })),
-    fallback: false,
+  try {
+    const data = await getMissions();
+    return {
+      paths: (data || []).map((m) => ({
+        params: { id: m.mission_id || "unknown" },
+      })),
+      fallback: "blocking",
+    };
+  } catch {
+    return {
+      paths: [],
+      fallback: "blocking",
+    };
   }
-}
+};
 
 export const getStaticProps: GetStaticProps<MissionProps> = async ({ params }) => {
   const id = params!.id as string

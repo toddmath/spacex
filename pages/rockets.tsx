@@ -40,14 +40,14 @@ const Rockets: NextPage<RocketProps> = () => {
   }
 
   if (isSuccess) {
-    data.reverse();
+    const reversedData = data.toReversed();
 
     return (
       <div className="my-16">
         <FullScreenLayout
           title="Rockets"
           description="SpaceX Rockets."
-          ogImages={data.flatMap((r) =>
+          ogImages={reversedData.flatMap((r) =>
             r.flickr_images.map((url) => ({ url, alt: r.name })),
           )}
         >
@@ -56,12 +56,12 @@ const Rockets: NextPage<RocketProps> = () => {
             className="relative m-0 w-full snap-y snap-mandatory p-0"
             layout
           >
-            {data.map((rocket, i) => (
+            {reversedData.map((rocket, i) => (
               <RocketSection key={rocket.id} index={i} {...rocket} />
             ))}
           </motion.ol>
 
-          <DataViewer data={data} />
+          <DataViewer data={reversedData} />
         </FullScreenLayout>
       </div>
     );

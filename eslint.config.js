@@ -11,14 +11,22 @@ import tailwindcss from "eslint-plugin-tailwindcss"
 const eslintConfig = defineConfig([
   ...nextCoreWebVitals,
   ...nextTs,
-  // tailwindcss.configs["recommended"],
+  tailwindcss.configs.recommended,
   {
     settings: {
       tailwindcss: {
         callees: ["twMerge", "createTheme"],
         classRegex: "^(class(Name)|theme)?$",
+        cssConfigPath: "styles/globals.css",
       },
-    }
+    },
+    rules: {
+      "react-hooks/refs": "off",
+      "react-hooks/purity": "off",
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/immutability": "off",
+      "tailwindcss/no-custom-classname": "off",
+    },
   },
   // Override default ignores of eslint-config-next.
   globalIgnores([

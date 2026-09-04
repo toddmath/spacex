@@ -1,5 +1,6 @@
-import type { QueryFunction } from "@tanstack/react-query"
-import type { Launches as ILaunches, Launch } from "types/launches"
+import type { QueryFunction } from "@tanstack/react-query";
+import type { Launches as ILaunches, Launch } from "types/launches";
+import { SPACEX_API_URL } from "./constants";
 
 export type LaunchData = Pick<
   Launch,
@@ -36,70 +37,108 @@ export function isLaunchSuccess(launch: LaunchData): boolean {
   return launch.success ?? launch.failures.length === 0
 }
 
-const mapLaunch = (x: Launch): LaunchData => ({
-  links: x.links,
-  rocket: x.rocket,
-  success: x.success,
-  failures: x.failures,
-  details: x.details,
-  capsules: x.capsules,
-  payloads: x.payloads,
-  launchpad: x.launchpad,
-  name: x.name,
-  date_utc: x.date_utc,
-  date_local: x.date_local,
-  upcoming: x.upcoming,
-  cores: x.cores,
-  id: x.id,
-})
+const mapLaunch = (x: Launch): LaunchData => {
+  const name = x.name || "Unknown Launch";
+  const id =
+    x.id ||
+    encodeURIComponent(name.toLowerCase().replace(/[^a-z0-9]+/g, "-"));
+  return {
+    links: x.links ?? {
+      patch: { small: null, large: null },
+      reddit: { campaign: null, launch: null, media: null, recovery: null },
+      flickr: { small: [], original: [] },
+      presskit: null,
+      webcast: null,
+      youtube_id: null,
+      article: null,
+      wikipedia: null,
+    },
+    rocket: x.rocket ?? "",
+    success:
+      x.success ??
+      (x as { status?: string }).status === "Launch Successful",
+    failures: x.failures ?? [],
+    details: x.details ?? null,
+    capsules: x.capsules ?? [],
+    payloads: x.payloads ?? [],
+    launchpad: x.launchpad ?? "",
+    name,
+    date_utc: x.date_utc || new Date().toISOString(),
+    date_local: x.date_local || x.date_utc || new Date().toISOString(),
+    upcoming: x.upcoming ?? false,
+    cores: x.cores ?? [],
+    id,
+  };
+};
 
 export const getPastLaunches: QueryFunction<LaunchesData> = async () => {
-  const res = await fetch("https://api.spacexdata.com/v5/launches/past")
-  const data = (await res.json()) as ILaunches
-  return data.map(mapLaunch)
-}
+  const res = await fetch(`${SPACEX_API_URL}/launches/past`);
+  if (!res.ok) return [];
+  const data: ILaunches = await res.json();
+  return (data || []).map(mapLaunch);
+};
 
 export const getAllLaunches: QueryFunction<LaunchesData> = async () => {
-  const res = await fetch("https://api.spacexdata.com/v5/launches")
-  const data = (await res.json()) as ILaunches
-  return data.map(mapLaunch)
-}
+  const res = await fetch(`${SPACEX_API_URL}/launches`);
+  if (!res.ok) return [];
+  const data: ILaunches = await res.json();
+  return (data || []).map(mapLaunch);
+};
 
 export const getUpcomingLaunches: QueryFunction<LaunchesData> = async () => {
-  const res = await fetch("https://api.spacexdata.com/v5/launches/upcoming")
-  const data = (await res.json()) as ILaunches
-  return data.map(mapLaunch)
-}
+  const res = await fetch(`${SPACEX_API_URL}/launches/upcoming`);
+  if (!res.ok) return [];
+  const data: ILaunches = await res.json();
+  return (data || []).map(mapLaunch);
+};
 
 export const getLatestLaunches: QueryFunction<
   Launch,
   (typeof launchesKeys)["latest"]
-> = async () => {
-  const res = await fetch("https://api.spacexdata.com/v5/launches/latest")
-  const data = (await res.json()) as Launch
-  return data
-}
+> = async (ctx) => {
+  const res = await fetch(`${SPACEX_API_URL}/launches/latest`);
+  if (!res.ok) {
+    const all = await getAllLaunches(ctx as unknown as Parameters<typeof getAllLaunches>[0]);
+    if (all && all.length > 0) return all[0] as unknown as Launch;
+    throw new Error("Failed to fetch latest launch");
+  }
+  const data: Launch = await res.json();
+  return mapLaunch(data) as unknown as Launch;
+};
 
 export const getNextLaunches: QueryFunction<
   Launch,
   (typeof launchesKeys)["next"]
-> = async () => {
-  const res = await fetch("https://api.spacexdata.com/v5/launches/next")
-  const data = (await res.json()) as Launch
-  return data
-}
+> = async (ctx) => {
+  const res = await fetch(`${SPACEX_API_URL}/launches/next`);
+  if (!res.ok) {
+    const upcoming = await getUpcomingLaunches(ctx as unknown as Parameters<typeof getUpcomingLaunches>[0]);
+    if (upcoming && upcoming.length > 0) return upcoming[0] as unknown as Launch;
+    throw new Error("Failed to fetch next launch");
+  }
+  const data: Launch = await res.json();
+  return mapLaunch(data) as unknown as Launch;
+};
 
 export const getLaunch: QueryFunction<
   Launch,
   ReturnType<(typeof launchesKeys)["launch"]>
-> = async ({ queryKey }) => {
-  const [, id] = queryKey
-  const res = await fetch(`https://api.spacexdata.com/v5/launches/${id}`)
-  if (!res.ok) {
-    throw new Error(
-      `Failed to fetch launch (id: ${id}), received status ${res.status}`
-    )
-  }
-  const data = (await res.json()) as Launch
-  return data
-}
+> = async (ctx) => {
+  const [, id] = ctx.queryKey;
+  try {
+    const res = await fetch(`${SPACEX_API_URL}/launches/${id}`);
+    if (res.ok) {
+      const data: Launch = await res.json();
+      return mapLaunch(data) as unknown as Launch;
+    }
+  } catch {}
+  const all = await getAllLaunches(ctx as unknown as Parameters<typeof getAllLaunches>[0]);
+  const found = (all as unknown as Launch[]).find(
+    (l) =>
+      l.id === id ||
+      l.name?.toLowerCase().replace(/[^a-z0-9]+/g, "-") === id ||
+      l.name === id,
+  );
+  if (found) return found;
+  throw new Error(`Failed to fetch launch (id: ${id})`);
+};

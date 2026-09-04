@@ -17,9 +17,10 @@ const LaunchCard: FC<LaunchCardProps> = ({
   links,
   ...props
 }) => {
-  const futureLaunch = isFuture(date_utc)
-  const success = !futureLaunch && (props.success ?? props.failures.length === 0)
-  const patchSrc = links.patch.small ?? links.patch.large
+  const futureLaunch = isFuture(date_utc);
+  const success =
+    !futureLaunch && (props.success ?? (props.failures ? props.failures.length === 0 : true));
+  const patchSrc = links?.patch?.small ?? links?.patch?.large ?? undefined;
 
   return (
     <Card
