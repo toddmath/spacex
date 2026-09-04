@@ -34,7 +34,7 @@ const Roadster: NextPage<RoadsterProps> = () => {
   if (isLoading) {
     return (
       <Layout title="Elon Musk's Tesla Roadster">
-        <Loader className="h-1/2 w-1/2" />
+        <Loader className="size-1/2" />
       </Layout>
     );
   }
@@ -51,13 +51,13 @@ const Roadster: NextPage<RoadsterProps> = () => {
           alt: "Elon Musk's Telsa roadster in space",
         }))}
       >
-        <div className="container prose mx-auto">
+        <div className="container mx-auto prose">
           <p>{data.details}</p>
 
           <div className="stats shadow">
             <div className="stat">
               <div className="stat-figure text-primary">
-                <IoRocketSharp className="inline-block h-8 w-8 stroke-current" />
+                <IoRocketSharp className="inline-block size-8 stroke-current" />
               </div>
               <div className="stat-title">Launch Mass</div>
               <div className="stat-value text-primary">
@@ -76,7 +76,7 @@ const Roadster: NextPage<RoadsterProps> = () => {
 
             <div className="stat">
               <div className="stat-figure text-primary">
-                <ImEarth className="inline-block h-8 w-8 stroke-current" />
+                <ImEarth className="inline-block size-8 stroke-current" />
               </div>
               <div className="stat-title">Distance</div>
               <div className="stat-value text-primary">

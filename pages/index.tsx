@@ -38,7 +38,7 @@ const Home: NextPage<HomeProps> = () => {
     <FullScreenLayout className="h-screen" description={description}>
       {isLoading && (
         <div className="-mt-16 grid min-h-full w-full place-items-center">
-          <VscLoading className="h-1/4 w-1/4 animate-spin text-current opacity-40" />
+          <VscLoading className="size-1/4 animate-spin text-current opacity-40" />
         </div>
       )}
       {isSuccess && <Hero title={data.title} summary={data.summary} />}

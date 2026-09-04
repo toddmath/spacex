@@ -28,18 +28,18 @@ const Specs: FC<SpecsProps> = ({ title, summary, data, children }) => {
             <DisclosureButton
               className={cn(
                 "flex w-full items-center justify-between bg-primary px-4 py-2 text-left text-primary-content",
-                "focus:outline-none focus-visible:ring focus-visible:ring-accent focus-visible:ring-opacity-75",
+                "focus-visible:ring-opacity-75 focus:outline-none focus-visible:ring focus-visible:ring-accent",
               )}
             >
               <>
                 <header className="flex w-full flex-col items-start justify-start">
-                  <h4 className="text-lg font-medium leading-6">{title}</h4>
+                  <h4 className="text-lg leading-6 font-medium">{title}</h4>
                   <p className="max-w-2xl text-sm">{summary}</p>
                 </header>
                 <ChevronUpIcon
                   title={open ? "down" : "up"}
                   className={cn(
-                    "size-5 h-5 w-5 text-primary-content transition-transform",
+                    "size-5 size-5 text-primary-content transition-transform",
                     {
                       "rotate-180": open,
                     },

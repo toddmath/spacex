@@ -19,7 +19,7 @@ const Launch: FC<LaunchProps> = ({ data }) => {
   const patchSrc = data.links?.patch?.small ?? data.links?.patch?.large;
 
   return (
-    <div className='prose mx-auto w-full max-w-6xl space-y-20 dark:prose-invert'>
+    <div className='dark:prose-invert mx-auto prose w-full max-w-6xl space-y-20'>
       <div className='container mx-auto flex w-full max-w-prose flex-col items-center justify-between gap-6 sm:flex-row sm:flex-wrap'>
         <p className='m-0 w-full self-end p-0 text-lg'>
           Launched:&nbsp;
@@ -77,7 +77,7 @@ const Launch: FC<LaunchProps> = ({ data }) => {
 
         {data.links?.youtube_id && (
           <div className="container mx-auto h-auto w-full overflow-hidden rounded-lg object-cover shadow-lg lg:max-w-5xl">
-            <div className="w-full object-cover aspect-video">
+            <div className="aspect-video w-full object-cover">
               <YouTube
                 videoid={data.links.youtube_id}
                 title={"Play launch video of " + data.name}
@@ -87,7 +87,7 @@ const Launch: FC<LaunchProps> = ({ data }) => {
         )}
 
         {Boolean(data.links?.flickr?.original?.length) && (
-          <div className="not-prose mx-auto mt-12 w-full max-w-5xl shadow-lg aspect-video">
+          <div className="not-prose mx-auto mt-12 aspect-video w-full max-w-5xl shadow-lg">
             <Carousel slideInterval={5000} slide={false}>
               {(data.links?.flickr?.original || []).map((src, i) => (
                 <Image
@@ -98,7 +98,7 @@ const Launch: FC<LaunchProps> = ({ data }) => {
                   height={800}
                   loading='lazy'
                   decoding='async'
-                  className='not-prose m-0 block h-full w-full object-cover object-center'
+                  className='not-prose m-0 block size-full object-cover object-center'
                 />
               ))}
             </Carousel>

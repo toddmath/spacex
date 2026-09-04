@@ -142,7 +142,7 @@ const Rocket: NextPage<RocketProps> = props => {
         >
           <li
             role='listitem'
-            className='flex items-center justify-between py-3 pl-3 pr-4 text-sm'
+            className='flex items-center justify-between py-3 pr-4 pl-3 text-sm'
           >
             <div className='flex w-0 flex-1 items-center'>Composite Fairing</div>
             <div className='ml-4 shrink-0'>
@@ -152,7 +152,7 @@ const Rocket: NextPage<RocketProps> = props => {
           </li>
           <li
             role='listitem'
-            className='flex items-center justify-between py-3 pl-3 pr-4 text-sm'
+            className='flex items-center justify-between py-3 pr-4 pl-3 text-sm'
           >
             <div className='flex w-0 flex-1 items-center'>Option 1</div>
             <div className='ml-4 shrink-0'>
@@ -193,13 +193,13 @@ const Rocket: NextPage<RocketProps> = props => {
         description={data.description}
         ogImages={data.flickr_images.map(url => ({ url, alt: data.name }))}
       >
-        <div className='prose dark:prose-invert mx-auto container max-w-4xl'>
-          <p className='max-w-prose mx-auto'>{data.description}</p>
+        <div className='dark:prose-invert container mx-auto prose max-w-4xl'>
+          <p className='mx-auto max-w-prose'>{data.description}</p>
           <h3>Images</h3>
           <div className='divider' />
           <ul
             role='list'
-            className='not-prose m-0 p-0 list-none smol-flexbox-grid smol-aspect-ratio-gallery w-full h-auto max-w-5xl mx-auto rounded-md overflow-hidden shadow'
+            className='not-prose smol-flexbox-grid smol-aspect-ratio-gallery m-0 mx-auto h-auto w-full max-w-5xl list-none overflow-hidden rounded-md p-0 shadow'
           >
             {data.flickr_images.map(img => (
               <li key={img} role='listitem'>
@@ -208,11 +208,11 @@ const Rocket: NextPage<RocketProps> = props => {
             ))}
           </ul>
 
-          <section className='w-full p-0 m-0'>
+          <section className='m-0 w-full p-0'>
             <h3>Specifications</h3>
             <div className='divider' />
 
-            <div className='card shadow bg-base-300 divide-y'>
+            <div className='card divide-y bg-base-300 shadow'>
               <Specs
                 title='Dimensions'
                 summary='Rocket details and specs'
@@ -237,9 +237,9 @@ const Rocket: NextPage<RocketProps> = props => {
                 title='Payload Weights'
                 summary='Various orbit payload weight details'
               >
-                <table className='table-auto w-full text-left'>
+                <table className='w-full table-auto text-left'>
                   <thead className='border-b'>
-                    <tr className='sm:grid sm:grid-cols-3 sm:gap-4 bg-neutral text-neutral-content border-t first:border-none'>
+                    <tr className='border-t bg-neutral text-neutral-content first:border-none sm:grid sm:grid-cols-3 sm:gap-4'>
                       <th className='px-4 py-5 sm:px-6'>Orbit</th>
                       {/* <th className='px-4 py-5 sm:px-6'></th> */}
                       <th className='px-4 py-5 sm:px-6'>kg</th>
@@ -250,9 +250,9 @@ const Rocket: NextPage<RocketProps> = props => {
                     {payloadWeightSpecData.map(spec => (
                       <tr
                         key={spec.name}
-                        className='text-sm sm:grid sm:grid-cols-3 sm:gap-4 bg-neutral text-neutral-content border-t first:border-none'
+                        className='border-t bg-neutral text-sm text-neutral-content first:border-none sm:grid sm:grid-cols-3 sm:gap-4'
                       >
-                        <th className='font-medium text-sm px-4 py-5 sm:px-6'>
+                        <th className='px-4 py-5 text-sm font-medium sm:px-6'>
                           {spec.name}
                         </th>
                         <td className='px-4 py-5 sm:px-6'>{prettierFmt(spec.kg)}</td>
@@ -265,7 +265,7 @@ const Rocket: NextPage<RocketProps> = props => {
             </div>
           </section>
 
-          <div className='mt-14 mx-auto gap-y-4 md:gap-y-6 w-full'>
+          <div className='mx-auto mt-14 w-full gap-y-4 md:gap-y-6'>
             <pre>
               <code>{JSON.stringify(data, null, 2)}</code>
             </pre>

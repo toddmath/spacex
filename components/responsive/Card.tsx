@@ -49,13 +49,13 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.33 }}
         viewport={{ amount: "some" }}
-        className="h-full @container/card"
+        className="@container/card h-full"
       >
         <section
           aria-label={cardTitle}
           className={cn(
             className,
-            "group/card card card-compact isolate h-full overflow-hidden shadow-xl @md/card:card-normal",
+            "card-compact group/card @md/card:card-normal card isolate h-full overflow-hidden shadow-xl",
             {
               "bg-base-100 @xs/card:image-full @sm/card:image-full @md/card:flex @md/card:card-side":
                 image,
@@ -83,7 +83,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
 
           <div className="card-body @md/card:gap-3 @lg/card:gap-4 @lg/card:text-lg">
             <header className="flex flex-wrap items-center text-center">
-              <h2 className="card-title mx-auto flex-wrap text-xl @sm/card:text-2xl @md/card:text-3xl">
+              <h2 className="mx-auto card-title flex-wrap text-xl @sm/card:text-2xl @md/card:text-3xl">
                 {title}
               </h2>
             </header>

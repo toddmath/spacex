@@ -37,7 +37,7 @@ const Payload: FC<PayloadProps> = ({ payload }) => {
   return (
     <Card
       title={payload.name}
-      wrapperClassName={cn("list-none w-full", {
+      wrapperClassName={cn("w-full list-none", {
         "row-span-1": nspecs >= 0 && nspecs <= 8,
         "row-span-2": nspecs > 8 && nspecs <= 14,
         "row-span-3": nspecs > 14 && nspecs <= 20,

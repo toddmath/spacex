@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+}
 
 /* @import "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json"; */

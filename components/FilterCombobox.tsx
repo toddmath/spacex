@@ -37,15 +37,15 @@ const FilterCombobox = ({
         onChange={(e) => setQuery(e.target.value)}
         className={cn(
           className,
-          "px-4 py-2 relative rounded-lg bg-gray-100 dark:bg-gray-800",
+          "relative rounded-lg bg-gray-100 px-4 py-2 dark:bg-gray-800",
         )}
       />
-      <ComboboxOptions className="w-full max-w-md text-gray-100 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 absolute inset-0 h-full z-50 rounded-lg shadow">
+      <ComboboxOptions className="absolute inset-0 z-50 size-full max-w-md rounded-lg bg-gray-100 text-gray-100 shadow dark:bg-gray-700 dark:text-gray-200">
         {filteredChoices.map((choice) => (
           <ComboboxOption key={choice} value={choice} as={Fragment}>
             {({ focus, selected }) => (
               <li
-                className={cn("leading-normal px-4 w-full list-none m-0", {
+                className={cn("m-0 w-full list-none px-4 leading-normal", {
                   "text-blue-500 dark:text-blue-600 bg-white dark:bg-gray-600":
                     focus,
                   "text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-800":

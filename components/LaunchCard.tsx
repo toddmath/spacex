@@ -40,7 +40,7 @@ const LaunchCard: FC<LaunchCardProps> = ({
     >
       <dl
         className={cn(
-          "block w-full space-y-2 self-start justify-self-start text-base font-semibold leading-none",
+          "block w-full space-y-2 self-start justify-self-start text-base leading-none font-semibold",
           {
             "text-error": !success && !futureLaunch,
             "text-success": success,
@@ -71,9 +71,9 @@ const LaunchCard: FC<LaunchCardProps> = ({
         </div>
       </dl>
 
-      {details ? <p className='w-fit line-clamp-6'>{details}</p> : null}
+      {details ? <p className='line-clamp-6 w-fit'>{details}</p> : null}
 
-      <div className='card-actions mt-2 justify-end'>
+      <div className='mt-2 card-actions justify-end'>
         <Link
           href={{ pathname: "/launch/[id]", query: { id } }}
           className={cn("btn", {

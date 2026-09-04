@@ -53,7 +53,7 @@ const Capsules: NextPage<CapsulesProps> = () => {
               className='border border-primary shadow-xl transition focus-within:border-neutral hover:border-neutral'
               tabIndex={0}
             >
-              <div className='items-between prose flex h-full w-full flex-col dark:prose-invert'>
+              <div className='items-between dark:prose-invert prose flex size-full flex-col'>
                 <p className='w-full text-center'>{cap.last_update}</p>
                 <div className='card-actions'>
                   <div className='stats mx-auto w-full auto-cols-fr overflow-x-hidden bg-primary text-center text-primary-content shadow-inner transition-all group-focus-within/card:bg-neutral group-focus-within/cards:text-neutral-content group-hover/card:bg-neutral group-hover/cards:text-neutral-content'>

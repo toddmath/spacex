@@ -34,7 +34,7 @@ const TimelineItem: FC<TimelineItemProps> = ({
   return (
     <li
       className={cn(
-        "border-l border-t-gray-200 dark:border-t-gray-700 border-l-blue-300 dark:border-l-gray-700 last:border-0 pb-10 pl-4 sm:pl-6 last:pb-0 group",
+        "group border-l border-t-gray-200 border-l-blue-300 pb-10 pl-4 last:border-0 last:pb-0 sm:pl-6 dark:border-t-gray-700 dark:border-l-gray-700",
         className,
       )}
       {...props}
@@ -74,7 +74,7 @@ const TimelinePoint: React.FC<TimelinePointProps> = ({
             "timeline-point-inner",
             "grid place-items-center",
             "absolute left-0 -translate-x-1/2",
-            "ring-8 ring-gray-50 dark:ring-gray-900 transition-colors",
+            "ring-8 ring-gray-50 transition-colors dark:ring-gray-900",
             {
               "rounded-none": rounded === "none",
               "rounded-sm": rounded === "sm",
@@ -99,7 +99,7 @@ const TimelinePoint: React.FC<TimelinePointProps> = ({
           <Icon
             aria-hidden
             strokeWidth={2.5}
-            className={cn("text-current stroke-250", {
+            className={cn("stroke-250 text-current", {
               "size-3": size === "sm",
               "size-4": size === "md",
               "size-5": size === "lg",
@@ -111,7 +111,7 @@ const TimelinePoint: React.FC<TimelinePointProps> = ({
         <div
           className={cn(
             "timeline-point-inner",
-            "border absolute left-0 -translate-x-1/2",
+            "absolute left-0 -translate-x-1/2 border",
             {
               "rounded-none": rounded === "none",
               "rounded-sm": rounded === "sm",
@@ -160,7 +160,7 @@ const TimelineContent: FC<TimelineContentProps> = ({
       href={{ pathname: href }}
       passHref
       className={cn(
-        "w-full prose dark:prose-invert flex flex-col bg-gray-200 dark:bg-gray-800 p-4 rounded shadow-lg transition hover:scale-100 group-hover:scale-95 group-focus-within:scale-95",
+        "dark:prose-invert prose flex w-full flex-col rounded bg-gray-200 p-4 shadow-lg transition group-focus-within:scale-95 group-hover:scale-95 hover:scale-100 dark:bg-gray-800",
         className,
       )}
       {...props}
@@ -184,7 +184,7 @@ const TimelineTime: FC<TimelineTimeProps> = ({
   return (
     <time
       className={cn(
-        "mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-500",
+        "mb-2 text-sm leading-none font-normal text-gray-500 dark:text-gray-500",
         className,
       )}
       {...props}
@@ -213,7 +213,7 @@ const TimelineTitle: FC<TimelineTitleProps> = ({
   return (
     <Tag
       className={cn(
-        "text-xl font-semibold text-gray-900 dark:text-gray-100 my-0 text-center sm:text-start",
+        "my-0 text-center text-xl font-semibold text-gray-900 sm:text-start dark:text-gray-100",
         className,
       )}
       {...props}

@@ -17,14 +17,14 @@ const Rocket: React.FC<RocketProps> = ({ data }) => {
     >
       <TiltCard
         imgSrc={data.flickr_images?.[1] ?? data.flickr_images?.[0] ?? ""}
-        className="smol-card-component rounded-box overflow-hidden"
+        className="smol-card-component overflow-hidden rounded-box"
       >
-        <header className="rounded-t-box mx-auto w-full bg-linear-to-b from-neutral/40 to-neutral/60 py-3 text-center text-neutral-content mix-blend-hard-light backdrop-blur-sm focus-visible:outline-none">
-          <h3 className="m-0 p-0 text-center text-3xl font-bold uppercase text-neutral-content">
+        <header className="mx-auto w-full rounded-t-box bg-linear-to-b from-neutral/40 to-neutral/60 py-3 text-center text-neutral-content mix-blend-hard-light backdrop-blur-sm focus-visible:outline-none">
+          <h3 className="m-0 p-0 text-center text-3xl font-bold text-neutral-content uppercase">
             {data.name}
           </h3>
         </header>
-        <p className="rounded-b-box m-0 overflow-hidden bg-linear-to-b from-neutral/60 to-neutral/80 px-6 pb-6 pt-3 text-neutral-content mix-blend-hard-light backdrop-blur-sm">
+        <p className="m-0 overflow-hidden rounded-b-box bg-linear-to-b from-neutral/60 to-neutral/80 px-6 pt-3 pb-6 text-neutral-content mix-blend-hard-light backdrop-blur-sm">
           {data.description}
         </p>
       </TiltCard>

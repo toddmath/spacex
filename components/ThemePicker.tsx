@@ -1,30 +1,28 @@
 import { useTheme } from "next-themes"
 import cn from "classnames"
 import { TbChevronDown, TbColorSwatch } from "react-icons/tb"
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
+
+const subscribe = () => () => {}
+const getClientSnapshot = () => true
+const getServerSnapshot = () => false
 
 const ThemePicker: React.FC = () => {
   const { setTheme, themes, theme: currentTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  // useEffect only runs on the client, so we know we are hydrated
-  useEffect(() => {
-    setMounted(true)
-  }, [setMounted])
-  const isTheme = (t: string) => t === currentTheme
+  const mounted = useSyncExternalStore(subscribe, getClientSnapshot, getServerSnapshot)
 
   if (!mounted) {
     return (
       <div className='dropdown dropdown-end transition-all' title='Change Theme'>
-        <div tabIndex={0} className='btn btn-ghost gap-x-1 gap-y-0 normal-case px-2'>
+        <div tabIndex={0} className='btn gap-x-1 gap-y-0 btn-ghost px-2 normal-case'>
           <TbColorSwatch
             aria-hidden='true'
-            className='inline-block h-5 w-5 stroke-current md:h-6 md:w-6'
+            className='inline-block size-5 stroke-current md:size-6'
           />
           <span className='hidden md:inline'>Theme</span>
           <TbChevronDown
             aria-hidden='true'
-            className='hidden h-3 w-3 stroke-current opacity-70 sm:inline-block'
+            className='hidden size-3 stroke-current opacity-70 sm:inline-block'
           />
         </div>
       </div>
@@ -34,58 +32,58 @@ const ThemePicker: React.FC = () => {
   if (mounted) {
     return (
       <div className='dropdown dropdown-end transition-all' title='Change Theme'>
-        <div tabIndex={0} className='btn btn-ghost gap-x-1 gap-y-0 normal-case px-2'>
+        <div tabIndex={0} className='btn gap-x-1 gap-y-0 btn-ghost px-2 normal-case'>
           <TbColorSwatch
             aria-hidden='true'
-            className='inline-block h-5 w-5 stroke-current md:h-6 md:w-6'
+            className='inline-block size-5 stroke-current md:size-6'
           />
           <span className='hidden md:inline'>Theme</span>
           <TbChevronDown
             aria-hidden='true'
-            className='hidden h-3 w-3 stroke-current opacity-70 sm:inline-block'
+            className='hidden size-3 stroke-current opacity-70 sm:inline-block'
           />
         </div>
 
         <div
           tabIndex={0}
-          className='dropdown-content shadow-2xl bg-base-200 text-base-content rounded-t-box rounded-b-box top-px max-h-96 h-[70vh] overflow-y-auto w-52 mt-16'
+          className='dropdown-content top-px mt-16 h-[70vh] max-h-96 w-52 overflow-y-auto rounded-field bg-base-200 text-base-content shadow-2xl'
         >
           <menu
             role='list'
             aria-label='Change theme'
-            className='grid grid-cols-1 gap-3 p-3 menu'
+            className='menu grid grid-cols-1 gap-3 p-3'
           >
             {themes.map(theme => (
               <li
                 key={theme}
                 role='listitem'
                 aria-label={theme}
-                aria-current={isTheme(theme)}
+                aria-current={theme === currentTheme}
                 data-theme={theme}
-                className='outline-base-content overflow-hidden rounded-btn outline-2 outline-offset-2'
+                className='rounded-btn overflow-hidden outline-2 outline-offset-2 outline-base-content'
               >
                 <div
                   data-theme={theme}
                   data-set-theme={theme}
                   className={cn(
-                    "bg-base-100 text-base-content w-full cursor-pointer font-sans p-0 m-0 block border-2",
+                    "m-0 block w-full cursor-pointer border-2 bg-base-100 p-0 font-sans text-base-content",
                     {
-                      "border-primary shadow-inner": isTheme(theme),
-                      "border-transparent shadow-lg": !isTheme(theme),
+                      "border-primary shadow-inner": theme === currentTheme,
+                      "border-transparent shadow-lg": theme !== currentTheme,
                     }
                   )}
                   onClick={() => setTheme(theme)}
                 >
-                  <div className='flex gap-1 py-3 px-4'>
+                  <div className='flex gap-1 px-4 py-3'>
                     <div className='grow text-sm font-bold'>{theme}</div>
                     <div
-                      className='flex items-center shrink-0 flex-wrap gap-x-1 rounded overflow-hidden'
+                      className='flex shrink-0 flex-wrap items-center gap-x-1 overflow-hidden rounded-field'
                       aria-hidden='true'
                     >
-                      <div className='rounded-full bg-primary size-3'></div>
-                      <div className='rounded-full bg-secondary size-3'></div>
-                      <div className='rounded-full bg-accent size-3'></div>
-                      <div className='rounded-full bg-neutral size-3'></div>
+                      <div className='size-3 rounded-full bg-primary'></div>
+                      <div className='size-3 rounded-full bg-secondary'></div>
+                      <div className='size-3 rounded-full bg-accent'></div>
+                      <div className='size-3 rounded-full bg-neutral'></div>
                     </div>
                   </div>
                 </div>

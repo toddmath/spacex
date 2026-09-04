@@ -6,11 +6,11 @@ const Loader: React.FC<{ className?: string; wrapperClassName?: string }> = ({
   wrapperClassName,
 }) => (
   <div
-    className={cn(wrapperClassName, "grid place-items-center w-full h-full")}
+    className={cn(wrapperClassName, "grid size-full place-items-center")}
   >
     <VscLoading
       title="loading spinner"
-      className={cn(className, "text-base-300 w-1/2 h-1/2 animate-spin")}
+      className={cn(className, "size-1/2 animate-spin text-base-300")}
     />
   </div>
 );

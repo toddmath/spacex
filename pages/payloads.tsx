@@ -39,7 +39,7 @@ const Payloads: NextPage<PayloadsProps> = () => {
       <ol
         role="list"
         aria-label="payloads"
-        className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-min grid-flow-dense container mx-auto lg:max-w-6xl"
+        className="container mx-auto grid grid-flow-dense auto-rows-min grid-cols-1 gap-6 md:grid-cols-2 lg:max-w-6xl lg:grid-cols-3"
       >
         <LayoutGroup id="payloads">
           {data?.map((payload) => (

@@ -4,7 +4,7 @@ import { env } from "node:process";
 const config = {
   siteUrl: env.SITE_URL || "https://spacex-one.vercel.app",
   generateRobotsTxt: true, // (optional)
-  // generateIndexSitemap: false,
+  generateIndexSitemap: false,
 };
 
 export default config;

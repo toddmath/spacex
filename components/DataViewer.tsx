@@ -10,7 +10,7 @@ const DataViewer: FC<DataViewerProps> = ({ data, className }) => (
   <section
     className={cn(
       className,
-      "mx-auto w-full mt-14 mockup-code container lg:max-w-5xl",
+      "mockup-code container mx-auto mt-14 w-full lg:max-w-5xl",
     )}
   >
     <pre>

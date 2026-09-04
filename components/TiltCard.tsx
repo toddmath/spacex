@@ -49,7 +49,7 @@ const TiltCard: React.FC<TiltCardProps> = ({
       className={cn(
         trackerClassName,
         "relative grid transition duration-300",
-        "prose-invert prose mx-auto w-full p-0",
+        "prose-invert mx-auto prose w-full p-0",
         "group max-w-lg",
       )}
       style={{

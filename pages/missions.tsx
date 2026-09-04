@@ -30,11 +30,11 @@ const Missions: NextPage<MissionProps> = () => {
       description="List of every mission, both completed and upcoming."
     >
       {isLoading && <Loader />}
-      <div className="container max-w-5xl w-fit mx-auto">
+      <div className="container mx-auto w-fit max-w-5xl">
         <ol
           role="list"
           aria-label="missions"
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="grid grid-cols-1 gap-8 md:grid-cols-2"
         >
           {data?.map((m) => (
             <MissionCard key={m.mission_id} data={m} />

@@ -50,7 +50,7 @@ const ShipPage: NextPage<ShipProps> = () => {
     <Layout title="Ships" description="All SpaceX ships.">
       <ul
         role="list"
-        className="container lg:max-w-5xl mx-auto list-none grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8"
+        className="container mx-auto grid list-none grid-cols-1 gap-6 md:gap-8 lg:max-w-5xl lg:grid-cols-2"
       >
         {data?.map((ship, i) => (
           <ShipCard

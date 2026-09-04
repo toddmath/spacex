@@ -35,7 +35,7 @@ const RocketCard: FC<RocketCardProps> = ({
         {description}
       </p>
 
-      <div className="stats stats-vertical mx-auto w-fit max-w-[50ch] bg-neutral text-neutral-content shadow @md/card:my-2 @md/card:stats-horizontal @lg/card:my-4 sm:w-full">
+      <div className="stats mx-auto w-fit max-w-[50ch] stats-vertical bg-neutral text-neutral-content shadow sm:w-full @md/card:my-2 @md/card:stats-horizontal @lg/card:my-4">
         <div className="stat">
           <div className="stat-title">Payload</div>
           <div className="stat-value text-2xl @lg/card:text-3xl">
@@ -56,16 +56,16 @@ const RocketCard: FC<RocketCardProps> = ({
         </div>
       </div>
       <div className="card-actions justify-end">
-        <a href={wikipedia} className="btn-accent rounded-btn btn gap-2">
-          <SiWikipedia title="Wikipedia" className="h-6 w-6" />
+        <a href={wikipedia} className="rounded-btn btn gap-2 btn-accent">
+          <SiWikipedia title="Wikipedia" className="size-6" />
         </a>
         <Link
           href={`/rocket/${id}`}
-          className="group/link btn-accent rounded-btn btn gap-2"
+          className="group/link rounded-btn btn gap-2 btn-accent"
         >
           <BiRightArrowAlt
             title="Rocket details page"
-            className="h-6 w-6 transition-all group-hover/link:animate-shake"
+            className="group-hover/link:animate-shake size-6 transition-all"
           />
         </Link>
       </div>

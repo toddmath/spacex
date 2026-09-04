@@ -30,12 +30,12 @@ const cspHeader = `
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  crossOrigin: "anonymous",
-  experimental: {
-    optimizePackageImports: [],
-  },
+  // crossOrigin: "anonymous",
+  // experimental: {
+  //   optimizePackageImports: [],
+  // },
   reactStrictMode: true,
-  // reactCompiler: true,
+  reactCompiler: true,
   // typedRoutes: true,
   devIndicators: {
     position: "bottom-left",
@@ -94,18 +94,18 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: cspHeader.replace(/\n/g, ""),
           },
-          {
-            key: "Access-Control-Allow-Origin",
-            value: "*", // Set your origin
-          },
-          {
-            key: "Access-Control-Allow-Methods",
-            value: "GET, POST, PUT, DELETE, OPTIONS",
-          },
-          {
-            key: "Access-Control-Allow-Headers",
-            value: "Content-Type, Authorization",
-          },
+          // {
+          //   key: "Access-Control-Allow-Origin",
+          //   value: "*", // Set your origin
+          // },
+          // {
+          //   key: "Access-Control-Allow-Methods",
+          //   value: "GET, POST, PUT, DELETE, OPTIONS",
+          // },
+          // {
+          //   key: "Access-Control-Allow-Headers",
+          //   value: "Content-Type, Authorization",
+          // },
         ],
       },
     ]

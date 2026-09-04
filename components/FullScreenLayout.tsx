@@ -53,7 +53,7 @@ const FullScreenLayout: FC<FullScreenLayoutProps> = ({
         })}
       </Head>
       {title && <Header title={title} tag="h1" />}
-      <main id="skip" className={cn(className, "min-h-full w-screen p-0 m-0")}>
+      <main id="skip" className={cn(className, "m-0 min-h-full w-screen p-0")}>
         {children}
       </main>
     </>

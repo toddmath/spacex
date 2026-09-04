@@ -46,13 +46,13 @@ const RippleButton = forwardRef<HTMLDivElement, RippleButtonProps>(
       >
         <motion.button
           type="button"
-          className="btn-primary rounded-btn no-animation btn relative overflow-hidden shadow hover:bg-opacity-90"
+          className="rounded-btn no-animation hover:bg-opacity-90 btn relative overflow-hidden shadow btn-primary"
           layout
           initial="off"
           whileTap="on"
         >
           <motion.span
-            className="absolute w-fit scale-0 rounded-full bg-primary-content/70 aspect-square"
+            className="absolute aspect-square w-fit scale-0 rounded-full bg-primary-content/70"
             variants={rippleVariants}
           />
           {children}

@@ -24,33 +24,33 @@ const MissionCard: FC<MissionCardProps> = ({ data }) => (
 
       <p className="line-clamp-6">{data.description}</p>
 
-      <footer className="card-actions mt-6 justify-end">
+      <footer className="mt-6 card-actions justify-end">
         <div className="rounded-btn inline-flex overflow-hidden border-2 border-secondary shadow">
           <Link
             href={`/mission/${encodeURIComponent(data.mission_id)}`}
-            className="btn-outline btn-secondary btn-square btn rounded-none border-none text-lg"
+            className="btn btn-square rounded-none border-none btn-outline text-lg btn-secondary"
           >
-            <MdReadMore title="read more details" className="h-5 w-5" />
+            <MdReadMore title="read more details" className="size-5" />
           </Link>
           {data.twitter && (
             <a
               href={data.twitter}
-              className="btn-outline btn-secondary btn-square btn rounded-none border-none text-lg"
+              className="btn btn-square rounded-none border-none btn-outline text-lg btn-secondary"
             >
-              <TbBrandTwitter title="twitter" className="h-5 w-5" />
+              <TbBrandTwitter title="twitter" className="size-5" />
             </a>
           )}
           <a
             href={data.wikipedia}
-            className="btn-outline btn-secondary btn-square btn rounded-none border-none text-lg"
+            className="btn btn-square rounded-none border-none btn-outline text-lg btn-secondary"
           >
-            <FaWikipediaW title="wikipedia" className="h-5 w-5" />
+            <FaWikipediaW title="wikipedia" className="size-5" />
           </a>
           <a
             href={data.website}
-            className="btn-outline btn-secondary btn-square btn rounded-none border-none text-lg"
+            className="btn btn-square rounded-none border-none btn-outline text-lg btn-secondary"
           >
-            <TbExternalLink title="external page" className="h-5 w-5" />
+            <TbExternalLink title="external page" className="size-5" />
           </a>
         </div>
       </footer>

@@ -27,7 +27,7 @@ const NavLink: FC<NavLinkProps> = ({ position, href, text, pages }) => {
           ) : (
             <TbChevronDown
               aria-hidden="true"
-              className="h-3 w-3 stroke-current opacity-70"
+              className="size-3 stroke-current opacity-70"
             />
           )}
         </motion.div>

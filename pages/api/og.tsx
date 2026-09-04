@@ -15,7 +15,7 @@ export default async function handler(req: NextRequest) {
 
     return new ImageResponse(
       // Modified based on https://tailwindui.com/components/marketing/sections/cta-sections
-      <div tw="h-full w-full flex text-center flex-col items-center justify-center flex-nowrap bg-black bg-cover">
+      <div tw="size-full flex text-center flex-col items-center justify-center flex-nowrap bg-black bg-cover">
         <div tw="flex items-center justify-center justify-items-center">
           <div tw="flex flex-col md:flex-row w-full py-12 px-4 md:items-center justify-between p-8">
             <h2 tw="flex flex-col text-3xl sm:text-4xl font-bold tracking-tight text-gray-700 text-left">

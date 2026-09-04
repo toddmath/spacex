@@ -19,31 +19,28 @@ type LayoutProps = PropsWithChildren<{
   headerTag?: "h1" | "h2" | null;
 }>;
 
+const spaceXDescription = "Information on everything related with SpaceX: launches, rockets, missions, capsules, payloads, Elon Musk's tesla roadster, company info, and more.";
 const Layout: FC<LayoutProps> = ({
   headerTag = "h1",
   title = "SpaceX",
   className,
   containerClassName = "my-14",
   ogImages,
-  children,
-  ...props
-}) => {
+  image,
+  description = spaceXDescription,
+  children}) => {
   const router = useRouter();
   const url = `https://spacex-one.vercel.app${router.asPath}`;
 
-  const description =
-    props.description ??
-    "Information on everything related with SpaceX: launches, rockets, missions, capsules, payloads, Elon Musk's tesla roadster, company info, and more.";
-
   const imageType =
-    props.image?.substring(props.image.lastIndexOf(".") + 1) === "jpg"
+    image?.substring(image.lastIndexOf(".") + 1) === "jpg"
       ? "image/jpeg"
       : undefined;
 
-  const images: OpenGraphMedia[] = props.image
+  const images: OpenGraphMedia[] = image
     ? [
         {
-          url: props.image,
+          url: image,
           width: 800,
           height: 600,
           type: imageType,
@@ -70,7 +67,7 @@ const Layout: FC<LayoutProps> = ({
       <div
         className={cn(
           containerClassName,
-          "transition-colors w-full bg-base-100 text-base-content relative space-y-14",
+          "relative w-full space-y-14 bg-base-100 text-base-content transition-colors",
         )}
       >
         {headerTag && <Header title={title} tag={headerTag} />}
@@ -78,7 +75,7 @@ const Layout: FC<LayoutProps> = ({
           id="skip"
           className={cn(
             className,
-            "flex gap-y-14 flex-col justify-start items-start px-8 h-full min-h-[70vh] bg-inherit text-inherit",
+            "flex h-full min-h-[70vh] flex-col items-start justify-start gap-y-14 bg-inherit px-8 text-inherit",
           )}
         >
           {children}

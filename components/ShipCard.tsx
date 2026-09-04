@@ -69,7 +69,7 @@ const ShipCard: FC<ShipCardProps> = ({
         {specs.map(([k, v]) => (
           <li
             key={`${ship.name}-${k}`}
-            className="badge-secondary badge badge-lg gap-1 capitalize"
+            className="badge gap-1 badge-lg capitalize badge-secondary"
           >
             {k}: {v}
           </li>
@@ -77,14 +77,14 @@ const ShipCard: FC<ShipCardProps> = ({
       </ul>
 
       {ship.link ? (
-        <div className="card-actions mt-auto justify-end">
+        <div className="mt-auto card-actions justify-end">
           <a
             href={ship.link}
             target="_blank"
             rel="noreferrer"
-            className="btn-secondary btn-circle btn"
+            className="btn btn-circle btn-secondary"
           >
-            <FiExternalLink title="external link" className="size-5 h-5 w-5" />
+            <FiExternalLink title="external link" className="size-5 size-5" />
           </a>
         </div>
       ) : null}

@@ -15,16 +15,16 @@ const eslintConfig = defineConfig([
   {
     settings: {
       tailwindcss: {
-        callees: ["twMerge", "createTheme"],
-        classRegex: "^(class(Name)|theme)?$",
+        // callees: ["twMerge", "createTheme"],
+        // classRegex: "^(class(Name)|theme)?$",
         cssConfigPath: "styles/globals.css",
       },
     },
     rules: {
-      "react-hooks/refs": "off",
-      "react-hooks/purity": "off",
-      "react-hooks/set-state-in-effect": "off",
-      "react-hooks/immutability": "off",
+      "react-hooks/refs": "warn",
+      "react-hooks/purity": "warn",
+      "react-hooks/set-state-in-effect": "warn",
+      "react-hooks/immutability": "warn",
       "tailwindcss/no-custom-classname": "off",
     },
   },
@@ -60,6 +60,7 @@ const eslintConfig = defineConfig([
     "*.config.json",
     "*.config.yaml",
     "*.config.yml",
+    ".agents/**",
     "coverage/**",
   ]),
 ]);

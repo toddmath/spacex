@@ -18,13 +18,13 @@ const Footer: React.FC = () => {
   });
 
   return (
-    <footer className="footer items-center p-4 bg-neutral text-neutral-content grid-flow-col relative z-10">
+    <footer className="relative z-10 footer grid-flow-col items-center bg-neutral p-4 text-neutral-content">
       {isLoading && (
-        <VscLoading className="w-fit min-h-12 text-inherit animate-spin mx-auto" />
+        <VscLoading className="mx-auto min-h-12 w-fit animate-spin text-inherit" />
       )}
       {isSuccess ? (
         <>
-          <div className="items-center grid-flow-col">
+          <div className="grid-flow-col items-center">
             <a
               href={data.links.website}
               className="btn btn-link px-0"
@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
             >
               <svg
                 viewBox="0 0 400 50"
-                className="fill-current h-5 sm:h-9"
+                className="h-5 fill-current sm:h-9"
                 aria-label="spacex"
               >
                 <path d="M37.5 30.5H10.9v-6.6h34.3c-.9-2.8-3.8-5.4-8.9-5.4H11.4c-5.7 0-9 2.1-9 6.7v4.9c0 4 3.4 6.3 8.4 6.3h26.9v7H1.5c.9 3.8 3.8 5.8 9 5.8h27.1c5.7 0 8.5-2.2 8.5-6.9v-4.9c0-4.3-3.3-6.6-8.6-6.9z" />
@@ -51,13 +51,13 @@ const Footer: React.FC = () => {
             </address>
           </div>
 
-          <div className="grid-flow-col gap-2 md:gap-4 place-self-center justify-self-end">
+          <div className="grid-flow-col gap-2 place-self-center justify-self-end md:gap-4">
             <a
               href={data.links.twitter}
               className="btn btn-link btn-sm md:btn-md"
             >
               <FiTwitter
-                className="fill-current w-6 h-6"
+                className="size-6 fill-current"
                 aria-label="spacex twitter"
               />
             </a>
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
               className="btn btn-link btn-sm md:btn-md"
             >
               <ImFlickr2
-                className="fill-current w-6 h-6"
+                className="size-6 fill-current"
                 aria-label="spacex flickr"
               />
             </a>

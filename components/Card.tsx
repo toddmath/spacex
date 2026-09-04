@@ -41,7 +41,7 @@ const defaultImageProps: Partial<ImageProps> = {
   decoding: "async",
 };
 
-const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
+const Card = forwardRef<HTMLLIElement, CardProps>((
   {
     children,
     id,
@@ -77,7 +77,7 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
         animate={{ opacity: 1 }}
         exit={{ opacity: 0.25 }}
         layoutId={id}
-        className="h-full w-full"
+        className="size-full"
       >
         <motion.div
           ref={scrollRef}
@@ -88,14 +88,14 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.33 }}
           viewport={{ amount: "some" }}
-          className="h-full w-full"
+          className="size-full"
         >
           <section
             {...props}
             aria-label={is.string(title) ? title : props["aria-label"]}
             className={cn(
               className,
-              "group/card card rounded-box isolate h-full w-full flex-1 overflow-hidden shadow-xl @container/card",
+              "group/card @container/card card isolate size-full flex-1 overflow-hidden rounded-box shadow-xl",
               {
                 [`[contain:${containProps?.contain}] [contain-intrinsic-size:auto_--spacing(96)]`]:
                   containProps?.contain,
@@ -116,7 +116,7 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
             )}
             <div className="card-body w-full @md/card:gap-3 @lg/card:gap-4">
               <header className="flex flex-wrap items-center text-center">
-                <motion.h2 className="card-title mx-auto flex-wrap text-2xl @md/card:text-3xl">
+                <motion.h2 className="mx-auto card-title flex-wrap text-2xl @md/card:text-3xl">
                   {title}
                 </motion.h2>
               </header>

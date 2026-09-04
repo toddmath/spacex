@@ -54,9 +54,9 @@ const Launches: FC<LaunchesProps> = ({
   );
 
   return (
-    <div className="mx-auto container lg:max-w-6xl xl:max-w-7xl flex flex-col gap-8 min-h-full">
-      <form className="w-full flex gap-4 flex-wrap items-center justify-center rounded-box p-4 border-2 border-primary shadow bg-base-200">
-        <div className="form-control items-center justify-center w-full max-w-sm flex-1 md:basis-1/3">
+    <div className="container mx-auto flex min-h-full flex-col gap-8 lg:max-w-6xl xl:max-w-7xl">
+      <form className="flex w-full flex-wrap items-center justify-center gap-4 rounded-box border-2 border-primary bg-base-200 p-4 shadow">
+        <div className="form-control w-full max-w-sm flex-1 items-center justify-center md:basis-1/3">
           <label className="input-group">
             <span className="bg-neutral text-neutral-content">Name</span>
             <input
@@ -77,7 +77,7 @@ const Launches: FC<LaunchesProps> = ({
           </label>
         </div>
 
-        <div className="form-control items-center justify-center w-full max-w-xs flex-1 md:basis-1/3">
+        <div className="form-control w-full max-w-xs flex-1 items-center justify-center md:basis-1/3">
           <label className="input-group">
             <span className="bg-neutral text-neutral-content">Year</span>
             <input
@@ -103,18 +103,18 @@ const Launches: FC<LaunchesProps> = ({
           value={status}
           onChange={setStatus}
           name="status"
-          className="w-full max-w-sm flex flex-col items-start justify-center gap-3 md:basis-1/3"
+          className="flex w-full max-w-sm flex-col items-start justify-center gap-3 md:basis-1/3"
         >
           <Label className="label-text">Launch Status</Label>
-          <div className="form-control items-center justify-center flex-row">
+          <div className="form-control flex-row items-center justify-center">
             {showStatus.map((status) => (
               <Radio
                 key={status}
                 value={status}
-                className="form-control justify-center w-full"
+                className="form-control w-full justify-center"
               >
                 {({ checked }) => (
-                  <Label className="label justify-center gap-1 cursor-pointer">
+                  <Label className="label cursor-pointer justify-center gap-1">
                     <span className="label-text capitalize">{status}</span>
                     <input
                       type="radio"
@@ -140,8 +140,8 @@ const Launches: FC<LaunchesProps> = ({
         aria-label="Launches"
         className={cn(
           "overflow-hidden",
-          "group w-full grow overflow-x-hidden overflow-y-auto list-none",
-          "grid grid-cols-[repeat(auto-fit,minmax(35ch,1fr))] gap-6 auto-rows-max",
+          "group w-full grow list-none overflow-x-hidden overflow-y-auto",
+          "grid auto-rows-max grid-cols-[repeat(auto-fit,minmax(35ch,1fr))] gap-6",
         )}
       >
         <LayoutGroup id="launches">

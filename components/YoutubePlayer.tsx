@@ -17,7 +17,7 @@ const YoutubePlayer: React.FC<YTProps> = ({ className, ...rest }) => {
         className={cn(className, "group mx-auto")}
         iframeClassName={cn(
           rest.iframeClassName,
-          "object-cover w-full h-full outline-none focus-visible:outline-none",
+          "size-full object-cover outline-none focus-visible:outline-none",
         )}
         opts={{
           playerVars: {

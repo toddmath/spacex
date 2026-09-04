@@ -20,7 +20,7 @@ const Toaster: FC = () => {
               {icon}
               {message}
               <button
-                className="btn btn-primary text-primary-content"
+                className="btn text-primary-content btn-primary"
                 onClick={() => toast.dismiss(t.id)}
               >
                 <FiX className="size-4 stroke-current" size="1rem" />

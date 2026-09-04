@@ -51,7 +51,7 @@ const RocketSection: FC<RocketSectionProps> = ({
       <motion.section
         ref={scrollRef}
         aria-label={name}
-        className='hover-3d container card card-bordered image-full prose glass card-normal isolate rounded-lg bg-primary px-4 text-center sm:px-0'
+        className='card-bordered card-normal hover-3d image-full card isolate container prose rounded-lg glass bg-primary px-4 text-center sm:px-0'
         layout
         layoutScroll
         whileInView={{ opacity: 1, scale: 1 }}

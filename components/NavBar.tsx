@@ -50,22 +50,22 @@ const navLinks = [
 const NavBar: FC = () => {
   return (
     <div className="sticky top-0 z-30 flex h-16 w-full justify-center bg-base-300/60 text-base-content shadow backdrop-blur transition-all duration-100">
-      <ScrollIndicator className="top-15 fixed bottom-0 left-0 right-0 h-1 origin-[0%]" />
+      <ScrollIndicator className="fixed inset-x-0 top-15 bottom-0 h-1 origin-[0%]" />
       <nav aria-label="primary" className="navbar">
         <div className="navbar-start">
           <div className="dropdown">
             <label
               tabIndex={0}
-              className="btn btn-ghost btn-circle btn lg:hidden"
+              className="btn btn btn-circle btn-ghost lg:hidden"
             >
               <FiMenu
-                className="h-5 w-5 fill-none stroke-current"
+                className="size-5 fill-none stroke-current"
                 strokeWidth="2"
               />
             </label>
             <ul
               tabIndex={0}
-              className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-200 p-2 shadow"
+              className="menu-compact menu dropdown-content mt-3 w-52 rounded-box bg-base-200 p-2 shadow"
             >
               <LayoutGroup id="navlinks">
                 {navLinks.map((link) => (
@@ -77,7 +77,7 @@ const NavBar: FC = () => {
 
           <Link
             href="/"
-            className="btn-ghost rounded-btn btn text-lg normal-case md:text-xl"
+            className="rounded-btn btn btn-ghost text-lg normal-case md:text-xl"
           >
             SpaceX
           </Link>

@@ -19,7 +19,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ children }) => {
   });
 
   return (
-    <nav className="mx-8 md:mx-16 lg:mx-32 mb-8" aria-label="breadcrumb">
+    <nav className="mx-8 mb-8 md:mx-16 lg:mx-32" aria-label="breadcrumb">
       <ol className="flex items-center space-x-4">{childrenWithSeperator}</ol>
     </nav>
   );

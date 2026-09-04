@@ -53,26 +53,26 @@ const Mission: NextPage<MissionProps> = props => {
   if (isSuccess) {
     return (
       <Layout title={data.mission_name} description={data.description}>
-        <div className='container mx-auto prose dark:prose-invert space-y-8'>
-          <p className='text-ellipsis wrap-break-word'>{data.description}</p>
+        <div className='dark:prose-invert container mx-auto prose space-y-8'>
+          <p className='wrap-break-word text-ellipsis'>{data.description}</p>
 
           <div className='btn-group'>
             {data.twitter && (
               <a href={data.twitter} className='btn btn-primary'>
                 <TbBrandTwitter
                   title={`${data.mission_name} twitter account`}
-                  className='w-5 h-5'
+                  className='size-5'
                 />
               </a>
             )}
             <a href={data.wikipedia} className='btn btn-primary'>
               <ImWikipedia
                 title={`${data.mission_name} wikipedia article`}
-                className='w-5 h-5'
+                className='size-5'
               />
             </a>
             <a href={data.website} className='btn btn-primary'>
-              <FiExternalLink title={data.mission_name} className='w-5 h-5' />
+              <FiExternalLink title={data.mission_name} className='size-5' />
             </a>
           </div>
         </div>

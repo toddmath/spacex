@@ -52,7 +52,7 @@ const LaunchPads: NextPage<LaunchPadProps> = () => {
         <div className='container mx-auto space-y-10 lg:max-w-6xl'>
           <motion.ul
             role='list'
-            className='group h-full w-full snap-y snap-mandatory grid grid-cols-[repeat(auto-fit,minmax(min(100%,40ch),1fr))] gap-8'
+            className='group grid size-full snap-y snap-mandatory grid-cols-[repeat(auto-fit,minmax(min(100%,40ch),1fr))] gap-8'
             layout
           >
             {data.map(pad => (
@@ -65,20 +65,20 @@ const LaunchPads: NextPage<LaunchPadProps> = () => {
                 className='border-4 border-primary'
               >
                 <div className='flex flex-wrap gap-2'>
-                  <p className='badge-primary badge w-fit shrink grow-0'>
+                  <p className='badge w-fit shrink grow-0 badge-primary'>
                     {pad.locality}
                   </p>
-                  <p className='badge-primary badge w-fit shrink grow-0'>
+                  <p className='badge w-fit shrink grow-0 badge-primary'>
                     {pad.region}
                   </p>
-                  <p className='badge-primary badge w-fit shrink grow-0'>
+                  <p className='badge w-fit shrink grow-0 badge-primary'>
                     Status:&nbsp;{pad.status}
                   </p>
                 </div>
 
                 <p className='mx-auto w-full max-w-[50ch]'>{pad.details}</p>
 
-                <footer className='stats stats-vertical mx-auto w-full max-w-[50ch] bg-primary text-primary-content shadow @md/card:stats-horizontal'>
+                <footer className='stats mx-auto w-full max-w-[50ch] stats-vertical bg-primary text-primary-content shadow @md/card:stats-horizontal'>
                   <div className='stat place-items-center'>
                     <div className='stat-title'>Attempts</div>
                     <div className='stat-value text-2xl @lg/card:text-3xl'>
