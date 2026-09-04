@@ -40,7 +40,7 @@ const Rockets: NextPage<RocketProps> = () => {
   }
 
   if (isSuccess) {
-    const reversedData = data.toReversed();
+    const reversedData = [...data].reverse();
 
     return (
       <div className="my-16">

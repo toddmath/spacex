@@ -32,10 +32,14 @@ export const getStaticProps: GetStaticProps<MissionProps> = async ({
 }) => {
   const id = params!.id as string;
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: missionsKeys.mission(id),
-    queryFn: getMission,
-  });
+  try {
+    await queryClient.prefetchQuery({
+      queryKey: missionsKeys.mission(id),
+      queryFn: getMission,
+    });
+  } catch {
+    return { notFound: true };
+  }
   return {
     props: {
       dehydratedState: dehydrate(queryClient),

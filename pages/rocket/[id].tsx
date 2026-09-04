@@ -39,10 +39,14 @@ export const getStaticProps: GetStaticProps<RocketProps> = async ({
 }) => {
   const id = params!.id as string;
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: rocketKeys.rocket(id),
-    queryFn: getRocket,
-  });
+  try {
+    await queryClient.prefetchQuery({
+      queryKey: rocketKeys.rocket(id),
+      queryFn: getRocket,
+    });
+  } catch {
+    return { notFound: true };
+  }
   return {
     props: {
       dehydratedState: dehydrate(queryClient),

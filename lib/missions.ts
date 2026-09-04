@@ -1,4 +1,4 @@
-import { useQuery, type QueryFunction, type QueryFunctionContext } from "@tanstack/react-query";
+import { useQuery, type QueryFunction } from "@tanstack/react-query";
 import type {
   Missions as IMissions,
   Mission as IMission,
@@ -12,14 +12,28 @@ export const missionsKeys = {
   mission: (id: string) => [...allMissionsKey, id] as const,
 } as const;
 
-export const getMissions = async (
-  _ctx?: QueryFunctionContext,
-): Promise<IMissions> => {
+type RawMission = Partial<IMission> & {
+  id?: string;
+  name?: string;
+};
+
+const mapMission = (mission: RawMission): IMission => ({
+  mission_id: mission.mission_id ?? mission.id ?? "",
+  mission_name: mission.mission_name ?? mission.name ?? "Unknown Mission",
+  manufacturers: mission.manufacturers ?? [],
+  payload_ids: mission.payload_ids ?? [],
+  wikipedia: mission.wikipedia ?? "",
+  website: mission.website ?? "",
+  twitter: mission.twitter ?? null,
+  description: mission.description ?? "",
+});
+
+export const getMissions = async (): Promise<IMissions> => {
   try {
     const res = await fetch(`${SPACEX_API_URL}/missions`);
     if (!res.ok) return [];
-    const data: IMissions = await res.json();
-    return data;
+    const data: RawMission[] = await res.json();
+    return (data || []).map(mapMission);
   } catch {
     return [];
   }
@@ -37,7 +51,7 @@ export const getMission: QueryFunction<
       return data;
     }
   } catch {}
-  const all = await getMissions(ctx as unknown as Parameters<typeof getMissions>[0]);
+  const all = await getMissions();
   const found = all.find(
     (m) =>
       m.mission_id === id ||

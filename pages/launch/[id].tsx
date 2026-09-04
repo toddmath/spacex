@@ -31,10 +31,14 @@ export const getStaticProps: GetStaticProps<LaunchProps> = async ({
 }) => {
   const id = params!.id as string;
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: launchesKeys.launch(id),
-    queryFn: getLaunch,
-  });
+  try {
+    await queryClient.prefetchQuery({
+      queryKey: launchesKeys.launch(id),
+      queryFn: getLaunch,
+    });
+  } catch {
+    return { notFound: true };
+  }
   return {
     props: {
       dehydratedState: dehydrate(queryClient),

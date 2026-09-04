@@ -4,14 +4,14 @@ import { Carousel } from "flowbite-react";
 import cn from "classnames";
 import dynamic from "next/dynamic";
 
-import type { Launch as ILaunch } from "types/launches";
+import type { LaunchData } from "lib/launches";
 import TimeBadge from "components/TimeBadge";
 import DataViewer from "./DataViewer";
 
 const YouTube = dynamic(() => import("./Video"));
 
 type LaunchProps = {
-  data: ILaunch;
+  data: LaunchData;
 };
 
 const Launch: FC<LaunchProps> = ({ data }) => {
