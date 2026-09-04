@@ -81,14 +81,14 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
             </figure>
           ) : null}
 
-          <motion.div className="card-body @md/card:gap-3 @lg/card:gap-4 @lg/card:text-lg">
+          <div className="card-body @md/card:gap-3 @lg/card:gap-4 @lg/card:text-lg">
             <header className="flex flex-wrap items-center text-center">
-              <motion.h2 className="card-title mx-auto flex-wrap text-xl @sm/card:text-2xl @md/card:text-3xl">
+              <h2 className="card-title mx-auto flex-wrap text-xl @sm/card:text-2xl @md/card:text-3xl">
                 {title}
-              </motion.h2>
+              </h2>
             </header>
             {children}
-          </motion.div>
+          </div>
         </section>
       </motion.div>
     );

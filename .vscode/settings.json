@@ -14,6 +14,23 @@
   },
   "tailwindCSS.hovers": true,
   "tailwindCSS.validate": true,
+  "tailwindCSS.suggestions": true,
+  "tailwindCSS.codeActions": true,
+  "tailwindCSS.codeLens": true,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindcss.enabled": true,
+  "tailwindcss.documentColors": false,
+  "tailwindcss.hoverColorHint": "hsl",
+  "tailwindCSS.lint.invalidConfigPath": "error",
+  "tailwindCSS.lint.invalidApply": "error",
+  "tailwindCSS.lint.invalidVariant": "error",
+  "tailwindCSS.lint.invalidTailwindDirective": "error",
+  "tailwindCSS.lint.invalidScreen": "error",
+  "tailwindCSS.lint.recommendedVariantOrder": "warning",
+  "tailwindCSS.lint.suggestCanonicalClasses": "warning",
+  "tailwindCSS.lint.deprecatedAtRule": "warning",
+  "tailwindCSS.lint.cssConflict": "warning",
+  "gitlens.plusFeatures.enabled": false,
   "files.watcherExclude": {
     "**/node_modules": true,
     "**/.next": true
@@ -22,16 +39,105 @@
   "js/ts.tsdk.path": "./node_modules/typescript/lib",
   "js/ts.tsdk.promptToUseWorkspaceVersion": true,
   "editor.semanticTokenColorCustomizations": {
-    "enabled": true
+    "enabled": true,
+    "rules": {
+      "*.invalid": {
+        "fontStyle": "bold underline"
+      },
+      "*.deprecated": {
+        "fontStyle": "italic strikethrough"
+      }
+    }
   },
-  "editor.semanticHighlighting.enabled": false,
-  "[typescriptreact]": {
-    "editor.semanticHighlighting.enabled": true
+  "editor.semanticHighlighting.enabled": true,
+  // "astro.typescript.enabled": false,
+  // "astro.css.enabled": false,
+  // "astro.html.enabled": false,
+  "js/ts.experimental.useTsgo": false,
+  "editor.experimentalGpuAcceleration": "on",
+  "[javascript]": {
+    "editor.maxTokenizationLineLength": 2500,
+    "editor.experimental.preferTreeSitter.typescript": true,
+    "editor.experimental.preferTreeSitter.css": true,
+    "editor.experimental.preferTreeSitter.ini": true,
+    "editor.experimental.preferTreeSitter.regex": true,
+    "editor.semanticHighlighting.enabled": true,
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
+    "js/ts.suggest.autoImports": true,
+    "js/ts.suggest.enabled": true,
+    "js/ts.suggest.includeAutomaticOptionalChainCompletions": true,
+    "js/ts.suggest.jsdoc.enabled": true,
+    "js/ts.suggest.jsdoc.generateReturns": true,
+    "js/ts.suggest.paths": true,
+    "js/ts.suggest.names": true,
+    "js/ts.suggest.objectLiteralMethodSnippets.enabled": true,
+    "js/ts.suggest.completeFunctionCalls": true,
+    "js/ts.suggest.includeCompletionsForImportStatements": true,
+    "js/ts.suggestionActions.enabled": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.codeActionsOnSave": {
+      "source.addMissingImports.ts": "always",
+      "source.removeUnused.ts": "always",
+      // "source.format.oxc": "always", // run formatter first
+      "source.fixAll.oxc": "always", // run lint fixes after
+    },
   },
   "[typescript]": {
-    "editor.semanticHighlighting.enabled": true
+    "editor.experimental.preferTreeSitter.typescript": true,
+    "editor.experimental.preferTreeSitter.css": true,
+    "editor.experimental.preferTreeSitter.ini": true,
+    "editor.experimental.preferTreeSitter.regex": true,
+    "editor.semanticHighlighting.enabled": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
+    "js/ts.suggest.autoImports": true,
+    "js/ts.suggest.enabled": true,
+    "js/ts.suggest.includeAutomaticOptionalChainCompletions": true,
+    "js/ts.suggest.jsdoc.enabled": true,
+    "js/ts.suggest.jsdoc.generateReturns": true,
+    "js/ts.suggest.paths": true,
+    "js/ts.suggest.names": true,
+    "js/ts.suggest.objectLiteralMethodSnippets.enabled": true,
+    "js/ts.suggest.completeFunctionCalls": true,
+    "js/ts.suggest.includeCompletionsForImportStatements": true,
+    "js/ts.suggestionActions.enabled": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.codeActionsOnSave": {
+      "source.addMissingImports.ts": "always",
+      "source.removeUnused.ts": "always",
+      // "source.format.oxc": "always", // run formatter first
+      "source.fixAll.oxc": "always", // run lint fixes after
+    },
   },
-  "astro.typescript.enabled": false,
-  "astro.css.enabled": false,
-  "astro.html.enabled": false,
+  "[typescriptreact]": {
+    "editor.experimental.preferTreeSitter.typescript": true,
+    "editor.experimental.preferTreeSitter.css": true,
+    "editor.experimental.preferTreeSitter.ini": true,
+    "editor.experimental.preferTreeSitter.regex": true,
+    "editor.semanticHighlighting.enabled": true,
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
+    "js/ts.suggest.autoImports": true,
+    "js/ts.suggest.enabled": true,
+    "js/ts.suggest.includeAutomaticOptionalChainCompletions": true,
+    "js/ts.suggest.jsdoc.enabled": true,
+    "js/ts.suggest.jsdoc.generateReturns": true,
+    "js/ts.suggest.paths": true,
+    "js/ts.suggest.names": true,
+    "js/ts.suggest.objectLiteralMethodSnippets.enabled": true,
+    "js/ts.suggest.completeFunctionCalls": true,
+    "js/ts.suggest.includeCompletionsForImportStatements": true,
+    "js/ts.suggestionActions.enabled": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.codeActionsOnSave": {
+      "source.addMissingImports.ts": "always",
+      "source.removeUnused.ts": "always",
+      // "source.format.oxc": "always", // run formatter first
+      "source.fixAll.oxc": "always", // run lint fixes after
+    },
+  },
 }

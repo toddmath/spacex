@@ -53,7 +53,7 @@ const FilterCombobox = ({
                   "flex flex-row items-center justify-center gap-x-2": selected,
                 })}
               >
-                {selected && <CheckIcon className="w-3 h-3" />}
+                {selected && <CheckIcon className="size-3" />}
                 {choice}
               </li>
             )}

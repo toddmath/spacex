@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState } from "react"
 
-import useResizeObserver from "./useResizeObserver";
-import useLayoutEffect from "./useLayoutEffect";
+import useResizeObserver from "./useResizeObserver"
+import useLayoutEffect from "./useLayoutEffect"
 
 /**
  * A React hook for measuring the size of HTML elements including when they change
@@ -12,36 +12,34 @@ import useLayoutEffect from "./useLayoutEffect";
 const useSize = <T extends HTMLElement>(
   target: React.RefObject<T | null> | T | null,
   options?: UseSizeOptions
-): [number, number] => {
-  const [size, setSize] = useState<[number, number]>(() => {
-    const targetEl = target && "current" in target ? target.current : target;
+) => {
+  const [size, setSize] = useState<readonly [number, number]>(() => {
+    const targetEl = target && "current" in target ? target.current : target
     return targetEl
       ? [targetEl.offsetWidth, targetEl.offsetHeight]
-      : [options?.initialWidth ?? 0, options?.initialHeight ?? 0];
-  });
+      : [options?.initialWidth ?? 0, options?.initialHeight ?? 0]
+  })
 
   useLayoutEffect(() => {
-    const targetEl = target && "current" in target ? target.current : target;
+    const targetEl = target && "current" in target ? target.current : target
     if (targetEl) {
-      setSize([targetEl.offsetWidth, targetEl.offsetHeight]);
+      setSize([targetEl.offsetWidth, targetEl.offsetHeight])
     }
-  }, [target]);
+  }, [target])
 
-  useResizeObserver(target, (entry) => {
-    const target = entry.target as HTMLElement;
-    setSize([target.offsetWidth, target.offsetHeight]);
-  });
+  useResizeObserver(target, entry => {
+    const target = entry.target as HTMLElement
+    setSize([target.offsetWidth, target.offsetHeight])
+  })
 
-  return size;
-};
-
-export interface UseSizeOptions {
-  // The initial width to set into state.
-  // This is useful for SSR environments.
-  initialWidth: number;
-  // The initial height to set into state.
-  // This is useful for SSR environments.
-  initialHeight: number;
+  return size
 }
 
-export default useSize;
+export interface UseSizeOptions {
+  /** The initial width to set into state. This is useful for SSR environments. */
+  initialWidth: number
+  /** The initial height to set into state. This is useful for SSR environments. */
+  initialHeight: number
+}
+
+export default useSize

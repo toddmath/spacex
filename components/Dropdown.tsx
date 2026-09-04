@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-// import { Dropdown } from "flowbite-react";
-// import cn from "classnames"
+import { Dropdown, DropdownItem, DropdownHeader } from "flowbite-react";
 
 type DropdownProps = {
   inline?: boolean;
@@ -18,33 +17,15 @@ const DropDown: React.FC<DropdownProps> = ({
   onClick,
 }) => {
   return (
-    <div className="dropdown">
-      <label tabIndex={0} className="btn m-1">
-        {label}
-      </label>
-      <ul
-        tabIndex={0}
-        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-      >
-        {header && <li className="menu-title">{header}</li>}
-        {items.map((item) => (
-          <li key={String(item)} onClick={onClick}>
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Dropdown inline={inline} label={label}>
+      {header && <DropdownHeader>{header}</DropdownHeader>}
+      {items.map((item) => (
+        <DropdownItem key={String(item)} onClick={onClick}>
+          {item}
+        </DropdownItem>
+      ))}
+    </Dropdown>
   );
-  // return (
-  //   <Dropdown inline={inline} label={label}>
-  //     {header && <Dropdown.Header>{header}</Dropdown.Header>}
-  //     {items.map((item) => (
-  //       <Dropdown.Item key={String(item)} onClick={onClick}>
-  //         {item}
-  //       </Dropdown.Item>
-  //     ))}
-  //   </Dropdown>
-  // );
 };
 
 export default DropDown;

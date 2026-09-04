@@ -9,11 +9,11 @@ export type InViewRef = (node?: Element | null) => void
 interface RenderProps {
   inView: boolean
   entry: IntersectionObserverEntry | undefined
-  ref: React.RefObject<any> | InViewRef
+  ref: React.RefObject<unknown> | InViewRef
 }
 
 export interface IntersectionOptions extends IntersectionObserverInit {
-  root?: Element | null
+  root?: Element | Document | null
   rootMargin?: string
   threshold?: number | number[]
   triggerOnce?: boolean
@@ -78,13 +78,13 @@ export function optionsToId(options: IntersectionObserverInit) {
     .toString()
 }
 
-function createObserver(options: IntersectionObserverInit) {
-  let id = optionsToId(options)
+function createObserver(options: IntersectionOptions) {
+  const id = optionsToId(options)
   let instance = observers.get(id)
 
   if (!instance) {
     const elements = new Map<Element, Array<ObserverInstanceCallback>>()
-    let thresholds: number[] | readonly number[]
+    let thresholds: number[] | readonly number[] = []
 
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -92,10 +92,11 @@ function createObserver(options: IntersectionObserverInit) {
           entry.isIntersecting &&
           thresholds.some(threshold => entry.intersectionRatio >= threshold)
 
-        // @ts-ignore
-        if (options.trackVisibility && typeof entry.isVisible === "undefined") {
-          // @ts-ignore
-          entry.isVisible = inView
+        if (
+          options.trackVisibility &&
+          typeof (entry as { isVisible?: boolean }).isVisible === "undefined"
+        ) {
+          ;(entry as { isVisible?: boolean }).isVisible = inView
         }
         elements.get(entry.target)?.forEach(cb => cb(inView, entry))
       })
@@ -118,7 +119,7 @@ function createObserver(options: IntersectionObserverInit) {
 export function observe(
   element: Element,
   callback: ObserverInstanceCallback,
-  options: IntersectionObserverInit = {},
+  options: IntersectionOptions = {},
   fallbackInView = true
 ) {
   if (
@@ -141,7 +142,7 @@ export function observe(
 
   const { id, observer, elements } = createObserver(options)
 
-  let callbacks = elements.get(element) ?? []
+  const callbacks = elements.get(element) ?? []
   if (!elements.has(element)) elements.set(element, callbacks)
 
   callbacks.push(callback)
@@ -181,8 +182,11 @@ export function useInView({
     entry?: IntersectionObserverEntry
   }>({ inView: !!initialInView, entry: undefined })
 
-  callback.current = onChange
   const thresh = Array.isArray(threshold) ? threshold.toString() : threshold
+
+  useEffect(() => {
+    callback.current = onChange
+  })
 
   useEffect(() => {
     if (skip || !ref) return
@@ -201,7 +205,6 @@ export function useInView({
         root,
         rootMargin,
         threshold,
-        // @ts-ignore
         trackVisibility,
         delay,
       },
@@ -226,13 +229,16 @@ export function useInView({
 
   const entryTarget = state.entry?.target
 
-  useEffect(() => {
-    if (!ref && entryTarget && !triggerOnce && !skip) {
-      setState({ inView: !!initialInView, entry: undefined })
-    }
-  }, [ref, entryTarget, triggerOnce, initialInView, skip])
+  const shouldReset = !ref && entryTarget && !triggerOnce && !skip
+  const resetState = shouldReset
+    ? { inView: !!initialInView, entry: undefined }
+    : state
 
-  const result = [setRef, state.inView, state.entry] as InViewResponse
+  if (shouldReset && state !== resetState) {
+    setState(resetState)
+  }
+
+  const result = [setRef, resetState.inView, resetState.entry] as InViewResponse
   result.ref = result[0]
   result.inView = result[1]
   result.entry = result[2]

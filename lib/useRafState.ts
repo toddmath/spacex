@@ -7,11 +7,11 @@ type MaybeFunc<T> = T | (() => T)
 
 type Option<T> = T | undefined
 
-function useRafState<S extends unknown = unknown>(
+function useRafState<S = unknown>(
   initialState: MaybeFunc<S>
 ): [S, Dispatch<SetStateAction<S>>]
 
-function useRafState<S extends unknown = undefined>(
+function useRafState<S = undefined>(
   initialState: MaybeFunc<Option<S>>
 ): [Option<S>, Dispatch<SetStateAction<Option<S>>>] {
   const frame = useRef(0)

@@ -61,7 +61,7 @@ export interface Reddit {
 }
 
 export interface Flickr {
-  small: any[]
+  small: unknown[]
   original: string[]
 }
 

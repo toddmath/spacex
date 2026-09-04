@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "skills": {
+    "nextjs-app-router-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/frontend-mobile-development/skills/nextjs-app-router-patterns/SKILL.md",
+      "computedHash": "b4fea42eecf1f803155ef7fa133d5286ee8f2dbba3e616954e9e43c6f0ffc144"
+    },
+    "nextjs-cache-architecture": {
+      "source": "mohamed-hossam1/nextjs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/nextjs-cache-architecture/SKILL.md",
+      "computedHash": "1920a70af3f3ffb6036aaf91b667a54ff87775757cbd9fc6a1945b38c9e8a323"
+    },
+    "nextjs-turbopack": {
+      "source": "affaan-m/ecc",
+      "sourceType": "github",
+      "skillPath": "skills/nextjs-turbopack/SKILL.md",
+      "computedHash": "f60e27a5d1f56989dc1dd8790e51066cb74cea73367562a0e3cc57eafb1711a6"
+    },
+    "react-aria": {
+      "source": "react-aria.adobe.com",
+      "sourceUrl": "https://react-aria.adobe.com",
+      "sourceType": "well-known",
+      "computedHash": "1cc068e79bd0e2c567a840d4e4f482daa393cd64d665ef9f43706853f8d444f3",
+      "wellKnownDigest": "sha256:cdb54fd520a1f853c119f60deebc5d40ba0d4286dd2f191ec23f0806b4c83264"
+    }
+  }
+}

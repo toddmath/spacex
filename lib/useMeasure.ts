@@ -43,7 +43,6 @@ function useMeasure<E extends Element = Element>(): UseMeasureResult<E> {
     if (!element) return
     observer.observe(element)
 
-    // return observer.disconnect
     return () => observer.disconnect()
   }, [element])
 

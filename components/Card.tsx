@@ -34,7 +34,7 @@ type CardProps = Omit<ComponentPropsWithoutRef<"section">, "title"> &
     wrapperClassName?: string;
   }>;
 
-const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
+const Card = forwardRef<HTMLLIElement, CardProps>((
   {
     children,
     id,
@@ -53,7 +53,7 @@ const Card = forwardRef<HTMLLIElement, CardProps>(function Card(
     ...props
   },
   fwRef,
-) {
+) => {
   const sectionRef = useRef(null);
   const scrollRef = useRef(null);
   // const isInView = useInView(sectionRef)

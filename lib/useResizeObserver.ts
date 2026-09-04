@@ -1,12 +1,6 @@
 import useLayoutEffect from "./useLayoutEffect";
 import useLatest from "./useLatest";
 
-// const ResizeObserver =
-//   typeof window !== 'undefined' && 'ResizeObserver' in window
-//     ? // @ts-ignore
-//       window.ResizeObserver
-//     : ResizeObserver
-
 /**
  * A React hook that fires a callback whenever ResizeObserver detects a change to its size
  *
@@ -46,7 +40,7 @@ function createResizeObserver() {
   let ticking = false;
   let allEntries: ResizeObserverEntry[] = [];
 
-  const callbacks: Map<any, Array<UseResizeObserverCallback>> = new Map();
+  const callbacks: Map<unknown, Array<UseResizeObserverCallback>> = new Map();
 
   const observer = new ResizeObserver(
     (entries: ResizeObserverEntry[], obs: ResizeObserver) => {
@@ -100,6 +94,6 @@ const getResizeObserver = () =>
 export type UseResizeObserverCallback = (
   entry: ResizeObserverEntry,
   observer: ResizeObserver
-) => any;
+) => unknown;
 
 export default useResizeObserver;

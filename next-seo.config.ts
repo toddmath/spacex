@@ -1,9 +1,9 @@
-import type { OpenGraphMedia } from "next-seo/pages";
-import { DefaultSeoProps } from "next-seo/pages";
+import type { OpenGraphMedia } from "next-seo/pages"
+import { DefaultSeoProps } from "next-seo/pages"
 
-export const name = "SpaceX" as const;
+export const name = "SpaceX" as const
 
-export const url = "https://spacex-one.vercel.app" as const;
+export const url = "https://spacex-one.vercel.app" as const
 
 export const defaultOgImages: OpenGraphMedia[] = [
   {
@@ -16,10 +16,10 @@ export const defaultOgImages: OpenGraphMedia[] = [
     url: `${url}/static/image/dual-landing.jpg`,
     type: "image/jpeg",
   },
-];
+]
 
 export const description =
-  "Information on everything related with SpaceX: launches, rockets, missions, capsules, payloads, launchpads, Elon Musk's tesla roadster, company info, and more." as const;
+  "Information on everything related with SpaceX: launches, rockets, missions, capsules, payloads, launchpads, Elon Musk's tesla roadster, company info, and more." as const
 
 /*
 <meta name="google-site-verification" content="aJM45o3rcScxdDA91Ep1O972pOvOds1IeCrOYG-6xHc" />
@@ -91,6 +91,6 @@ const config: DefaultSeoProps = {
       content: "width=device-width,initial-scale=1",
     },
   ],
-};
+}
 
-export default config;
+export default config

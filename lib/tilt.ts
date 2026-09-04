@@ -7,5 +7,5 @@ export const setTransition = <T extends HTMLElement>(
   element.style.transition = `${property} ${duration}ms ${timing}`
 }
 
-export const constrainToRange = (value: number, min: number, max: number): number =>
+export const constrainToRange = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max)

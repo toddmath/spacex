@@ -1,8 +1,8 @@
-import { useLayoutEffect, useEffect } from "react";
+import { useLayoutEffect, useEffect } from "react"
 
 const usePassiveLayoutEffect =
   typeof document !== "undefined" && document.createElement !== void 0
     ? useLayoutEffect
-    : useEffect;
+    : useEffect
 
-export default usePassiveLayoutEffect;
+export default usePassiveLayoutEffect

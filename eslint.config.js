@@ -11,7 +11,7 @@ import tailwindcss from "eslint-plugin-tailwindcss"
 const eslintConfig = defineConfig([
   ...nextCoreWebVitals,
   ...nextTs,
-  ...tailwindcss.configs["flat/recommended"],
+  // tailwindcss.configs["recommended"],
   {
     settings: {
       tailwindcss: {

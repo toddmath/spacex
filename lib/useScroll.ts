@@ -11,7 +11,7 @@ const defaultPos = { x: 0, y: 0 }
 
 function useScroll(ref: RefObject<HTMLElement | null>): Pos {
   if (process.env.NODE_ENV === "development") {
-    if (typeof ref !== "object" || typeof ref.current === "undefined") {
+    if (typeof ref !== "object") {
       console.error("`useScroll` expects a single ref argument.")
     }
   }
@@ -19,7 +19,13 @@ function useScroll(ref: RefObject<HTMLElement | null>): Pos {
   const [state, setState] = useRafState(defaultPos)
 
   useEffect(() => {
-    let current = ref.current
+    const current = ref.current
+
+    if (process.env.NODE_ENV === "development") {
+      if (typeof current === "undefined") {
+        console.error("`useScroll` expects a single ref argument.")
+      }
+    }
 
     const handler = () => {
       if (current) setState({ x: current.scrollLeft, y: current.scrollTop })
@@ -27,13 +33,8 @@ function useScroll(ref: RefObject<HTMLElement | null>): Pos {
 
     if (current) {
       on(current, "scroll", handler, { capture: false, passive: true })
-
       return () => off(current, "scroll", handler)
     }
-
-    // return () => {
-    //   if (current) off(current, "scroll", handler)
-    // }
   }, [ref, setState])
 
   return state

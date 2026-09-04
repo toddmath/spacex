@@ -1,16 +1,14 @@
-import { Html, Head, Main, NextScript } from "next/document";
-import { ThemeModeScript } from "flowbite-react";
+import { Html, Head, Main, NextScript } from "next/document"
+// import { ThemeModeScript } from "flowbite-react";
 
 export default function Document() {
   return (
-    <Html lang="en" suppressHydrationWarning>
-      <Head>
-        <ThemeModeScript suppressHydrationWarning />
-      </Head>
+    <Html lang='en' suppressHydrationWarning>
+      <Head>{/* <ThemeModeScript suppressHydrationWarning /> */}</Head>
       <body>
         <Main />
         <NextScript />
       </body>
     </Html>
-  );
+  )
 }

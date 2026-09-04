@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 
-function useInterval<Fn extends (...args: any[]) => void>(
+function useInterval<Fn extends (...args: never[]) => void>(
   callback: Fn,
   delay?: number | null
 ) {

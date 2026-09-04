@@ -23,7 +23,7 @@ const Launches: FC<LaunchesProps> = ({
   showStatus = ["all", "success", "failed", "upcoming"],
 }) => {
   const [year, setYear] = useState<number>();
-  const [status, setStatus] = useState<(typeof showStatus)[number]>("all");
+  const [status, setStatus] = useState<LaunchStatus>("all");
   const { query, onChange } = useSearch();
 
   const shownLaunches = useMemo(() => {

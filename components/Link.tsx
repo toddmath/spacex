@@ -1,6 +1,6 @@
-import BaseLink from "next/link";
-import { motion } from "framer-motion";
+import BaseLink from "next/link"
+import { motion } from "framer-motion"
 
-const Link = motion(BaseLink);
+const Link = motion.create(BaseLink)
 
-export default Link;
+export default Link

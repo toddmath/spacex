@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const useLatest = <T extends any>(current: T) => {
+const useLatest = <T>(current: T) => {
   const latest = useRef(typeof current === "function" ? current() : current);
 
   useEffect(() => {

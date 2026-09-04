@@ -3,17 +3,16 @@ import type {
   FC,
   PropsWithChildren,
   ComponentPropsWithoutRef,
-} from "react";
-import cn from "classnames";
-// import { useTheme } from '../Flowbite/ThemeContext';
+} from "react"
+import cn from "classnames"
 
 export type DropdownItemProps = ComponentPropsWithoutRef<"li"> &
   PropsWithChildren<{
-    onClick?: () => void;
-    icon?: FC<ComponentProps<"svg">>;
-    className?: string;
-    iconClassName?: string;
-  }>;
+    onClick?: () => void
+    icon?: FC<ComponentProps<"svg">>
+    className?: string
+    iconClassName?: string
+  }>
 
 export const DropdownItem: FC<DropdownItemProps> = ({
   children,
@@ -30,5 +29,5 @@ export const DropdownItem: FC<DropdownItemProps> = ({
       {Icon && <Icon className={cn(iconClassName)} />}
       {children}
     </li>
-  );
-};
+  )
+}

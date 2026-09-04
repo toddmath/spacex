@@ -1,15 +1,15 @@
 // const { fontFamily } = require("tailwindcss/defaultTheme")
 // const plugin = require('tailwindcss/plugin')
 
-import { themes as _themes } from "./themes.config.json";
+import { themes as _themes } from "./themes.config.json"
 
 /** @type {import('tailwindcss').Config} */
 export const content = [
   "./node_modules/flowbite-react/**/*.js",
   "./pages/**/*.{js,ts,jsx,tsx}",
   "./components/**/*.{js,ts,jsx,tsx}",
-];
-export const darkMode = "class";
+]
+export const darkMode = "class"
 export const theme = {
   extend: {
     keyframes: {
@@ -72,14 +72,14 @@ export const theme = {
       250: "2.5",
     },
   },
-};
-export const experimental = "all";
+}
+export const experimental = "all"
 export const variants = {
   typography: ["dark"],
-};
+}
 export const corePlugins = {
   aspectRatio: false,
-};
+}
 export const plugins = [
   import("@tailwindcss/forms"),
   import("@tailwindcss/container-queries"),
@@ -89,11 +89,11 @@ export const plugins = [
   import("@headlessui/tailwindcss"),
   import("@tailwindcss/container-queries"),
   import("daisyui"),
-  import("flowbite/plugin"),
-];
+  // import("flowbite/plugin"),
+]
 export const daisyui = {
   themes: _themes,
-};
+}
 
 /*
 themes: [

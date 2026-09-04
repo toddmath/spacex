@@ -15,7 +15,9 @@ const Hero: FC<HeroProps> = ({ title, summary, children }) => {
         <Image
           src={bg}
           sizes="100vw"
-          priority
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
           placeholder="blur"
           alt="rocket ship launching during daytime"
           className="w-full h-full object-cover object-[25%_25%]"

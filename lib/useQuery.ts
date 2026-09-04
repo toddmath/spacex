@@ -1,27 +1,20 @@
-import type { ChangeEventHandler } from "react";
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import type { ChangeEventHandler } from "react"
+import { useState, useCallback } from "react"
 
 function useQuery(initState = "") {
-  const [query, setQuery] = useState(initState);
-  // const dataRef = useRef(data ?? [""] as T)
-  // useEffect(() => {
-  //   if (data) dataRef.current = data
-  // }, [data])
+  const [query, setQuery] = useState(initState)
 
   const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     ({ target }) => {
-      setQuery(target.value);
+      setQuery(target.value)
     },
     []
-  );
+  )
 
-  return useMemo(
-    () => ({
-      query,
-      onChange,
-    }),
-    [query, onChange]
-  );
+  return {
+    query,
+    onChange,
+  } as const
 }
 
-export default useQuery;
+export default useQuery

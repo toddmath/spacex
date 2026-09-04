@@ -8,6 +8,7 @@ function useRaf(ms: number = 1e12, delay: number = 0): number {
   useIsomorphicLayoutEffect(() => {
     let raf: number
     let timerStop: string | number | NodeJS.Timeout
+
     // TODO: ⬇️ check if it's okay to set start with Date.now()
     let start: number = Date.now()
 

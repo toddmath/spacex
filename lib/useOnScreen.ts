@@ -1,14 +1,14 @@
-import { MutableRefObject } from "react";
+import { RefObject } from "react";
 import { useState, useEffect } from "react";
 
 function useOnScreen<T extends Element>(
-  ref: MutableRefObject<T>,
+  ref: RefObject<T>,
   rootMargin: string = "0px"
 ): boolean {
   const [isIntersecting, setIntersecting] = useState<boolean>(false);
 
   useEffect(() => {
-    let currentRef = ref.current;
+    const currentRef = ref.current;
     const observer = new IntersectionObserver(
       ([{ isIntersecting }]) => setIntersecting(isIntersecting),
       { rootMargin }
@@ -19,10 +19,11 @@ function useOnScreen<T extends Element>(
     }
 
     return () => {
-      observer.unobserve(currentRef);
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rootMargin]);
+  }, [rootMargin, ref]);
 
   return isIntersecting;
 }

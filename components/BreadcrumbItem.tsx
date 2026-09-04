@@ -9,9 +9,6 @@ type BreadcrumbItemProps = PropsWithChildren<{
 }> &
   ComponentPropsWithoutRef<"li">;
 
-// type BreadcrumbItemProps = PropsWithChildren<{ href: string; isCurrent: boolean }> &
-//   PropsWithoutRef<DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>>
-
 const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
   children,
   href,

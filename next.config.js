@@ -1,21 +1,19 @@
-import { env } from "node:process";
-import { fileURLToPath } from "node:url";
-import { dirname } from "path";
-import withFlowbiteReact from "flowbite-react/plugin/nextjs";
+import { env } from "node:process"
+import { fileURLToPath } from "node:url"
+import { dirname } from "path"
+// import withFlowbiteReact from "flowbite-react/plugin/nextjs"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
-const isDev = env.NODE_ENV === "development";
+const isDev = env.NODE_ENV === "development"
 
-const yt = "https://www.youtube.com https://www.youtube-nocookie.com";
-const vercel = "https://cdn.vercel-insights.com https://va.vercel-scripts.com";
+const yt = "https://www.youtube.com https://www.youtube-nocookie.com"
+const vercel = "https://cdn.vercel-insights.com https://va.vercel-scripts.com"
 
 const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline' ${
-      isDev ? "unsafe-eval" : ""
-    } ${vercel} ${yt};
+    script-src 'self' 'unsafe-inline' ${isDev ? "unsafe-eval" : ""} ${vercel} ${yt};
     child-src ${yt};
     frame-src 'self' ${yt};
     connect-src 'self' https://api.spacexdata.com https://vitals.vercel-insights.com;
@@ -28,22 +26,25 @@ const cspHeader = `
     frame-ancestors 'none';
     manifest-src 'self';
     upgrade-insecure-requests;
-`;
+`
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  crossOrigin: "anonymous",
+  experimental: {
+    optimizePackageImports: [],
+  },
   reactStrictMode: true,
   // reactCompiler: true,
-  typedRoutes: true,
+  // typedRoutes: true,
   devIndicators: {
-    position: "bottom-right",
+    position: "bottom-left",
   },
   logging: {
     browserToTerminal: true,
   },
   turbopack: {
     root: __dirname,
-    // browserDebugInfoInTerminal: true,
   },
   images: {
     qualities: [50, 75, 100],
@@ -93,10 +94,23 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: cspHeader.replace(/\n/g, ""),
           },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*", // Set your origin
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET, POST, PUT, DELETE, OPTIONS",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "Content-Type, Authorization",
+          },
         ],
       },
-    ];
+    ]
   },
-};
+}
 
-export default withFlowbiteReact(nextConfig);
+// export default withFlowbiteReact(nextConfig)
+export default nextConfig

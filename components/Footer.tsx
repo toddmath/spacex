@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
       {isLoading && (
         <VscLoading className="w-fit min-h-12 text-inherit animate-spin mx-auto" />
       )}
-      {isSuccess && (
+      {isSuccess ? (
         <>
           <div className="items-center grid-flow-col">
             <a
@@ -72,7 +72,7 @@ const Footer: React.FC = () => {
             </a>
           </div>
         </>
-      )}
+      ) : null}
     </footer>
   );
 };
