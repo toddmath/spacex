@@ -16,7 +16,7 @@ const Rocket: React.FC<RocketProps> = ({ data }) => {
       ref={ref}
     >
       <TiltCard
-        imgSrc={data.flickr_images[1]}
+        imgSrc={data.flickr_images?.[1] ?? data.flickr_images?.[0] ?? ""}
         className="smol-card-component rounded-box overflow-hidden"
       >
         <header className="rounded-t-box mx-auto w-full bg-linear-to-b from-neutral/40 to-neutral/60 py-3 text-center text-neutral-content mix-blend-hard-light backdrop-blur-sm focus-visible:outline-none">

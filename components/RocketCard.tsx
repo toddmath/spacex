@@ -18,10 +18,12 @@ const RocketCard: FC<RocketCardProps> = ({
   wikipedia,
   id,
 }) => {
+  const leoWeight = payload_weights?.find(({ id }) => id === "leo")?.lb ?? 0;
+
   return (
     <Card
       title={name}
-      image={flickr_images[1]}
+      image={flickr_images?.[1] ?? flickr_images?.[0] ?? ""}
       className="rounded-box border-4 border-accent"
       imageProps={{
         priority: true,
@@ -37,9 +39,7 @@ const RocketCard: FC<RocketCardProps> = ({
         <div className="stat">
           <div className="stat-title">Payload</div>
           <div className="stat-value text-2xl @lg/card:text-3xl">
-            {prettierFmt(
-              payload_weights.filter(({ id }) => id === "leo")[0].lb,
-            )}
+            {prettierFmt(leoWeight)}
             &nbsp;
             <abbr title="pounds" className="decoration-accent">
               Lb
