@@ -40,3 +40,5 @@ next-env.d.ts
 Caddyfile
 # next-agents-md
 .next-docs/
+.agents/
+/.agents/**/*
